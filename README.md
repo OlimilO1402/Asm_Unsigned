@@ -8,7 +8,6 @@
 
 Project started in january 2022.  
 VB does not have any intrinsic unsigned Datatypes, except the datatype Byte.  
-So it's obvious we need at least some functions to fill the gap.  
-So I came up with a library, my first real attempt to asm programming.
+This is a dll in asm with some functions to do arithmetic operations on VB.Long (Int32) just like it were unsigned.  
 
 ![<AppName> Image](Resources/<AppName>.png "<AppName> Image")
