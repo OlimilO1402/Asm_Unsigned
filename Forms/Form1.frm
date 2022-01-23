@@ -1,13 +1,13 @@
 VERSION 5.00
 Begin VB.Form Form1 
    Caption         =   "Form1"
-   ClientHeight    =   3015
+   ClientHeight    =   3135
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   4560
+   ClientWidth     =   5535
    LinkTopic       =   "Form1"
-   ScaleHeight     =   3015
-   ScaleWidth      =   4560
+   ScaleHeight     =   3135
+   ScaleWidth      =   5535
    StartUpPosition =   3  'Windows-Standard
    Begin VB.CommandButton Command2 
       Caption         =   "Test Int32_UToStr"
@@ -53,25 +53,23 @@ Option Explicit
 
 Private Declare Sub RtlMoveMemory Lib "kernel32" (ByRef pDst As Any, ByRef pSrc As Any, ByVal BytLen As Long)
 
-Private Declare Sub mov Lib "kernel32" Alias "RtlMoveMemory" (ByRef pDst As Any, ByRef pSrc As Any, ByVal BytLen As Long)
-
 'Private Declare Function Int32_UAdd_ref Lib "Int32UOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
 
-Private Declare Function Int32_UAdd Lib "Int32UOpsDll\Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function Int32_UAdd Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 
-Private Declare Function Int32_USubtract Lib "Int32UOpsDll\Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function Int32_USubtract Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 
-Private Declare Function Int32_UMultiply Lib "Int32UOpsDll\Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function Int32_UMultiply Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 
-Private Declare Function Int32_UMultiplyB Lib "Int32UOpsDll\Int32UOps" Alias "Int32_UMultiply" (ByVal v1 As Long, ByVal v2 As Long) As Currency
+Private Declare Function Int32_UMultiplyB Lib "Int32UOps" Alias "Int32_UMultiply" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 
-Private Declare Function Int32_UDivide Lib "Int32UOpsDll\Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function Int32_UDivide Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 
-Private Declare Function Int32_UDivideB Lib "Int32UOpsDll\Int32UOps" Alias "Int32_UDivide" (ByVal v1 As Long, ByVal v2 As Long) As Currency
+Private Declare Function Int32_UDivideB Lib "Int32UOps" Alias "Int32_UDivide" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 
 'Private Declare Function Int32_UToStr Lib "Int32UOps" (ByVal v As Long) As String
 
-Private Declare Sub Int32_UToStr Lib "Int32UOpsDll\Int32UOps" (ByVal value As Long, ByVal pStr_out As Long, Optional ByVal radix As Long = 10)
+Private Declare Sub Int32_UToStr Lib "Int32UOps" (ByVal value As Long, ByVal pStr_out As Long)
 '
 'errno_t _ultow_s(
 '    unsigned long value,
@@ -80,19 +78,32 @@ Private Declare Sub Int32_UToStr Lib "Int32UOpsDll\Int32UOps" (ByVal value As Lo
 '    int radix
 ');
 
+Private Sub Form_Load()
+    Me.Caption = "Unsigned ops on signed Int32 - v" & App.Major & "." & App.Minor & "." & App.Revision
+End Sub
+
+Private Sub Form_Resize()
+    Dim L As Single: L = 0
+    Dim T As Single: T = Text1.Top
+    Dim W As Single: W = Me.ScaleWidth
+    Dim H As Single: H = Me.ScaleHeight - T
+    If W > 0 And H > 0 Then Text1.Move L, T, W, H
+End Sub
+
 Private Sub Command1_Click()
     Text1.Text = ""
     TestDll
 End Sub
 
-Private Sub Form_Load()
-    'Text1.Text = ""
-    'Test_ToStr
+Private Sub Command2_Click()
+    Text1.Text = ""
+    Test_ToStr
 End Sub
 
 Sub Debug_Print(ByVal s As String)
     Text1.Text = Text1.Text & s & vbCrLf
 End Sub
+
 Sub TestDll()
     Dim v1 As Long: v1 = 123
     Dim v2 As Long: v2 = 32
@@ -118,12 +129,12 @@ Sub TestDll()
     
     v1 = 123456789
     v2 = 33
-    lret = Int32_UDivide(v1, v2) 'Laufzeitfehler 6: Überlauf
+    lret = Int32_UDivide(v1, v2)
     Debug_Print lret '3741114
     
     v1 = -1
     Dim s As String: s = Space(10)
-    Int32_UToStr v1, StrPtr(s), 10
+    Int32_UToStr v1, StrPtr(s)
     Debug_Print s    '4294967295
 
 End Sub
@@ -155,194 +166,42 @@ Sub Test_ToStr()
     Debug_Print s
     
     
-    Dim r As Long
-    Dim l As Long
+    Dim r As Long 'radix
+    Dim L As Long
     
     v = 14021970
-    r = 10         'radix
-    l = LogN(v, r) + 1
-    s = Space$(l)
+    r = 10
+    L = LogN(v, r) + 1
+    s = Space$(L)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     Debug_Print s
     
-    If ret <> l * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & l
+    If ret <> L * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & L
     End If
     
     v = &H1CAFEBAB
-    r = 16         'radix
-    l = Ceiling(LogN(v, r))
-    s = Space$(l)
+    r = 16
+    L = Ceiling(LogN(v, r))
+    s = Space$(L)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> l * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & l
+    If ret <> L * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & L
     End If
-    
     
     v = 987654321
-    r = 10         'radix
-    l = Ceiling(LogN(v, r))
-    s = Space$(l)
+    r = 10
+    L = Ceiling(LogN(v, r))
+    s = Space$(L)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> l * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & l * 2
+    If ret <> L * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & L * 2
     End If
-    
     
 End Sub
-
-Function Int32_ToStrR(ByVal v As Long, ByRef pStr_out As Long, Optional ByVal radix As Long = 10) As Long
-    
-    Dim sl As Long
-    Dim ll As Long
-    Dim m As Long
-    
-    'read the length of the buffer and save it in sl
-    mov sl, ByVal pStr_out - 4, 4
-    
-    ll = Ceiling(LogN(v, radix))       'x87-FPU: FYL2X
-    ll = ll * 2
-    
-    If sl < ll Then
-        'insufficient buffer-size
-        'EAX = 0
-        Exit Function
-    End If
-    
-    Dim i As Long
-    For i = ll To 1 Step -2
-        
-        If v = 0 Then Exit For
-        
-        m = v Mod radix
-        
-        If m > 9 Then m = m + &H7 'the gap between "9" and "A"
-        
-        m = m + &H30
-        
-        mov ByVal pStr_out + i - 2, m, 2
-        
-        v = v \ radix
-        
-    Next
-    
-    Int32_ToStrR = ll
-    
-End Function
-
-
-Function Int32_ToStr_idiv(ByVal v As Long, buffer() As Byte) As Long
-    
-    ReDim buffer(0 To 9) As Byte
-    
-    Dim d As Long
-    d = 1000000000 '10^9
-    
-    Dim pos As Long ': pos = 0
-    
-    Dim i As Long
-    Dim tmp As Long
-    For i = 0 To 9
-    
-        If v >= d Or pos > 0 Then
-            
-            tmp = v \ d
-            buffer(pos) = &H30 + tmp
-            pos = pos + 1
-            v = v - tmp * d
-        
-        End If
-        
-        d = d \ 10
-        
-    Next
-    
-    Int32_ToStr = pos
-End Function
-
-Function Int32_ToStr(ByVal v As Long) As String
-    
-    Dim radix As Long: radix = 10
-    Dim u As Long: u = 19
-    ReDim buffer(0 To u) As Byte
-    Dim m As Long
-    
-    Dim i As Long
-    For i = u - 1 To 0 Step -2
-        
-        If v <> 0 Then
-        
-            m = v Mod radix
-            buffer(i) = m + &H30
-            v = v \ radix
-            
-        Else
-            buffer(i) = &H20
-        End If
-    Next
-    
-    Int32_ToStr = buffer
-    
-End Function
-
-Public Function Log10(ByVal d As Double) As Double
-    Log10 = VBA.Math.Log(d) / VBA.Math.Log(10)
-End Function
-
-Public Function LN(ByVal d As Double) As Double
-  LN = VBA.Math.Log(d)
-End Function
-
-Public Function LogN(ByVal x As Double, _
-                     Optional ByVal N As Double = 10#) As Double
-                     'n darf nicht eins und nicht 0 sein
-    LogN = VBA.Math.Log(x) / VBA.Math.Log(N)
-End Function
-
-Public Function Ceiling(ByVal A As Double) As Double
-    Ceiling = CDbl(Int(A))
-    If A <> 0 Then If Abs(Ceiling / A) <> 1 Then Ceiling = Ceiling + 1
-End Function
-
-'Function Int32_ToStrR(ByVal v As Long, ByVal radix As Long) As String
-'
-'    Static chars(0 To 15) As Byte
-'    Dim u As Long: u = 19
-'    ReDim buffer(0 To u) As Byte
-'    Dim m As Long
-'
-'    Dim i As Long
-'    If chars(0) = 0 Then
-'        For i = 0 To 9
-'            chars(i) = &H30 + i
-'        Next
-'        For i = 10 To 15
-'            chars(i) = &H37 + i
-'        Next
-'        'Debug.Print StrConv(chars, vbUnicode)
-'    End If
-'
-'    For i = u - 1 To 0 Step -2
-'
-'        If v <> 0 Then
-'
-'            m = v Mod radix
-'            buffer(i) = chars(m)
-'            v = v \ radix
-'
-'        Else
-'            buffer(i) = &H20
-'        End If
-'    Next
-'
-'    Int32_ToStrR = buffer
-'
-'End Function
-'
-

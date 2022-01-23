@@ -78,7 +78,7 @@ Int32_UDivide endp
 Int32_UToStr proc v1: dword, pStr: dword 
 	
 	invoke crt__ultow, v1, pStr, 10 ; rradix=10
-	ret 16
+	ret
 	
 Int32_UToStr endp
 
