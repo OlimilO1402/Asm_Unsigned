@@ -71,7 +71,7 @@ Private Declare Function Int32_UDivideB Lib "Int32UOpsDll\Int32UOps" Alias "Int3
 
 'Private Declare Function Int32_UToStr Lib "Int32UOps" (ByVal v As Long) As String
 
-Private Declare Sub Int32_UToStr Lib "Int32UOpsDll\Int32UOps" (ByVal value As Long, ByVal pStr_out As Long) ', ByVal wcharlen As Long, ByVal radix As Long)
+Private Declare Sub Int32_UToStr Lib "Int32UOpsDll\Int32UOps" (ByVal value As Long, ByVal pStr_out As Long, Optional ByVal radix As Long = 10)
 '
 'errno_t _ultow_s(
 '    unsigned long value,
@@ -86,8 +86,8 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Form_Load()
-    Text1.Text = ""
-    Test_ToStr
+    'Text1.Text = ""
+    'Test_ToStr
 End Sub
 
 Sub Debug_Print(ByVal s As String)
@@ -123,7 +123,7 @@ Sub TestDll()
     
     v1 = -1
     Dim s As String: s = Space(10)
-    Int32_UToStr v1, StrPtr(s)
+    Int32_UToStr v1, StrPtr(s), 10
     Debug_Print s    '4294967295
 
 End Sub
@@ -188,7 +188,7 @@ Sub Test_ToStr()
     s = Space$(l)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
-    Debug.Print s
+    Debug_Print s
     
     If ret <> l * 2 Then
         Debug_Print "error r<>l: r=" & r & "; l=" & l * 2
