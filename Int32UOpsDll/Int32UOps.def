@@ -1,0 +1,6 @@
+LIBRARY Int32UOps
+EXPORTS Int32_UAdd       ;
+EXPORTS Int32_USubtract  ;
+EXPORTS Int32_UMultiply  ;
+EXPORTS Int32_UDivide    ;
+EXPORTS Int32_UToStr     ;

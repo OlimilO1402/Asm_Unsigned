@@ -1,0 +1,9 @@
+# Exclude binary files
+*.exe
+*.dll
+*.ocx
+*.zip
+
+# Exclude user-specific files
+*.vbw
+Thumbs.db
