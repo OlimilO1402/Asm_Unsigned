@@ -70,9 +70,7 @@ Private Declare Function UMulB Lib "Int32UOps" Alias "Int32_UMultiply" (ByVal v1
 Private Declare Function UDiv Lib "Int32UOps" Alias "Int32_UDivide" (ByVal v1 As Long, ByVal v2 As Long) As Long
 Private Declare Function UDivB Lib "Int32UOps" Alias "Int32_UDivide" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 
-'Private Declare Function Int32_UToStr Lib "Int32UOps" (ByVal v As Long) As String
-
-Private Declare Sub Int32_UToStr Lib "Int32UOps" (ByVal value As Long, ByVal pStr_out As Long)
+Private Declare Sub Int32_UToStr Lib "Int32UOps" (ByVal Value As Long, ByVal pStr_out As Long)
 '
 'errno_t _ultow_s(
 '    unsigned long value,
@@ -86,11 +84,11 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Resize()
-    Dim L As Single: L = 0
+    Dim l As Single: l = 0
     Dim T As Single: T = Text1.Top
     Dim W As Single: W = Me.ScaleWidth
     Dim H As Single: H = Me.ScaleHeight - T
-    If W > 0 And H > 0 Then Text1.Move L, T, W, H
+    If W > 0 And H > 0 Then Text1.Move l, T, W, H
 End Sub
 
 Private Sub Command1_Click()
@@ -142,18 +140,18 @@ Sub TestDll()
     v1 = -1
     s = Space(10)
     Int32_UToStr v1, StrPtr(s)
-    Debug_Print s    '4294967295
+    Debug_Print Trim0(s)    '4294967295
     
     v1 = 32
     v2 = 65
     
     lret = UAdd(USub(100, UMul(2, UDiv(v1, 4))), UDiv(v2, UAdd(6, 7)))
     s = Space(10): Int32_UToStr lret, StrPtr(s)
-    Debug_Print s
+    Debug_Print Trim0(s)
     
     lret = (100 - (2 * v1 / 4)) + (v2 / (6 + 7))
     s = Space(10): Int32_UToStr lret, StrPtr(s)
-    Debug_Print s
+    Debug_Print Trim0(s)
     
 End Sub
 
@@ -185,41 +183,41 @@ Sub Test_ToStr()
     
     
     Dim r As Long 'radix
-    Dim L As Long
+    Dim l As Long
     
     v = 14021970
     r = 10
-    L = LogN(v, r) + 1
-    s = Space$(L)
+    l = LogN(v, r) + 1
+    s = Space$(l)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     Debug_Print s
     
-    If ret <> L * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & L
+    If ret <> l * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & l
     End If
     
     v = &H1CAFEBAB
     r = 16
-    L = Ceiling(LogN(v, r))
-    s = Space$(L)
+    l = Ceiling(LogN(v, r))
+    s = Space$(l)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> L * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & L
+    If ret <> l * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & l
     End If
     
     v = 987654321
     r = 10
-    L = Ceiling(LogN(v, r))
-    s = Space$(L)
+    l = Ceiling(LogN(v, r))
+    s = Space$(l)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> L * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & L * 2
+    If ret <> l * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & l * 2
     End If
     
 End Sub
