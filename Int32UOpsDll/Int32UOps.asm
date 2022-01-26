@@ -37,8 +37,8 @@ Int32_UAdd proc ;v1: dword, v2: dword
     
     ;mov eax, v1       ; copy the value v1 from stack to register EAX
     ;mov ecx, v2       ; copy the value v2 from Stack to register ECX
-	mov eax, [esp+4]
-	mov ecx, [esp+8]
+    mov eax, [esp+4]  ; copy the value v1 from stack to register EAX
+    mov ecx, [esp+8]  ; copy the value v2 from Stack to register ECX
     add eax, ecx      ; add the value in ECX to the value in register EAX
                       ; the return value of a function in VB must be in register EAX
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
