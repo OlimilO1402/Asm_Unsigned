@@ -53,19 +53,22 @@ Option Explicit
 
 Private Declare Sub RtlMoveMemory Lib "kernel32" (ByRef pDst As Any, ByRef pSrc As Any, ByVal BytLen As Long)
 
-'Private Declare Function Int32_UAdd_ref Lib "Int32UOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
-
+Private Declare Function Int32_UAdd_ref Lib "Int32UOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
 Private Declare Function Int32_UAdd Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-
 Private Declare Function Int32_USubtract Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-
 Private Declare Function Int32_UMultiply Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-
 Private Declare Function Int32_UMultiplyB Lib "Int32UOps" Alias "Int32_UMultiply" (ByVal v1 As Long, ByVal v2 As Long) As Currency
-
 Private Declare Function Int32_UDivide Lib "Int32UOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-
 Private Declare Function Int32_UDivideB Lib "Int32UOps" Alias "Int32_UDivide" (ByVal v1 As Long, ByVal v2 As Long) As Currency
+
+'just some short forms
+Private Declare Function UAdd_ref Lib "Int32UOps" Alias "Int32_UAdd_ref" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
+Private Declare Function UAdd Lib "Int32UOps" Alias "Int32_UAdd" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function USub Lib "Int32UOps" Alias "Int32_USubtract" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function UMul Lib "Int32UOps" Alias "Int32_UMultiply" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function UMulB Lib "Int32UOps" Alias "Int32_UMultiply" (ByVal v1 As Long, ByVal v2 As Long) As Currency
+Private Declare Function UDiv Lib "Int32UOps" Alias "Int32_UDivide" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function UDivB Lib "Int32UOps" Alias "Int32_UDivide" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 
 'Private Declare Function Int32_UToStr Lib "Int32UOps" (ByVal v As Long) As String
 
@@ -105,13 +108,17 @@ Sub Debug_Print(ByVal s As String)
 End Sub
 
 Sub TestDll()
-    Dim v1 As Long: v1 = 123
-    Dim v2 As Long: v2 = 32
+    Dim v1 As Long
+    Dim v2 As Long
     Dim lret As Long
     Dim cret As Currency
-        
-'    lret = Int32_UAdd_ref(v1, v2)
-'    Debug.Print ret '155
+    Dim s As String
+    
+    v1 = 123
+    v2 = 32
+     
+    lret = Int32_UAdd_ref(v1, v2)
+    Debug_Print lret '155
     
     lret = Int32_UAdd(v1, v2)
     Debug_Print lret '155
@@ -133,10 +140,21 @@ Sub TestDll()
     Debug_Print lret '3741114
     
     v1 = -1
-    Dim s As String: s = Space(10)
+    s = Space(10)
     Int32_UToStr v1, StrPtr(s)
     Debug_Print s    '4294967295
-
+    
+    v1 = 32
+    v2 = 65
+    
+    lret = UAdd(USub(100, UMul(2, UDiv(v1, 4))), UDiv(v2, UAdd(6, 7)))
+    s = Space(10): Int32_UToStr lret, StrPtr(s)
+    Debug_Print s
+    
+    lret = (100 - (2 * v1 / 4)) + (v2 / (6 + 7))
+    s = Space(10): Int32_UToStr lret, StrPtr(s)
+    Debug_Print s
+    
 End Sub
 
 Sub Test_ToStr()

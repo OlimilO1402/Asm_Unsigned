@@ -4,3 +4,4 @@ EXPORTS Int32_USubtract  ;
 EXPORTS Int32_UMultiply  ;
 EXPORTS Int32_UDivide    ;
 EXPORTS Int32_UToStr     ;
+EXPORTS Int32_UAdd_ref   ;
