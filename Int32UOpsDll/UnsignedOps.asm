@@ -32,12 +32,12 @@ DllEntry endp
 OPTION PROLOGUE:NONE
 OPTION EPILOGUE:NONE
 
-Align 4;8
+Align 8
 
-Int32_UAdd proc ;v1: dword, v2: dword
+; --------========  Unsigned Int32 operations  ========--------
+
+UInt32_Add proc 
     
-    ;mov eax, v1       ; copy the value v1 from stack to register EAX
-    ;mov ecx, v2       ; copy the value v2 from Stack to register ECX
     mov eax, [esp+4]  ; copy the value v1 from stack to register EAX
     mov ecx, [esp+8]  ; copy the value v2 from Stack to register ECX
     add eax, ecx      ; add the value in ECX to the value in register EAX
@@ -45,75 +45,93 @@ Int32_UAdd proc ;v1: dword, v2: dword
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
                       ; normally ret is enough, because the size of the stack 
                       ; is determined automatically
-Int32_UAdd endp
+UInt32_Add endp
 
 
 ;page 1857
-Int32_USubtract proc ;v1: dword, v2: dword
+UInt32_Sub proc 
     
-    ;mov eax, v1       ; copy the value v1 from stack to register EAX
-    ;mov ecx, v2       ; copy the value v2 from Stack to register ECX
     mov eax, [esp+4]       ; copy the value v1 from stack to register EAX
     mov ecx, [esp+8]       ; copy the value v2 from Stack to register ECX
     sub eax, ecx      ; subtract the value in ECX from the value in register EAX
     ret 8             ; return to callee, remove 8 bytes from stack
     
-Int32_USubtract endp
+UInt32_Sub endp
 
 ;page 1332
-Int32_UMultiply proc v1: dword, v2: dword
+UInt32_Mul proc 
     
-    ;mov eax, v1       ; copy the value v1 from stack to register EAX
-    ;mov ecx, v2       ; copy the value v2 from Stack to register ECX
     mov eax, [esp+4]       ; copy the value v1 from stack to register EAX
     mov ecx, [esp+8]       ; copy the value v2 from Stack to register ECX
     mul ecx           ; multipliy the value in register ECX with the value in register EAX
     ret 8             ; return
     
-Int32_UMultiply endp
+UInt32_Mul endp
 
 ;page 891
-Int32_UDivide proc ;v1: dword, v2: dword
+UInt32_Div proc
     
-    ;mov eax, v1     ; copy the value v1 from stack to register EAX (Dividend)
-    ;mov ecx, v2     ; copy the value v2 from Stack to register ECX (Divisor )
     mov eax, [esp+4] ; copy the value v1 from stack to register EAX (Dividend)
     mov ecx, [esp+8] ; copy the value v2 from Stack to register ECX (Divisor )
                      ; before div we must ensure that register edx is empty 
                      ; you can do this either using mov, sub or xor
-    ;mov edx, 0      ; mov: copy 0 to the register edx
-    ;sub edx, edx    ; sub: subtract the value itself -> Tipp von Ripler
     xor edx, edx     ; xor: null all ones if there is one
     div ecx          ; divide the value in register EAX by the value in register ECX 
                      ; the quotient is in EAX the remainder (rest) in EDX
     ret 8            ; return
     
-Int32_UDivide endp
+UInt32_Div endp
 
 ; just as an example, for "ByRef"
-Int32_UAdd_ref proc ;pV1: dword, pV2: dword
+UInt32_Add_ref proc 
     
-    ;mov eax, pV1      ; kopiere den obersten Wert vom Stack in das EAX-Register
-    ;mov ecx, pV2      ; kopiere den nächsten Wert vom Stack in das ECX-Register
     mov eax, [esp+4]  ; kopiere den obersten Wert vom Stack in das EAX-Register
-    mov ecx, [esp+8]      ; kopiere den nächsten Wert vom Stack in das ECX-Register
+    mov ecx, [esp+8]  ; kopiere den nächsten Wert vom Stack in das ECX-Register
     mov eax, [eax]    ; Dereferenziere den Zeiger in EAX und kopieren den Wert in EAX
     add eax, [ecx]    ; Dereferenzieren den Zeiger in ECX und addiere den Wert daraus
                       ;	auf den Wert im Register EAX
     ret 8             ; zurückkehren
     
-Int32_UAdd_ref endp
+UInt32_Add_ref endp
+
+; --------========  Unsigned Int64 operations  ========--------
+
+UInt64_Add proc
+	
+	mov eax, [esp+4]
+	mov edx, [esp+8] 
+	add eax, [esp+12]
+	adc edx, [esp+16]
+	ret 16
+	
+UInt64_Add endp
+
+UInt64_Sub proc
+	
+	mov eax, [esp+4]
+	mov edx, [esp+8] 
+	sub edx, [esp+16]
+	sub eax, [esp+12]
+	ret 16
+	
+UInt64_Sub endp
 
 OPTION EPILOGUE:EpilogueDef
 OPTION PROLOGUE:PrologueDef
 
 ;https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2013/kk8w4t5t(v=vs.120)
-Int32_UToStr proc v1: dword, pStr: dword 
+UInt32_ToStr proc v1: dword, pStr: dword 
     
     invoke crt__ultow, v1, pStr, 10 ; rradix=10
     ret 8
     
-Int32_UToStr endp
+UInt32_ToStr endp
 
+UInt64_ToStr proc v1: qword, pStr: dword 
+    
+    invoke crt__ui64tow, v1, pStr, 10 ; rradix=10
+    ret 12
+    
+UInt64_ToStr endp
 
 End DllEntry

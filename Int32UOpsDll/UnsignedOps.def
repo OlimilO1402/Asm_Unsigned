@@ -1,0 +1,10 @@
+LIBRARY UnsignedOps
+EXPORTS UInt32_Add       ;
+EXPORTS UInt32_Sub       ;
+EXPORTS UInt32_Mul       ;
+EXPORTS UInt32_Div       ;
+EXPORTS UInt32_ToStr     ;
+EXPORTS UInt32_Add_ref   ;
+EXPORTS UInt64_Add       ;
+EXPORTS UInt64_Sub       ;
+EXPORTS UInt64_ToStr     ;
