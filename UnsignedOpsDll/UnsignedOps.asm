@@ -23,6 +23,10 @@ DllEntry proc instance: dword, reason: dword, unused: dword
 	
 DllEntry endp
 
+;123456789012345 * 123456789012345
+;=15241578753238669120562399025
+;uint64_max = 18446744073709551615
+; int64_max = 9223372036854775807
 
 ;The manual to Intel assembler syntax can be found here:
 ;https://software.intel.com/content/dam/develop/public/us/en/documents/325462-sdm-vol-1-2abcd-3abcd.pdf
@@ -92,6 +96,71 @@ UInt32_Add_ref proc
     
 UInt32_Add_ref endp
 
+;Thanks Creel
+;https://www.youtube.com/watch?v=wXGZ7o9HNss
+UInt32_Shl proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    shl eax, cl       ; shift the value in register EAX about the value in the register CL
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Shl endp 
+
+UInt32_Shr proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    shr eax, cl       ; shift the value in register EAX about the value in the register CL
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Shr endp 
+
+UInt32_Sar proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    sar eax, cl       ; shift the value in register EAX about the value in the register CL
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Sar endp 
+
+UInt32_Rol proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    rol eax, cl       ; shift the value in register EAX about the value in the register CL
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Rol endp 
+
+UInt32_Rcl proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    rcl eax, cl       ; shift the value in register EAX about the value in the register CL
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Rcl endp 
+
+UInt32_Ror proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    ror eax, cl       ; shift the value in register EAX about the value in the register CL
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Ror endp 
+
+UInt32_Rcr proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    rcr eax, cl       ; shift the value in register EAX about the value in the register CL
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Rcr endp 
+
 ; --------========  Unsigned Int64 operations  ========--------
 
 ;http://masm32.com/board/index.php?topic=5264.0
@@ -130,8 +199,8 @@ UInt64_Mul proc
 	mov ebx, [esp+12]  ; copy the lower part of the second uint64 value from stack to register EBX
 	mov ecx, [esp+16]  ; copy the upper part of the second uint64 value from Stack to register ECX
 	
-	mul eax
-	mul ebx
+	mul eax  ;TODO TODO TODO
+	mul ebx  ;TODO TODO TODO
 	ret 16
 	
 UInt64_Mul endp
@@ -140,6 +209,7 @@ OPTION EPILOGUE:EpilogueDef
 OPTION PROLOGUE:PrologueDef
 
 ;https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2013/kk8w4t5t(v=vs.120)
+; to string aka to decimal but decimal is narrative with VB.Decimal
 UInt32_ToStr proc v1: dword, pStr: dword 
     
     invoke crt__ultow, v1, pStr, 10 ; rradix=10
@@ -147,11 +217,39 @@ UInt32_ToStr proc v1: dword, pStr: dword
     
 UInt32_ToStr endp
 
+UInt32_ToHex proc v1: dword, pStr: dword 
+    
+    invoke crt__ultow, v1, pStr, 16 ; rradix=16
+    ret 8
+    
+UInt32_ToHex endp
+
+UInt32_ToBin proc v1: dword, pStr: dword 
+    
+    invoke crt__ultow, v1, pStr, 2  ; rradix=2
+    ret 8
+    
+UInt32_ToBin endp
+
 UInt64_ToStr proc v1: qword, pStr: dword 
     
     invoke crt__ui64tow, v1, pStr, 10 ; rradix=10
     ret 12
     
 UInt64_ToStr endp
+
+UInt64_ToHex proc v1: qword, pStr: dword 
+    
+    invoke crt__ui64tow, v1, pStr, 16 ; rradix=16
+    ret 12
+    
+UInt64_ToHex endp
+
+UInt64_ToBin proc v1: qword, pStr: dword 
+    
+    invoke crt__ui64tow, v1, pStr, 2  ; rradix=2
+    ret 12
+    
+UInt64_ToBin endp
 
 End DllEntry

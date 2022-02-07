@@ -1,14 +1,22 @@
 VERSION 5.00
 Begin VB.Form Form1 
    Caption         =   "Form1"
-   ClientHeight    =   4095
+   ClientHeight    =   6495
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   6150
+   ClientWidth     =   7710
    LinkTopic       =   "Form1"
-   ScaleHeight     =   4095
-   ScaleWidth      =   6150
+   ScaleHeight     =   6495
+   ScaleWidth      =   7710
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.CommandButton Command3 
+      Caption         =   "Command3"
+      Height          =   375
+      Left            =   4200
+      TabIndex        =   3
+      Top             =   120
+      Width           =   1575
+   End
    Begin VB.CommandButton Command2 
       Caption         =   "Test Int32_UToStr"
       Height          =   375
@@ -61,9 +69,19 @@ Private Declare Function UInt32_MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal
 Private Declare Function UInt32_Div Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 Private Declare Function UInt32_DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 
+Private Declare Function UInt32_Shl Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Shr Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Sar Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Rol Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Rcl Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Ror Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Rcr Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Shld Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+Private Declare Function UInt32_Shrd Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
+
 Private Declare Function UInt64_Add Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
 Private Declare Function UInt64_Sub Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
-Private Declare Function UInt64_Mul Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
+Private Declare Function UInt64_Mul Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Variant 'Decimal
 
 'just some short forms
 Private Declare Function UAdd_ref Lib "UnsignedOps" Alias "UInt32_UAdd_ref" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
@@ -74,8 +92,13 @@ Private Declare Function UMulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 As
 Private Declare Function UDiv Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Long
 Private Declare Function UDivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 
-Private Declare Sub UInt32_ToStr Lib "UnsignedOps" (ByVal Value As Long, ByVal pStr_out As Long)
+Private Declare Sub UInt32_ToStr Lib "UnsignedOps" (ByVal Value As Long, ByVal pStr_out As LongPtr)
+Private Declare Sub UInt32_ToHex Lib "UnsignedOps" (ByVal Value As Long, ByVal pStr_out As LongPtr)
+Private Declare Sub UInt32_ToBin Lib "UnsignedOps" (ByVal Value As Long, ByVal pStr_out As LongPtr)
+
 Private Declare Sub UInt64_ToStr Lib "UnsignedOps" (ByVal Value As Currency, ByVal pStr_out As Long)
+Private Declare Sub UInt64_ToHex Lib "UnsignedOps" (ByVal Value As Currency, ByVal pStr_out As Long)
+Private Declare Sub UInt64_ToBin Lib "UnsignedOps" (ByVal Value As Currency, ByVal pStr_out As Long)
 '
 'errno_t _ultow_s(
 '    unsigned long value,
@@ -84,16 +107,78 @@ Private Declare Sub UInt64_ToStr Lib "UnsignedOps" (ByVal Value As Currency, ByV
 '    int radix
 ');
 
+Private Type TVar
+    Value As Variant
+End Type
+
+'https://www.vbarchiv.net/workshop/workshop_84-der-gebrauch-des-datentyps-decimal.html
+Private Type TDec
+    vt As Integer ' &HE = 14
+    nnk As Byte   ' Anzahl der Nachkommastellen
+    sgn As Byte   ' Vorzeichen
+    LngVal3 As Long
+    LngVal1 As Long
+    LngVal2 As Long
+End Type
+
+
+'; int32_max = 2147483647
+';uint32_max = 4294967294
+';uint64_max = 18446744073709551615
+'; int64_max = 9223372036854775807
+';             922337203685477.5807
+
+'; 79228162514264337593543950335
+Private Sub Command3_Click()
+    Dim c1 As Currency
+    Dim c2 As Currency
+    c1 = CCur(123456789012345#)
+    c2 = CCur(123456789012345#)
+    
+    'Dim d As Variant
+    'd = CDec(CDec(c1) * CDec(c2))
+    
+    'MsgBox d
+    
+    'MsgBox Hex(VarType(d)) '14 = &HE
+    
+    Dim tvv As TVar
+    Dim ti8 As TDec
+    
+    tvv.Value = CDec("1")
+    tvv.Value = CDec("-1")
+    tvv.Value = CDec("2147483647")
+    tvv.Value = CDec("2147483648")
+    tvv.Value = CDec("4294967294")
+    tvv.Value = CDec("4294967295")
+    tvv.Value = CDec("9223372036854775807")
+    tvv.Value = CDec("9223372036854775808")
+    tvv.Value = CDec("18446744073709551615")
+    tvv.Value = CDec("18446744073709551616")
+    tvv.Value = CDec("79228162514264337593543950335") '* CDec("1024") ' + CDec("1023")
+    
+    RtlMoveMemory ti8, tvv, 16
+    
+    MsgBox TDec_ToHex(ti8) & vbCrLf & CStr(tvv.Value)
+    
+End Sub
+
+Private Function TDec_ToHex(Value As TDec) As String
+    With Value
+        TDec_ToHex = Hex4(.vt) & vbCrLf & Hex2(.nnk) & vbCrLf & Hex2(.sgn) & vbCrLf & _
+                     Hex8(.LngVal3) & vbCrLf & Hex8(.LngVal1) & vbCrLf & Hex8(.LngVal2)
+    End With
+End Function
 Private Sub Form_Load()
     Me.Caption = "Unsigned ops on signed Int32 - v" & App.Major & "." & App.Minor & "." & App.Revision
 End Sub
 
 Private Sub Form_Resize()
     Dim L As Single: L = 0
-    Dim T As Single: T = Text1.Top
+    Dim t As Single: t = Text1.Top
     Dim W As Single: W = Me.ScaleWidth
-    Dim H As Single: H = Me.ScaleHeight - T
-    If W > 0 And H > 0 Then Text1.Move L, T, W, H
+    Dim H As Single: H = Me.ScaleHeight - t
+    If W > 0 And H > 0 Then Text1.Move L, t, W, H
 End Sub
 
 Private Sub Command1_Click()
@@ -142,9 +227,46 @@ Sub TestDll()
     lret = UInt32_Div(v1, v2)
     Debug_Print lret '3741114
     
+    v1 = &HCAFE&
+    lret = UInt32_Shl(v1, 8)
+    Debug_Print "Shl(" & Hex(v1) & ", 8) = " & Hex(lret)
+    
+    v1 = UInt32_Shr(lret, 8)
+    Debug_Print "Shr(" & Hex(lret) & ", 8) = " & Hex(v1)
+    
+    v1 = -v1
+    lret = UInt32_Sar(v1, 8)
+    Debug_Print "Sar(" & Hex(v1) & ", 8) = " & Hex(lret)
+    
+    v1 = &HCAFEBABE
+    lret = UInt32_Rol(v1, 8)
+    Debug_Print "Rol(" & Hex(v1) & ", 8) = " & Hex(lret)
+    
+    v1 = &HCAFEBABE
+    lret = UInt32_Ror(v1, 8)
+    Debug_Print "Ror(" & Hex(v1) & ", 8) = " & Hex(lret)
+    
+    v1 = &HCAFE&
+    lret = UInt32_Rcl(v1, 12)
+    Debug_Print "Rcl(" & Hex(v1) & ", 12) = " & Hex(lret)
+    
+    v1 = &HCAFE0000
+    lret = UInt32_Rcr(v1, 12)
+    Debug_Print "Rcr(" & Hex(v1) & ", 12) = " & Hex(lret)
+    
     v1 = -1
     s = Space(10)
     UInt32_ToStr v1, StrPtr(s)
+    Debug_Print Trim0(s)    '4294967295
+    
+    v1 = -1
+    s = Space(8)
+    UInt32_ToHex v1, StrPtr(s)
+    Debug_Print Trim0(s)    '4294967295
+    
+    v1 = -1
+    s = Space(32)
+    UInt32_ToBin v1, StrPtr(s)
     Debug_Print Trim0(s)    '4294967295
     
     v1 = 32
@@ -172,6 +294,13 @@ Sub TestDll()
     s = Space(20): UInt64_ToStr cret, StrPtr(s)
     Debug_Print Trim0(s)    '7223372036854775805
     
+    s = Space(20): UInt64_ToHex cret, StrPtr(s)
+    Debug_Print Trim0(s)
+    
+    'cret = CCur("-922337203685477,5807")
+    cret = CCur("-184467440737095")
+    s = Space(66): UInt64_ToBin cret, StrPtr(s)
+    Debug_Print Trim0(s)
 End Sub
 
 Sub Test_ToStr()
