@@ -38,59 +38,58 @@ Align 8
 
 UInt32_Add proc 
     
-    mov eax, [esp+4]  ; copy the value v1 from stack to register EAX
-    mov ecx, [esp+8]  ; copy the value v2 from Stack to register ECX
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+    mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
     add eax, ecx      ; add the value in ECX to the value in register EAX
                       ; the return value of a function in VB must be in register EAX
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
-                      ; normally ret is enough, because the size of the stack 
-                      ; is determined automatically
+
 UInt32_Add endp
 
 
 ;page 1857
 UInt32_Sub proc 
     
-    mov eax, [esp+4]       ; copy the value v1 from stack to register EAX
-    mov ecx, [esp+8]       ; copy the value v2 from Stack to register ECX
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+    mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
     sub eax, ecx      ; subtract the value in ECX from the value in register EAX
-    ret 8             ; return to callee, remove 8 bytes from stack
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
     
 UInt32_Sub endp
 
 ;page 1332
 UInt32_Mul proc 
     
-    mov eax, [esp+4]       ; copy the value v1 from stack to register EAX
-    mov ecx, [esp+8]       ; copy the value v2 from Stack to register ECX
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+    mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
     mul ecx           ; multipliy the value in register ECX with the value in register EAX
-    ret 8             ; return
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
     
 UInt32_Mul endp
 
 ;page 891
 UInt32_Div proc
     
-    mov eax, [esp+4] ; copy the value v1 from stack to register EAX (Dividend)
-    mov ecx, [esp+8] ; copy the value v2 from Stack to register ECX (Divisor )
-                     ; before div we must ensure that register edx is empty 
-                     ; you can do this either using mov, sub or xor
-    xor edx, edx     ; xor: null all ones if there is one
-    div ecx          ; divide the value in register EAX by the value in register ECX 
-                     ; the quotient is in EAX the remainder (rest) in EDX
-    ret 8            ; return
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX (Dividend)
+    mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX (Divisor )
+                      ; before div we must ensure that register edx is empty 
+                      ; you can do this either using mov, sub or xor
+    xor edx, edx      ; xor: null all ones if there is one
+    div ecx           ; divide the value in register EAX by the value in register ECX 
+                      ; the quotient is in EAX the remainder (rest) in EDX
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
     
 UInt32_Div endp
 
 ; just as an example, for "ByRef"
 UInt32_Add_ref proc 
     
-    mov eax, [esp+4]  ; kopiere den obersten Wert vom Stack in das EAX-Register
-    mov ecx, [esp+8]  ; kopiere den nächsten Wert vom Stack in das ECX-Register
-    mov eax, [eax]    ; Dereferenziere den Zeiger in EAX und kopieren den Wert in EAX
-    add eax, [ecx]    ; Dereferenzieren den Zeiger in ECX und addiere den Wert daraus
-                      ;	auf den Wert im Register EAX
-    ret 8             ; zurückkehren
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+    mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    mov eax, [eax]    ; dereference the pointer in EAX and copy den value back to EAX
+    add eax, [ecx]    ; dereference the pointer in ECX und add the value from it
+                      ;	to the value in register EAX
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
     
 UInt32_Add_ref endp
 
@@ -98,20 +97,20 @@ UInt32_Add_ref endp
 
 UInt64_Add proc
 	
-	mov eax, [esp+4]
-	mov edx, [esp+8] 
-	add eax, [esp+12]
-	adc edx, [esp+16]
-	ret 16
+	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
+	mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
+	add eax, [esp+12]  ; add the lower part of the second uint64 value from stack to the value in register EAX 
+	adc edx, [esp+16]  ; add the upper part of the second uint64 value from stack to the value in register EDX by using the carry flag
+	ret 16             ; return to callee, remove 16 bytes from stack (->stdcall)
 	
 UInt64_Add endp
 
 UInt64_Sub proc
 	
-	mov eax, [esp+4]
-	mov edx, [esp+8] 
-	sub edx, [esp+16]
-	sub eax, [esp+12]
+	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
+	mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
+	sub eax, [esp+12]  ; subtract the lower part of the second uint64 value from stack to the value in register EAX 
+	sbb edx, [esp+16]  ; subtract the upper part of the second uint64 value from stack to the value in register EDX by using the borrow flag
 	ret 16
 	
 UInt64_Sub endp

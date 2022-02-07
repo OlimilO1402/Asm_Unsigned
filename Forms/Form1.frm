@@ -162,6 +162,7 @@ Sub TestDll()
     
     c1 = CCur("822337203685477,5806")
     c2 = CCur("100000000000000,0001")
+    
     cret = UInt64_Add(c1, c2)
     s = Space(20): UInt64_ToStr cret, StrPtr(s)
     Debug_Print Trim0(s)    '9223372036854775807
