@@ -107,6 +107,17 @@ UInt32_Shl proc
     
 UInt32_Shl endp 
 
+UInt32_Shld proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+    mov ebx, [esp+8]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+12] ; copy the second uint32 value from Stack to register ECX
+    shld eax, ebx, cl ; shift the value in register EAX about the value in the register CL
+	mov ecx, ebx
+    ret 12            ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Shld endp 
+
 UInt32_Shr proc 
     
     mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
@@ -115,6 +126,17 @@ UInt32_Shr proc
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
     
 UInt32_Shr endp 
+
+UInt32_Shrd proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+    mov ebx, [esp+8]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+12] ; copy the second uint32 value from Stack to register ECX
+    shrd eax, ebx, cl ; shift the value in register EAX about the value in the register CL
+	mov ecx, ebx
+    ret 12            ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Shrd endp 
 
 UInt32_Sar proc 
     
@@ -160,6 +182,112 @@ UInt32_Rcr proc
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
     
 UInt32_Rcr endp 
+
+; --------======== Boolean Operations  ========-------- ;
+;True-table for And
+; A B  Out
+; 0 0  0
+; 0 1  0
+; 1 0  0
+; 1 1  1
+UInt32_And proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    and eax, ecx      ; AND the value in register EAX with the value in the register ECX
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_And endp 
+
+;True-table for Or
+; A B  Out
+; 0 0  0
+; 0 1  1
+; 1 0  1
+; 1 1  1
+UInt32_Or proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    or  eax, ecx      ; OR the value in register EAX with the value in the register ECX
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_Or endp 
+
+;True-table for Not
+; A  Out
+; 0  1
+; 1  0
+UInt32_Not proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+    not eax           ; NOT the value in register EAX, every Bit gets flipped
+    ret 4             ; return to callee, remove 4 bytes from stack (->stdcall)
+    
+UInt32_Not endp 
+
+;True-table for XOr
+; A B  Out
+; 0 0  0
+; 0 1  1
+; 1 0  1
+; 1 1  0
+UInt32_XOr proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    xor eax, ecx      ; XOR the value in register EAX with the value in the register ECX
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_XOr endp 
+
+;True-table for XNOr
+; A B  Out
+; 0 0  1
+; 0 1  0
+; 1 0  0
+; 1 1  1
+UInt32_XNOr proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    xor eax, ecx      ; XOR the value in register EAX with the value in the register ECX
+    not eax           ; NOT the value in register EAX, every bit gets flipped
+	ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_XNOr endp 
+
+;True-table for NOr
+; A B  Out
+; 0 0  1
+; 0 1  0
+; 1 0  0
+; 1 1  0
+UInt32_NOr proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    or  eax, ecx      ; OR the value in register EAX with the value in the register ECX	
+    not eax           ; NOT the value in register EAX, every bit gets flipped
+    ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_NOr endp 
+
+;True-table for NAnd
+; A B  Out
+; 0 0  1
+; 0 1  1
+; 1 0  1
+; 1 1  0
+UInt32_NAnd proc 
+    
+    mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
+	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    and eax, ecx      ; AND the value in register EAX with the value in the register ECX
+    not eax           ; NOT the value in register EAX, every bit gets flipped
+	ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
+    
+UInt32_NAnd endp 
 
 ; --------========  Unsigned Int64 operations  ========--------
 

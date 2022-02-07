@@ -1,4 +1,5 @@
 LIBRARY UnsignedOps
+
 EXPORTS UInt32_Add       ;
 EXPORTS UInt32_Sub       ;
 EXPORTS UInt32_Mul       ;
@@ -9,10 +10,10 @@ EXPORTS UInt32_ToBin     ;
 EXPORTS UInt32_Add_ref   ;
 
 EXPORTS UInt32_Shl       ;
+EXPORTS UInt32_Shld      ; 
 EXPORTS UInt32_Shr       ;
+EXPORTS UInt32_Shrd      ; 
 EXPORTS UInt32_Sar       ;
-; EXPORTS UInt32_Shrd      ; -> Int64
-; EXPORTS UInt32_Shld      ; -> Int64
 EXPORTS UInt32_Rol       ;
 EXPORTS UInt32_Ror       ;
 EXPORTS UInt32_Rcl       ;
@@ -21,9 +22,10 @@ EXPORTS UInt32_Rcr       ;
 EXPORTS UInt32_And       ;
 EXPORTS UInt32_Or        ;
 EXPORTS UInt32_Not       ;
-EXPORTS UInt32_NAnd      ;
-EXPORTS UInt32_NOr       ;
 EXPORTS UInt32_XOr       ;
+EXPORTS UInt32_XNOr      ;
+EXPORTS UInt32_NOr       ;
+EXPORTS UInt32_NAnd      ;
 
 EXPORTS UInt64_Add       ;
 EXPORTS UInt64_Sub       ;
