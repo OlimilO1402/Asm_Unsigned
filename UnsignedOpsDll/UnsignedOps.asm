@@ -297,40 +297,40 @@ UInt32_NAnd endp
 
 ;pages 605 + 600
 UInt64_Add proc
-	
-	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
-	mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
-	add eax, [esp+12]  ; add the lower part of the second uint64 value from stack to the value in register EAX 
-	adc edx, [esp+16]  ; add the upper part of the second uint64 value from stack to the value in register EDX by using the carry flag
-	ret 16             ; return to callee, remove 16 bytes from stack (->stdcall)
-	
+    
+    mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
+    mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
+    add eax, [esp+12]  ; add the lower part of the second uint64 value from stack to the value in register EAX 
+    adc edx, [esp+16]  ; add the upper part of the second uint64 value from stack to the value in register EDX by using the carry flag
+    ret 16             ; return to callee, remove 16 bytes from stack (->stdcall)
+    
 UInt64_Add endp
 
 ;pages 1857 + 1789
 UInt64_Sub proc
-	
-	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
-	mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
-	sub eax, [esp+12]  ; subtract the lower part of the second uint64 value from stack to the value in register EAX 
-	sbb edx, [esp+16]  ; subtract the upper part of the second uint64 value from stack to the value in register EDX by using the borrow flag
-	ret 16
-	
+    
+    mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
+    mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
+    sub eax, [esp+12]  ; subtract the lower part of the second uint64 value from stack to the value in register EAX 
+    sbb edx, [esp+16]  ; subtract the upper part of the second uint64 value from stack to the value in register EDX by using the borrow flag
+    ret 16
+    
 UInt64_Sub endp
 
 ;pages 1857 + 1789
 ;https://www.plantation-productions.com/Webster/www.artofasm.com/Windows/HTML/AdvancedArithmetica2.html#1007619
 ;https://stackoverflow.com/questions/87771/how-can-i-multiply-two-64-bit-numbers-using-x86-assembly-language
 UInt64_Mul proc
-	
-	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
-	mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
-	mov ebx, [esp+12]  ; copy the lower part of the second uint64 value from stack to register EBX
-	mov ecx, [esp+16]  ; copy the upper part of the second uint64 value from Stack to register ECX
-	
-	mul eax  ;TODO TODO TODO
-	mul ebx  ;TODO TODO TODO
-	ret 16
-	
+    
+    mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
+    mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
+    mov ebx, [esp+12]  ; copy the lower part of the second uint64 value from stack to register EBX
+    mov ecx, [esp+16]  ; copy the upper part of the second uint64 value from Stack to register ECX
+    
+    mul eax  ;TODO TODO TODO
+    mul ebx  ;TODO TODO TODO
+    ret 16
+    
 UInt64_Mul endp
 
 OPTION EPILOGUE:EpilogueDef
