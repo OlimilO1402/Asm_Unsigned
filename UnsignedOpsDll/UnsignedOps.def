@@ -7,4 +7,5 @@ EXPORTS UInt32_ToStr     ;
 EXPORTS UInt32_Add_ref   ;
 EXPORTS UInt64_Add       ;
 EXPORTS UInt64_Sub       ;
+EXPORTS UInt64_Mul       ;
 EXPORTS UInt64_ToStr     ;

@@ -4,10 +4,10 @@ Begin VB.Form Form1
    ClientHeight    =   4095
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   5535
+   ClientWidth     =   6150
    LinkTopic       =   "Form1"
    ScaleHeight     =   4095
-   ScaleWidth      =   5535
+   ScaleWidth      =   6150
    StartUpPosition =   3  'Windows-Standard
    Begin VB.CommandButton Command2 
       Caption         =   "Test Int32_UToStr"
@@ -18,7 +18,7 @@ Begin VB.Form Form1
       Width           =   1935
    End
    Begin VB.CommandButton Command1 
-      Caption         =   "Test Int32UOps-dll"
+      Caption         =   "Test UnsignedOps-dll"
       Height          =   375
       Left            =   120
       TabIndex        =   1
@@ -63,6 +63,7 @@ Private Declare Function UInt32_DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal
 
 Private Declare Function UInt64_Add Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
 Private Declare Function UInt64_Sub Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
+Private Declare Function UInt64_Mul Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
 
 'just some short forms
 Private Declare Function UAdd_ref Lib "UnsignedOps" Alias "UInt32_UAdd_ref" (ByRef pV1 As Long, ByRef pV2 As Long) As Long

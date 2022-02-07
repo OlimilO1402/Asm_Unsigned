@@ -27,7 +27,6 @@ DllEntry endp
 ;The manual to Intel assembler syntax can be found here:
 ;https://software.intel.com/content/dam/develop/public/us/en/documents/325462-sdm-vol-1-2abcd-3abcd.pdf
 
-;page 605
 
 OPTION PROLOGUE:NONE
 OPTION EPILOGUE:NONE
@@ -36,6 +35,7 @@ Align 8
 
 ; --------========  Unsigned Int32 operations  ========--------
 
+;page 605
 UInt32_Add proc 
     
     mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
@@ -45,7 +45,6 @@ UInt32_Add proc
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
 
 UInt32_Add endp
-
 
 ;page 1857
 UInt32_Sub proc 
@@ -95,6 +94,11 @@ UInt32_Add_ref endp
 
 ; --------========  Unsigned Int64 operations  ========--------
 
+;http://masm32.com/board/index.php?topic=5264.0
+;https://www.jj2007.eu/Masm32_Tips_Tricks_and_Traps.htm
+;https://foren.activevb.de/archiv/vb-classic/thread-404293/beitrag-404304/Re-Errata/
+
+;pages 605 + 600
 UInt64_Add proc
 	
 	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
@@ -105,6 +109,7 @@ UInt64_Add proc
 	
 UInt64_Add endp
 
+;pages 1857 + 1789
 UInt64_Sub proc
 	
 	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
@@ -114,6 +119,20 @@ UInt64_Sub proc
 	ret 16
 	
 UInt64_Sub endp
+
+;pages 1857 + 1789
+UInt64_Mul proc
+	
+	mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
+	mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
+	mov ebx, [esp+12]  ; copy the lower part of the second uint64 value from stack to register EBX
+	mov ecx, [esp+16]  ; copy the upper part of the second uint64 value from Stack to register ECX
+	
+	mul eax
+	mul ebx
+	ret 16
+	
+UInt64_Mul endp
 
 OPTION EPILOGUE:EpilogueDef
 OPTION PROLOGUE:PrologueDef
