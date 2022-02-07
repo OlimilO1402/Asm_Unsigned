@@ -250,7 +250,7 @@ UInt32_XOr endp
 UInt32_XNOr proc 
     
     mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
-	mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
+    mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
     xor eax, ecx      ; XOR the value in register EAX with the value in the register ECX
     not eax           ; NOT the value in register EAX, every bit gets flipped
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
