@@ -61,7 +61,7 @@ Option Explicit
 
 Private Declare Sub RtlMoveMemory Lib "kernel32" (ByRef pDst As Any, ByRef pSrc As Any, ByVal BytLen As Long)
 
-' --------======== UInt32 Operations ========-------- '
+' --------~~~~~~~~========++++++++######## '  UInt32 Operations  ' ########++++++++========~~~~~~~~-------- '
 Private Declare Function UInt32_Add_ref Lib "UnsignedOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
 Private Declare Function UInt32_Add Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 Private Declare Function UInt32_Sub Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
@@ -101,10 +101,10 @@ Private Declare Function U4MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 A
 Private Declare Function U4Div Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Long
 Private Declare Function U4DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 
-' --------======== UInt64 Operations ========-------- '
+' --------~~~~~~~~========++++++++######## '  UInt64 Operations  ' ########++++++++========~~~~~~~~-------- '
 Private Declare Function UInt64_Add Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
 Private Declare Function UInt64_Sub Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
-Private Declare Function UInt64_Mul Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Variant 'Decimal
+Private Declare Function UInt64_Mul Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency, ByRef Var_out As Variant) 'As Decimal
 
 Private Declare Sub UInt64_ToStr Lib "UnsignedOps" (ByVal Value As Currency, ByVal pStr_out As Long)
 Private Declare Sub UInt64_ToHex Lib "UnsignedOps" (ByVal Value As Currency, ByVal pStr_out As Long)
@@ -416,3 +416,7 @@ Sub Test_ToStr()
     End If
     
 End Sub
+
+'Public Function U8Mul(ByVal v1 As Currency, v2 As Currency) As Variant
+'    UInt64_Mul v1, v2, U8Mul
+'End Function
