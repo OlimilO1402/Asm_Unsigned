@@ -1,5 +1,5 @@
 # Asm_Unsigned
-## Unsigned arithmetic boolean and shifting operations for VB using VB.Long and VB.Currency 
+## Unsigned arithmetic boolean and shifting operations for VB using VB.Long, VB.Currency and VB.Decimal
 
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/Asm_Unsigned?style=plastic)](https://github.com/OlimilO1402/Asm_Unsigned/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/Asm_Unsigned?style=plastic)](https://github.com/OlimilO1402/Asm_Unsigned/releases/latest)
@@ -7,7 +7,7 @@
 [![Follow](https://img.shields.io/github/followers/OlimilO1402.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/OlimilO1402/Asm_Unsigned/watchers)
 
 Project started in january 2022.  
-VB does not have any intrinsic unsigned datatypes, except the datatype Byte.  
+VB does not have any intrinsic unsigned datatypes, except for the datatype Byte.  
 This is a dll in asm with some functions to do arithmetic boolean and shifting operations on VB.Long and VB.Currency just like it were unsigned.  
 
-![<AppName> Image](Resources/<AppName>.png "<AppName> Image")
+![<AppName> Image](Resources/XL-UInt64_Mul.png "XL-UInt64_Mul Image")
