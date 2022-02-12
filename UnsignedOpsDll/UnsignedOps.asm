@@ -320,7 +320,8 @@ UInt64_Sub endp
 ;pages 1857 + 1789
 ;https://www.plantation-productions.com/Webster/www.artofasm.com/Windows/HTML/AdvancedArithmetica2.html#1007619
 ;https://stackoverflow.com/questions/87771/how-can-i-multiply-two-64-bit-numbers-using-x86-assembly-language
-;                ByVal V1 As Currency, ByVal V2 As Currency, ByRef pDec_out As LongPtr
+;                ByVal V1 As Currency, ByVal V2 As Currency, ByRef Dec_out As Variant; is the same as:
+;                ByVal V1 As Currency, ByVal V2 As Currency, ByVal pDec_out As LongPtr
 UInt64_Mul proc
     
     mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
