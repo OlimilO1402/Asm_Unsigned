@@ -66,6 +66,7 @@ UInt32_Mul proc
     mov eax, [esp+4]  ; copy the first uint32 value from stack to register EAX
     mov ecx, [esp+8]  ; copy the second uint32 value from Stack to register ECX
     mul ecx           ; multipliy the value in register ECX with the value in register EAX
+                      ; the result as UInt64 is returned in EDX:EAX
     ret 8             ; return to callee, remove 8 bytes from stack (->stdcall)
     
 UInt32_Mul endp
@@ -289,6 +290,18 @@ UInt32_NAnd proc
     
 UInt32_NAnd endp 
 
+;                 v1: UInt32 (4-Byte), pDec_out: pointer to Variant (4-Byte)
+UInt32_ToDec proc
+    
+    mov   eax, [esp+ 8] ; copy the pointer to a Variant from stack to register EAX
+	mov    dx,  14      ; copy the vartype for decimal it is 14 = &HE to the register dx
+	mov  [eax+ 0],  dx  ; copy the value in register dx to the Variant 
+	mov   edx, [esp+ 4] ; copy the UInt32-value v1 to register edx 
+    mov  [eax+ 8], edx  ; copy the UInt32-Value v1 to the Variant
+	ret 8
+    
+UInt32_ToDec endp
+
 ; --------========  Unsigned Int64 operations  ========--------
 
 ;http://masm32.com/board/index.php?topic=5264.0
@@ -322,19 +335,101 @@ UInt64_Sub endp
 ;https://stackoverflow.com/questions/87771/how-can-i-multiply-two-64-bit-numbers-using-x86-assembly-language
 ;                ByVal V1 As Currency, ByVal V2 As Currency, ByRef Dec_out As Variant; is the same as:
 ;                ByVal V1 As Currency, ByVal V2 As Currency, ByVal pDec_out As LongPtr
+;                      V1: 8-Byte,           V2: 8-Byte,           pDec_out: 4-Byte
 UInt64_Mul proc
     
-    mov eax, [esp+4]   ; copy the lower part of the first uint64 value from stack to register EAX
-    mov edx, [esp+8]   ; copy the upper part of the first uint64 value from Stack to register EDX
-	
-    ;mov ebx, [esp+12]  ; copy the lower part of the second uint64 value from stack to register EBX
-    ;mov ecx, [esp+16]  ; copy the upper part of the second uint64 value from Stack to register ECX
+	;prepare stack frame
+	push ebp     ; save the register ebp to the stack
+    mov ebp, esp ; save the current stack pointer to register EBP
+    sub esp, 32  ; allocate 32 Bytes of new stack memory for local variables = 4 UInt64 (4*8 Bytes)
     
-    mul eax  ;TODO TODO TODO
-    mul ebx  ;TODO TODO TODO
-    ret 16
+    ; 1. 4 Multiplications
+	
+    ; 1.1 Multiply the upper 32 Bit 
+	
+    mov  eax, [ebp+12]    ; copy the upper part of the first  uint64 value from Stack to register EAX
+    mov  ecx, [ebp+20]    ; copy the upper part of the second uint64 value from Stack to register ECX
+    mul  ecx              ; multipliy the value in register ECX With the value in register EAX
+    mov  [esp+ 0], eax    ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+ 4], edx    ; zum Zwischenspeichern kopiere EDX auf den Stack
+    
+    ; 1.2 Multiply the mixed products 32 Bit
+	
+    ; 1.2a mixed product 1	
+    mov  eax, [ebp+ 8]    ; copy the lower part of the first  uint64 value from Stack to register EAX
+    mov  ecx, [ebp+20]    ; copy the upper part of the second uint64 value from Stack to register ECX
+    mul  ecx              ; multipliy the value in register ECX With the value in register EAX
+    mov  [esp+ 8], eax    ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+12], edx    ; zum Zwischenspeichern kopiere EDX auf den Stack
+    
+    ; 1.2b mixed product 2
+    mov  eax, [ebp+12]    ; copy the upper part of the first  uint64 value from Stack to register EAX
+    mov  ecx, [ebp+16]    ; copy the lower part of the second uint64 value from Stack to register ECX
+    mul  ecx              ; multipliy the value in register ECX With the value in register EAX
+    mov  [esp+16], eax    ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+20], edx    ; zum Zwischenspeichern kopiere EDX auf den Stack 
+    
+    ; 1.3 multiply the lower 32 Bit
+	
+    mov  eax, [ebp+ 8]    ; copy the lower part of the first  uint64 value from Stack To register EAX
+    mov  ecx, [ebp+16]    ; copy the lower part of the second uint64 value from Stack To register ECX
+    mul  ecx              ; multipliy the value in register ECX With the value in register EAX
+    mov  [esp+24], eax    ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+28], edx    ; zum Zwischenspeichern kopiere EDX auf den Stack 
+    
+    ; 2. 6 Additionen
+    ; TODO TODO TODO  
+    
+	; copy the results to variant-pointer 
+	;
+	mov  eax, [ebp+24]    ; copy the pointer to a Variant from stack to register EAX
+	mov   dx, 14          ; copy the vartype for decimal it is 14 = &HE to the register dx
+	mov [eax+ 0], dx      ; copy the value in register dx to the Variant 
+	mov  edx, [esp+24]    ; copy from local variable back to register edx
+	mov [eax+ 8], edx     ; copy the value from register edx to the Variant
+	mov  edx, [esp+28]    ; copy from local variable back to register edx
+	mov [eax+ 12], edx     ; copy the value from register edx to the Variant
+    
+	add esp, 32
+	mov esp, ebp  ; copy the old stackpointer from ebp to esp back again
+	pop ebp       ; restore register ebp from stack
+    ret 20        ; return remove 20 bytes from call stack
     
 UInt64_Mul endp
+
+
+;                  v1: UInt32 (4-Byte), pDec_out: 4-Byte
+;UInt32_ToDec proc
+;    
+;    mov   eax, [esp+ 8] ; copy the pointer to a Variant from stack to register EAX
+;    mov    dx,  14      ; copy the vartype for decimal it is 14 = &HE to the register dx
+;    mov  [eax+ 0],  dx  ; copy the value in register dx to the Variant 
+;    mov   edx, [esp+ 4] ; copy the UInt32-value v1 to register edx 
+;    mov  [eax+ 8], edx  ; copy the UInt32-Value v1 to the Variant
+;    ret 8
+;    
+;UInt32_ToDec endp
+
+
+
+
+;;               v1: UInt32 (4-Byte), pLng_out: 4Byte
+UInt64_Test proc
+    
+	mov   ebp, esp    ; open a stackframe
+	mov   eax    , [esp+4]
+	mov  [eax+ 0], dx
+	mov   edx    , 1
+	mov  [eax+ 4], edx
+	mov   edx    , 2
+	mov  [eax+ 8], edx
+	mov   edx    , 3
+	mov  [eax+12], edx
+    
+	ret 8
+	
+UInt64_Test endp
+
 
 OPTION EPILOGUE:EpilogueDef
 OPTION PROLOGUE:PrologueDef

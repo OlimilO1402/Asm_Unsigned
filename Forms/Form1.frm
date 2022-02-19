@@ -1,14 +1,22 @@
 VERSION 5.00
 Begin VB.Form Form1 
    Caption         =   "Form1"
-   ClientHeight    =   6495
+   ClientHeight    =   8655
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   7710
    LinkTopic       =   "Form1"
-   ScaleHeight     =   6495
+   ScaleHeight     =   8655
    ScaleWidth      =   7710
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.CommandButton Command4 
+      Caption         =   "Command4"
+      Height          =   375
+      Left            =   6120
+      TabIndex        =   4
+      Top             =   120
+      Width           =   1215
+   End
    Begin VB.CommandButton Command3 
       Caption         =   "Command3"
       Height          =   375
@@ -63,12 +71,12 @@ Private Declare Sub RtlMoveMemory Lib "kernel32" (ByRef pDst As Any, ByRef pSrc 
 
 ' --------~~~~~~~~========++++++++######## '  UInt32 Operations  ' ########++++++++========~~~~~~~~-------- '
 Private Declare Function UInt32_Add_ref Lib "UnsignedOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
-Private Declare Function UInt32_Add Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_Sub Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_Mul Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 As Long, ByVal v2 As Long) As Currency
-Private Declare Function UInt32_Div Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Currency
+Private Declare Function UInt32_Add Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_Sub Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_Mul Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal V1 As Long, ByVal V2 As Long) As Currency
+Private Declare Function UInt32_Div Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal V1 As Long, ByVal V2 As Long) As Currency
 
 Private Declare Function UInt32_Shl Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
 Private Declare Function UInt32_Shr Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Long
@@ -80,13 +88,15 @@ Private Declare Function UInt32_Rcr Lib "UnsignedOps" (ByVal Value As Long, ByVa
 Private Declare Function UInt32_Shld Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Currency
 Private Declare Function UInt32_Shrd Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Currency
 
-Private Declare Function UInt32_And Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_Or Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function UInt32_And Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_Or Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
 Private Declare Function UInt32_Not Lib "UnsignedOps" (ByVal Value As Long) As Long
-Private Declare Function UInt32_XOr Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_XNOr Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_NOr Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function UInt32_NAnd Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Private Declare Function UInt32_XOr Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_XNOr Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_NOr Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function UInt32_NAnd Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+
+Private Declare Sub UInt32ToDec Lib "UnsignedOps" Alias "UInt32_ToDec" (ByVal Value As Long, ByRef Dec_out As Variant)
 
 Private Declare Sub UInt32_ToStr Lib "UnsignedOps" (ByVal Value As Long, ByVal pStr_out As LongPtr)
 Private Declare Sub UInt32_ToHex Lib "UnsignedOps" (ByVal Value As Long, ByVal pStr_out As LongPtr)
@@ -94,17 +104,21 @@ Private Declare Sub UInt32_ToBin Lib "UnsignedOps" (ByVal Value As Long, ByVal p
 
 'just some short aliases
 Private Declare Function U4Add_ref Lib "UnsignedOps" Alias "UInt32_UAdd_ref" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
-Private Declare Function U4Add Lib "UnsignedOps" Alias "UInt32_Add" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function U4Sub Lib "UnsignedOps" Alias "UInt32_Sub" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function U4Mul Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function U4MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 As Long, ByVal v2 As Long) As Currency
-Private Declare Function U4Div Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Long
-Private Declare Function U4DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Currency
+Private Declare Function U4Add Lib "UnsignedOps" Alias "UInt32_Add" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function U4Sub Lib "UnsignedOps" Alias "UInt32_Sub" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function U4Mul Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function U4MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal V1 As Long, ByVal V2 As Long) As Currency
+Private Declare Function U4Div Lib "UnsignedOps" Alias "UInt32_Div" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Private Declare Function U4DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal V1 As Long, ByVal V2 As Long) As Currency
 
 ' --------~~~~~~~~========++++++++######## '  UInt64 Operations  ' ########++++++++========~~~~~~~~-------- '
-Private Declare Function UInt64_Add Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
-Private Declare Function UInt64_Sub Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
-Private Declare Function UInt64_Mul Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency, ByRef Var_out As Variant) 'As Decimal
+Private Declare Function UInt64_Add Lib "UnsignedOps" (ByVal V1 As Currency, ByVal V2 As Currency) As Currency
+Private Declare Function UInt64_Sub Lib "UnsignedOps" (ByVal V1 As Currency, ByVal V2 As Currency) As Currency
+
+'Private Declare Function UInt64Mul Lib "UnsignedOps" Alias "UInt64_Mul" (ByVal V1 As Currency, ByVal V2 As Currency, ByRef Var_out As Variant) 'As Decimal
+Private Declare Sub UInt64Mul Lib "UnsignedOps" Alias "UInt64_Mul" (ByVal V1 As Currency, ByVal V2 As Currency, ByVal pVar_out As Long) 'As Decimal
+
+Private Declare Sub UInt64_Test Lib "UnsignedOps" (ByRef Dec_out As Variant) 'As Decimal
 
 Private Declare Sub UInt64_ToStr Lib "UnsignedOps" (ByVal Value As Currency, ByVal pStr_out As Long)
 Private Declare Sub UInt64_ToHex Lib "UnsignedOps" (ByVal Value As Currency, ByVal pStr_out As Long)
@@ -179,6 +193,15 @@ Private Function TDec_ToHex(Value As TDec) As String
                      Hex8(.LngVal3) & vbCrLf & Hex8(.LngVal1) & vbCrLf & Hex8(.LngVal2)
     End With
 End Function
+
+Private Sub Command4_Click()
+    Dim v As Variant
+    
+    UInt64_Test v
+    
+    MsgBox VarType(v)
+End Sub
+
 Private Sub Form_Load()
     Me.Caption = "Unsigned ops on signed Int32 - v" & App.Major & "." & App.Minor & "." & App.Revision
 End Sub
@@ -206,124 +229,124 @@ Sub Debug_Print(ByVal s As String)
 End Sub
 
 Sub TestDll()
-    Dim v1 As Long
-    Dim v2 As Long
+    Dim V1 As Long
+    Dim V2 As Long
     Dim lret As Long
     Dim cret As Currency
     Dim s As String
     
-    v1 = 123
-    v2 = 32
+    V1 = 123
+    V2 = 32
      
-    lret = UInt32_Add_ref(v1, v2)
+    lret = UInt32_Add_ref(V1, V2)
     Debug_Print lret '155
     
-    lret = UInt32_Add(v1, v2)
+    lret = UInt32_Add(V1, V2)
     Debug_Print lret '155
     
-    lret = UInt32_Sub(v1, v2)
+    lret = UInt32_Sub(V1, V2)
     Debug_Print lret '91
     
-    lret = UInt32_Mul(v1, v2)
+    lret = UInt32_Mul(V1, V2)
     Debug_Print lret '3936
     
-    v1 = 2147483647
-    v2 = 100
-    cret = UInt32_MulB(v1, v2)
+    V1 = 2147483647
+    V2 = 100
+    cret = UInt32_MulB(V1, V2)
     Debug_Print cret '21474836,4700
     
-    v1 = 123456789
-    v2 = 33
-    lret = UInt32_Div(v1, v2)
+    V1 = 123456789
+    V2 = 33
+    lret = UInt32_Div(V1, V2)
     Debug_Print lret '3741114
     
-    v1 = &HCAFE&
-    lret = UInt32_Shl(v1, 8)
-    Debug_Print "Shl(" & Hex(v1) & ", 8) = " & Hex(lret)
+    V1 = &HCAFE&
+    lret = UInt32_Shl(V1, 8)
+    Debug_Print "Shl(" & Hex(V1) & ", 8) = " & Hex(lret)
     
-    v1 = UInt32_Shr(lret, 8)
-    Debug_Print "Shr(" & Hex(lret) & ", 8) = " & Hex(v1)
+    V1 = UInt32_Shr(lret, 8)
+    Debug_Print "Shr(" & Hex(lret) & ", 8) = " & Hex(V1)
     
-    v1 = -v1
-    lret = UInt32_Sar(v1, 8)
-    Debug_Print "Sar(" & Hex(v1) & ", 8) = " & Hex(lret)
+    V1 = -V1
+    lret = UInt32_Sar(V1, 8)
+    Debug_Print "Sar(" & Hex(V1) & ", 8) = " & Hex(lret)
     
-    v1 = &HCAFEBABE
-    lret = UInt32_Rol(v1, 8)
-    Debug_Print "Rol(" & Hex(v1) & ", 8) = " & Hex(lret)
+    V1 = &HCAFEBABE
+    lret = UInt32_Rol(V1, 8)
+    Debug_Print "Rol(" & Hex(V1) & ", 8) = " & Hex(lret)
     
-    v1 = &HCAFEBABE
-    lret = UInt32_Ror(v1, 8)
-    Debug_Print "Ror(" & Hex(v1) & ", 8) = " & Hex(lret)
+    V1 = &HCAFEBABE
+    lret = UInt32_Ror(V1, 8)
+    Debug_Print "Ror(" & Hex(V1) & ", 8) = " & Hex(lret)
     
-    v1 = &HCAFE&
-    lret = UInt32_Rcl(v1, 12)
-    Debug_Print "Rcl(" & Hex(v1) & ", 12) = " & Hex(lret)
+    V1 = &HCAFE&
+    lret = UInt32_Rcl(V1, 12)
+    Debug_Print "Rcl(" & Hex(V1) & ", 12) = " & Hex(lret)
     
-    v1 = &HCAFE0000
-    lret = UInt32_Rcr(v1, 12)
-    Debug_Print "Rcr(" & Hex(v1) & ", 12) = " & Hex(lret)
+    V1 = &HCAFE0000
+    lret = UInt32_Rcr(V1, 12)
+    Debug_Print "Rcr(" & Hex(V1) & ", 12) = " & Hex(lret)
     
-    v1 = &HCAFEBABE
-    v2 = &HB000&
-    lret = UInt32_And(v1, v2)
-    Debug_Print "And(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
+    V1 = &HCAFEBABE
+    V2 = &HB000&
+    lret = UInt32_And(V1, V2)
+    Debug_Print "And(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
     
-    v1 = &HCAFE0ABE
-    v2 = &HB000&
-    lret = UInt32_Or(v1, v2)
-    Debug_Print "Or(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
+    V1 = &HCAFE0ABE
+    V2 = &HB000&
+    lret = UInt32_Or(V1, V2)
+    Debug_Print "Or(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
     
-    v1 = &H35014541
-    lret = UInt32_Not(v1)
-    Debug_Print "Not(" & Hex(v1) & ") = " & Hex(lret)
+    V1 = &H35014541
+    lret = UInt32_Not(V1)
+    Debug_Print "Not(" & Hex(V1) & ") = " & Hex(lret)
     
-    v1 = &HCAFE0ABE
-    v2 = &HCAFEB000
-    lret = UInt32_XOr(v1, v2)
-    Debug_Print "XOr(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
+    V1 = &HCAFE0ABE
+    V2 = &HCAFEB000
+    lret = UInt32_XOr(V1, V2)
+    Debug_Print "XOr(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
     
-    v1 = &HCAFE0ABE
-    v2 = &HCAFEB000
-    lret = UInt32_XNOr(v1, v2)
-    Debug_Print "XNOr(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
+    V1 = &HCAFE0ABE
+    V2 = &HCAFEB000
+    lret = UInt32_XNOr(V1, V2)
+    Debug_Print "XNOr(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
     
-    v1 = &HCAFE0ABE
-    v2 = &HCAFEB000
-    lret = UInt32_NOr(v1, v2)
-    Debug_Print "NOr(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
+    V1 = &HCAFE0ABE
+    V2 = &HCAFEB000
+    lret = UInt32_NOr(V1, V2)
+    Debug_Print "NOr(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
     
-    v1 = &HCAFE0ABE
-    v2 = &HCAFEB000
-    lret = UInt32_NAnd(v1, v2)
-    Debug_Print "NAnd(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
+    V1 = &HCAFE0ABE
+    V2 = &HCAFEB000
+    lret = UInt32_NAnd(V1, V2)
+    Debug_Print "NAnd(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
     
     
     
 
-    v1 = -1
+    V1 = -1
     s = Space(10)
-    UInt32_ToStr v1, StrPtr(s)
+    UInt32_ToStr V1, StrPtr(s)
     Debug_Print Trim0(s)    '4294967295
     
-    v1 = -1
+    V1 = -1
     s = Space(8)
-    UInt32_ToHex v1, StrPtr(s)
+    UInt32_ToHex V1, StrPtr(s)
     Debug_Print Trim0(s)    '4294967295
     
-    v1 = -1
+    V1 = -1
     s = Space(32)
-    UInt32_ToBin v1, StrPtr(s)
+    UInt32_ToBin V1, StrPtr(s)
     Debug_Print Trim0(s)    '4294967295
     
-    v1 = 32
-    v2 = 65
+    V1 = 32
+    V2 = 65
     
-    lret = U4Add(U4Sub(100, U4Mul(2, U4Div(v1, 4))), U4Div(v2, U4Add(6, 7)))
+    lret = U4Add(U4Sub(100, U4Mul(2, U4Div(V1, 4))), U4Div(V2, U4Add(6, 7)))
     s = Space(10): UInt32_ToStr lret, StrPtr(s)
     Debug_Print Trim0(s)
     
-    lret = (100 - (2 * v1 / 4)) + (v2 / (6 + 7))
+    lret = (100 - (2 * V1 / 4)) + (V2 / (6 + 7))
     s = Space(10): UInt32_ToStr lret, StrPtr(s)
     Debug_Print Trim0(s)
     
@@ -341,6 +364,16 @@ Sub TestDll()
     s = Space(20): UInt64_ToStr cret, StrPtr(s)
     Debug_Print Trim0(s)    '7223372036854775805
     
+    V1 = &HCAFEBABE
+    Dim d: d = UInt32_ToDec(V1)
+    Debug_Print VarType(d) & " " & CStr(d)  '& " " & Hex(d) '14 3405691582
+    
+    c1 = 12345.6789
+    c2 = 98765.4321
+    
+    d = UInt64_Mul(c1, c2)
+    Debug_Print VarType(d) & " " & CStr(d) '14 121932631112635269
+    
     s = Space(20): UInt64_ToHex cret, StrPtr(s)
     Debug_Print Trim0(s)
     
@@ -349,6 +382,14 @@ Sub TestDll()
     s = Space(66): UInt64_ToBin cret, StrPtr(s)
     Debug_Print Trim0(s)
 End Sub
+
+Private Function UInt32_ToDec(ByVal Value As Long) As Variant
+    UInt32ToDec Value, UInt32_ToDec
+End Function
+
+Private Function UInt64_Mul(ByVal V1 As Currency, ByVal V2 As Currency) As Variant
+    UInt64Mul V1, V2, VarPtr(UInt64_Mul)
+End Function
 
 Sub Test_ToStr()
 

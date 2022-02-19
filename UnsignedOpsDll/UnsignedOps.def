@@ -21,15 +21,21 @@ EXPORTS UInt32_Rcr       ;
 
 EXPORTS UInt32_And       ;
 EXPORTS UInt32_Or        ;
-EXPORTS UInt32_Not       ;
 EXPORTS UInt32_XOr       ;
+EXPORTS UInt32_Not       ;
+EXPORTS UInt32_NAnd      ;
 EXPORTS UInt32_XNOr      ;
 EXPORTS UInt32_NOr       ;
-EXPORTS UInt32_NAnd      ;
+
+EXPORTS UInt32_ToDec     ;
 
 EXPORTS UInt64_Add       ;
 EXPORTS UInt64_Sub       ;
 EXPORTS UInt64_Mul       ;
+EXPORTS UInt64_Test      ;
+
 EXPORTS UInt64_ToStr     ;
 EXPORTS UInt64_ToHex     ;
 EXPORTS UInt64_ToBin     ;
+
+EXPORTS UInt64_Test      ;
