@@ -293,17 +293,17 @@ UInt32_NAnd endp
 ;                  v1: UInt32 (4-Byte), pDec_out: 4-Byte
 UInt32_ToDec proc
     
-    mov   edi    , [esp+ 8]    ; copy the pointer to a Variant from stack to register EAX
+    mov   eax    , [esp+ 8]    ; copy the pointer to a Variant from stack to register EAX
     mov    dx    ,      14     ; copy the vartype-word for decimal it is 14 = &HE to the register dx
-    mov  [edi+ 0],   dx        ; copy the value in register dx to the Variant to the first int16-slot
+    mov  [eax+ 0],   dx        ; copy the value in register dx to the Variant to the first int16-slot
     mov    dx    ,       0     ; copy the sign-word, it is 0 as we want to have unsigned of course
-    mov  [edi+ 2],   dx        ; copy the value in register dx to the Variant 
+    mov  [eax+ 2],   dx        ; copy the value in register dx to the Variant 
     mov   edx    ,       0     ; copy the value 0 to the register EDX
-    mov  [edi+ 4],  edx        ; copy the value in register EDX to the Variant to the second int32-slot
+    mov  [eax+ 4],  edx        ; copy the value in register EDX to the Variant to the second int32-slot
     mov   edx    , [esp+ 4]    ; copy the UInt32-value v1 to register EDX 
-    mov  [edi+ 8],  edx        ; copy the UInt32-Value v1 to the Variant
+    mov  [eax+ 8],  edx        ; copy the UInt32-Value v1 to the Variant
     mov   edx    ,       0     ; copy the value 0 to the register EDX
-    mov  [edi+12], edx         ; copy the value from register EDX to the Variant to the fourth int32-slot
+    mov  [eax+12], edx         ; copy the value from register EDX to the Variant to the fourth int32-slot
     ret        8
     
 UInt32_ToDec endp
@@ -346,57 +346,83 @@ UInt64_Sub endp
 ;                ByVal V1 As Currency, ByVal V2 As Currency, ByRef Dec_out As Variant; is the same as:
 ;                ByVal V1 As Currency, ByVal V2 As Currency, ByVal pDec_out As LongPtr
 ;                      V1: 8-Byte,           V2: 8-Byte,           pDec_out: 4-Byte
-;                multiplier(64)    , multiplicand(64)  , pDestination(32)
-;                ByVal mp As UInt64, ByVal mc as Uint64, ByRef prd As UInt128
-;                ByVal V1 As Currency, ByVal V2 As Currency, ByVal pDec_out As LongPtr
 UInt64_Mul proc
     
-	;int 3
+    ;prepare stack frame
+    push  ebp               ; save the register ebp to the stack
+    mov   ebp    , esp      ; save the current stack pointer to register EBP
+    sub   esp    , 32       ; allocate 32 Bytes of new stack memory for local variables = 4 UInt64 (4*8 Bytes)
+    	
+    ; 1. Multiplications
+    
+    ; 1.1 Multiply the upper 32 Bit 
+    
+    mov   eax    , [ebp+12] ; copy the upper part of the first  uint64 value from Stack to register EAX
+    mov   ecx    , [ebp+20] ; copy the upper part of the second uint64 value from Stack to register ECX
+    mul   ecx               ; multipliy the value in register ECX With the value in register EAX
+    mov  [esp+ 0], eax      ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+ 4], edx      ; zum Zwischenspeichern kopiere EDX auf den Stack
+    
+    ; 1.2 Multiply the mixed products 32 Bit
+    
+    ; 1.2a mixed product 1	
+    mov   eax    , [ebp+ 8] ; copy the lower part of the first  uint64 value from Stack to register EAX
+    mov   ecx    , [ebp+20] ; copy the upper part of the second uint64 value from Stack to register ECX
+    mul   ecx               ; multipliy the value in register ECX With the value in register EAX
+    mov  [esp+ 8], eax      ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+12], edx      ; zum Zwischenspeichern kopiere EDX auf den Stack
+    
+    ; 1.2b mixed product 2
+    mov   eax    , [ebp+12] ; copy the upper part of the first  uint64 value from Stack to register EAX
+    mov   ecx    , [ebp+16] ; copy the lower part of the second uint64 value from Stack to register ECX
+    mul   ecx               ; multipliy the value in register ECX With the value in register EAX
+    mov  [esp+16], eax      ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+20], edx      ; zum Zwischenspeichern kopiere EDX auf den Stack 
+    
+    ; 1.3 multiply the lower 32 Bit
 	
-	; 1. prepare Variant as type Decimal
-    mov   edi    , [esp+20] ; copy the pointer to a Variant from stack to register EDI
+    mov   eax    , [ebp+ 8] ; copy the lower part of the first  uint64 value from Stack to register EAX
+    mov   ecx    , [ebp+16] ; copy the lower part of the second uint64 value from Stack to register ECX
+    mul   ecx               ; multiply the value in register ECX With the value in register EAX
+    mov  [esp+24], eax      ; zum Zwischenspeichern kopiere EAX auf den Stack
+    mov  [esp+28], edx      ; zum Zwischenspeichern kopiere EDX auf den Stack 
+    	
+    ; 2. copy the results to a pointer as variant of type decimal
+    ;vt : 000E
+    ;nnk: 00
+    ;sgn: 00
+    ;lv3: 00000000
+    ;lv1: 80000000
+    ;lv2: 00000000
+	; 2.1 prepare Variant As Type Decimal
+    mov   ebx    , [ebp+24] ; copy the pointer to a Variant from stack to register EBX
     mov    dx    ,      14  ; copy the vartype-word for decimal it is 14 = &HE to the register dx	
-    mov  [edi+ 0],   dx     ; copy the value in register dx to the Variant to the first int16-slot
-    mov    dl    ,       0  ; copy the number of precision it is 0 to the register dl (->integer, otherwise between 0 and 255)
-	mov    dh    ,       0  ; copy the sign-word it is 0 to the register dh (->unsigned, otherwise &H80 is negative sign)
-    mov  [edi+ 2],   dx     ; copy the value in register dx to the Variant into the second int16-slot
-	;mit 0 vorbelegen
-	;mov   ecx    ,       0  ; copy 0 to the register ECX
-    ;mov  [edi+ 4],  ecx     ; copy the register ECX to the Variant into the second Int32 slot 
-	;mov  [edi+ 8],  ecx
-	;mov  [edi+12],  ecx	
-	
-    ; 2. Multiply the Lo dword of multiplier times Lo dword of multiplicand.  
-    mov   eax    , [esp+ 4] ; copy the Lo dword of multiplier to register EAX
-    mul  dword ptr [esp+12] ; Multiply Lo dwords EAX * ECX    
-    mov  [edi+ 8],  eax     ; Save Lo dword of product to the third Variant slot
-	mov   ecx    ,  edx     ; Save Hi dword of product into the register EBX
-	
-	 ; 3. Multiply Lo dword of multiplier times Hi dword of Multiplicand
-	mov   eax    , [esp+ 4] ; copy the lo dword of multiplier to register EAX
-	mul  dword ptr [esp+16] ; multiply register EAX times Hi dword of Multiplicand
-	add   eax    ,  ecx     ; Add to the partial product
-	adc   edx    ,       0  ; add the carryflag to EDX which contains the hi dword of the multiplication-result
-	mov   ebx    ,  eax     ; Save partial product for now
-	mov   ecx    ,  edx     ;
-	
-    ; 4. Multiply the Hi dword of multiplier times Lo dword of Multiplicand
-    mov   eax    , [esp+ 8] ; Get Hi dword of Multiplier 
-	mul  dword ptr [esp+12] ; Multiply by Lo dword of Multiplicand
-	add   eax    ,  ebx     ; Add to the partial product. 
-    mov  [edi+12],  eax     ; Save the partial product.    
-	adc   ecx    ,  edx     ; Add in the carry!
-    pushfd                  ; Save carry out here.
+    mov  [ebx+ 0],   dx     ; copy the value in register dx to the Variant to the first int16-slot
+    mov    dl    ,       0  ; copy the number of precision it is 0 as we want to have integer of course, otherwise any number between 0 and 255 
+	mov    dh    ,       0  ; copy the sign-word it is 0 as we want to have unsigned of course, otherwise &H80 is negative sign
+    mov  [ebx+ 2],   dx     ; copy the value in register dx to the Variant to the second int16-slot
+    ;mov   edx    ,       0  ; copy the value 0 to the register EDX
+    ;mov  [ebx+ 4],  edx     ; copy the value in register EDX to the Variant to the second int32-slot
+    mov   edx    , [esp+24] ; copy the lower int32 from local variable on the stack back to register EDX
+    mov  [ebx+ 8],  edx     ; copy the value from register EDX to the Variant to the third int32-slot
+    ;mov   edx    , [esp+28] ; copy from local variable back to register EDX
+    ;mov  [ebx+12],  edx     ; copy the value from register EDX to the Variant
 
-    ; 5. Multiply the two Hi dwords together,
-    mov   eax    , [esp+ 8] ; Get Hi dword of Multiplier
-    mul  dword ptr [esp+16] ; Multiply by Hi dword of Multiplicand
-    popfd                   ; Retrieve carry from above
-    adc   eax    ,  ecx     ; Add in partial product from above. 
-    adc   edx    ,       0  ; Don't forget the carry!
-    mov  [edi+ 4],  eax     ; Save the partial product.
-    ;mov  [edi+ 0],  edx     ; Nope! sorry we only have 96 Bit
+    ; 2. Additions
+	mov   eax    , [esp+ 8] ; copy the lower part of the first mixed product to the register EAX
+	add   eax    , [esp+16] ; add the lower part of the second mixed product to the register EAX
+	add   eax    , [esp+28] ; add the upper part of the lower multiplication to the register EAX
+    mov  [ebx+12],  eax     ; copy the results from the addition to the variant to the fourth int32-slot
 
+    mov   eax    , [esp+ 0] ; copy the lower part of the higher product to the register EAX
+    adc   eax    , [esp+12] ; add the higher part of the first mixed product to the register EAX
+	add   eax    , [esp+20] ; add the higher part of the second mixed product to the register EAX
+    mov  [ebx+ 4],  eax     ; copy the results from the addition to the variant to the fourth int32-slot
+	
+	; remove stack frame
+    add esp, 32
+    mov esp, ebp  ; copy the old stackpointer from ebp to esp back again
+    pop ebp       ; restore register ebp from stack
     ret 20        ; return remove 20 bytes from call stack
     
 UInt64_Mul endp

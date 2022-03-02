@@ -20,7 +20,7 @@ Begin VB.Form Form1
    Begin VB.CommandButton Command3 
       Caption         =   "Command3"
       Height          =   375
-      Left            =   4200
+      Left            =   4320
       TabIndex        =   3
       Top             =   120
       Width           =   1575
@@ -131,20 +131,6 @@ Private Declare Sub UInt64_ToBin Lib "UnsignedOps" (ByVal Value As Currency, ByV
 '    int radix
 ');
 
-Private Type TVar
-    Value As Variant
-End Type
-
-'https://www.vbarchiv.net/workshop/workshop_84-der-gebrauch-des-datentyps-decimal.html
-Private Type TDec
-    vt As Integer ' &HE = 14
-    nnk As Byte   ' Anzahl der Nachkommastellen
-    sgn As Byte   ' Vorzeichen
-    LngVal3 As Long
-    LngVal1 As Long
-    LngVal2 As Long
-End Type
-
 
 '; int32_max = 2147483647
 ';uint32_max = 4294967294
@@ -154,10 +140,11 @@ End Type
 
 '; 79228162514264337593543950335
 Private Sub Command3_Click()
-    Dim c1 As Currency
-    Dim c2 As Currency
-    c1 = CCur(123456789012345#)
-    c2 = CCur(123456789012345#)
+    Form2.Show
+    'Dim c1 As Currency
+    'Dim c2 As Currency
+    'c1 = CCur(123456789012345#)
+    'c2 = CCur(123456789012345#)
     
     'Dim d As Variant
     'd = CDec(CDec(c1) * CDec(c2))
@@ -166,33 +153,26 @@ Private Sub Command3_Click()
     
     'MsgBox Hex(VarType(d)) '14 = &HE
     
-    Dim tvv As TVar
-    Dim ti8 As TDec
-    
-    tvv.Value = CDec("1")
-    tvv.Value = CDec("-1")
-    tvv.Value = CDec("2147483647")
-    tvv.Value = CDec("2147483648")
-    tvv.Value = CDec("4294967294")
-    tvv.Value = CDec("4294967295")
-    tvv.Value = CDec("9223372036854775807")
-    tvv.Value = CDec("9223372036854775808")
-    tvv.Value = CDec("18446744073709551615")
-    tvv.Value = CDec("18446744073709551616")
-    tvv.Value = CDec("79228162514264337593543950335") '* CDec("1024") ' + CDec("1023")
-    
-    RtlMoveMemory ti8, tvv, 16
-    
-    MsgBox "Biggest 96-bit unsigned value: " & vbCrLf & TDec_ToHex(ti8) & vbCrLf & CStr(tvv.Value)
+'    Dim tvv As TVar
+'    Dim ti8 As TDec
+'
+'    tvv.Value = CDec("1")
+'    tvv.Value = CDec("-1")
+'    tvv.Value = CDec("2147483647")
+'    tvv.Value = CDec("2147483648")
+'    tvv.Value = CDec("4294967294")
+'    tvv.Value = CDec("4294967295")
+'    tvv.Value = CDec("9223372036854775807")
+'    tvv.Value = CDec("9223372036854775808")
+'    tvv.Value = CDec("18446744073709551615")
+'    tvv.Value = CDec("18446744073709551616")
+'    tvv.Value = CDec("79228162514264337593543950335") '* CDec("1024") ' + CDec("1023")
+'
+'    RtlMoveMemory ti8, tvv, 16
+'
+'    MsgBox "Biggest 96-bit unsigned value: " & vbCrLf & TDec_ToHex(ti8) & vbCrLf & CStr(tvv.Value)
     
 End Sub
-
-Private Function TDec_ToHex(Value As TDec) As String
-    With Value
-        TDec_ToHex = Hex4(.vt) & vbCrLf & Hex2(.nnk) & vbCrLf & Hex2(.sgn) & vbCrLf & _
-                     Hex8(.LngVal3) & vbCrLf & Hex8(.LngVal1) & vbCrLf & Hex8(.LngVal2)
-    End With
-End Function
 
 Private Sub Command4_Click()
     Dim v As Variant
@@ -203,7 +183,7 @@ Private Sub Command4_Click()
 End Sub
 
 Private Sub Form_Load()
-    Me.Caption = "Unsigned ops on signed Int32 - v" & App.Major & "." & App.Minor & "." & App.Revision
+    Me.Caption = "Unsigned operations on signed Int32+Int64 - v" & App.Major & "." & App.Minor & "." & App.Revision
 End Sub
 
 Private Sub Form_Resize()
@@ -373,6 +353,17 @@ Sub TestDll()
     
     d = UInt64_Mul(c1, c2)
     Debug_Print VarType(d) & " " & CStr(d) '14 121932631112635269
+    
+    '628239210217683
+    '41419963890366
+
+    c1 = 214748.3647 '1234.5678 '62823921021.7683
+    c2 = 214748.3647 '4141996389.0366
+    '2147483647*2147483647=4611686014132420609
+    
+    d = UInt64_Mul(c1, c2)
+    Debug_Print VarType(d) & " " & CStr(d) '14 26021645401728484450406541978
+                                              '
     
     s = Space(20): UInt64_ToHex cret, StrPtr(s)
     Debug_Print Trim0(s)
