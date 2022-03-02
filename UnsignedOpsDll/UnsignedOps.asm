@@ -351,9 +351,9 @@ UInt64_Sub endp
 ;                ByVal V1 As Currency, ByVal V2 As Currency, ByVal pDec_out As LongPtr
 UInt64_Mul proc
     
-	;int 3
-	
-	; 1. prepare Variant as type Decimal
+    ;int 3
+    
+    ; 1. prepare Variant as type Decimal
     mov   edi    , [esp+20] ; copy the pointer to a Variant from stack to register EDI
     mov    dx    ,      14  ; copy the vartype-word for decimal it is 14 = &HE to the register dx	
     mov  [edi+ 0],   dx     ; copy the value in register dx to the Variant to the first int16-slot
@@ -389,8 +389,10 @@ UInt64_Mul proc
     pushfd                  ; Save carry out here.
     
     ; 5. Multiply the two Hi dwords together,
-    mov   eax    , [esp+ 8] ; Get Hi dword of Multiplier
-    mul  dword ptr [esp+16] ; Multiply by Hi dword of Multiplicand
+    ;mov   eax    , [esp+ 8] ; Get Hi dword of Multiplier
+	mov   eax    , [esp+12]
+    ;mul  dword ptr [esp+16] ; Multiply by Hi dword of Multiplicand
+	mul  dword ptr [esp+20]
     popfd                   ; Retrieve carry from above
     adc   eax    ,  ecx     ; Add in partial product from above. 
     adc   edx    ,       0  ; Don't forget the carry!
