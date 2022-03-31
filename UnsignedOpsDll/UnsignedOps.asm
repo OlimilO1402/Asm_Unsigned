@@ -362,7 +362,7 @@ UInt64_Mul proc
     mov    dl    ,       0  ; copy the number of precision it is 0 to the register dl (->integer, otherwise between 0 and 255)
     mov    dh    ,       0  ; copy the sign-word it is 0 to the register dh (->unsigned, otherwise &H80 is negative sign)
     mov  [edi+ 2],   dx     ; copy the value in register dx to the Variant into the second int16-slot
-	push  ebx               ; save the register ebx to the stack
+    push  ebx               ; save the register ebx to the stack
     ;mit 0 vorbelegen
     ;mov   ecx    ,       0  ; copy 0 to the register ECX
     ;mov  [edi+ 4],  ecx     ; copy the register ECX to the Variant into the second Int32 slot 
@@ -393,17 +393,17 @@ UInt64_Mul proc
     
     ; 5. Multiply the two Hi dwords together,
     ;mov   eax    , [esp+ 8] ; Get Hi dword of Multiplier
-	mov   eax    , [ebp+12]
+    mov   eax    , [ebp+12]
     ;mul  dword ptr [esp+16] ; Multiply by Hi dword of Multiplicand
-	mul  dword ptr [ebp+20]
+    mul  dword ptr [ebp+20]
     popfd                   ; Retrieve carry from above
     adc   eax    ,  ecx     ; Add in partial product from above. 
     adc   edx    ,       0  ; Don't forget the carry!
     mov  [edi+ 4],  eax     ; Save the partial product.
     ;mov  [edi+ 0],  edx     ; Nope! sorry we only have 96 Bit
     pop   ebx	
-	pop   edi               ; recover register edi
-	pop   ebp               ; recover register ebp
+    pop   edi               ; recover register edi
+    pop   ebp               ; recover register ebp
     ret       20            ; return remove 20 bytes from call stack
     
 UInt64_Mul endp
