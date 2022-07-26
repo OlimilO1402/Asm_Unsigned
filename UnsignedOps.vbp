@@ -6,6 +6,7 @@ Module=Midiv; Modules\Midiv.bas
 Module=MString; ..\Sys_Strings\Modules\MString.bas
 Module=MPtr; ..\Ptr_Pointers\Modules\MPtr.bas
 Form=Forms\Form2.frm
+Module=MUnsigned; Modules\MUnsigned.bas
 ResFile32="Resources\MyRes.res"
 IconForm="Form1"
 Startup="Form1"

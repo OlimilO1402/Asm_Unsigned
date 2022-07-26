@@ -1,41 +1,71 @@
 LIBRARY UnsignedOps
 
-EXPORTS UInt32_Add       ;
-EXPORTS UInt32_Sub       ;
-EXPORTS UInt32_Mul       ;
-EXPORTS UInt32_Div       ;
-EXPORTS UInt32_ToStr     ;
-EXPORTS UInt32_ToHex     ;
-EXPORTS UInt32_ToBin     ;
-EXPORTS UInt32_Add_ref   ;
+; ARITHMETIC Operations
+  ; ------======  Unsigned Int16 arithmetic operations  ======------
+    EXPORTS UInt16_Add       ;
+    EXPORTS UInt16_Sub       ;
+    EXPORTS UInt16_Mul       ;
+    EXPORTS UInt16_Div       ;
 
-EXPORTS UInt32_Shl       ;
-EXPORTS UInt32_Shld      ; 
-EXPORTS UInt32_Shr       ;
-EXPORTS UInt32_Shrd      ; 
-EXPORTS UInt32_Sar       ;
-EXPORTS UInt32_Rol       ;
-EXPORTS UInt32_Ror       ;
-EXPORTS UInt32_Rcl       ;
-EXPORTS UInt32_Rcr       ;
+  ; ------======  Unsigned Int32 arithmetic operations  ======------
+    EXPORTS UInt32_Add       ;
+    EXPORTS UInt32_Sub       ;
+    EXPORTS UInt32_Mul       ;
+    EXPORTS UInt32_Div       ;
+    ; additionally as an example for ByRef:
+	EXPORTS UInt32_Add_ref   ;
 
-EXPORTS UInt32_And       ;
-EXPORTS UInt32_Or        ;
-EXPORTS UInt32_XOr       ;
-EXPORTS UInt32_Not       ;
-EXPORTS UInt32_NAnd      ;
-EXPORTS UInt32_XNOr      ;
-EXPORTS UInt32_NOr       ;
+  ; ------======  Unsigned Int64 arithmetic operations  ======------
+    EXPORTS UInt64_Add       ;
+    EXPORTS UInt64_Sub       ;
+    EXPORTS UInt64_Mul       ;
+    EXPORTS UInt64_Div       ;
 
-EXPORTS UInt32_ToDec     ;
+; ADDITIONAL Operations
+  ; ------======  Unsigned Int32 shifting operations  ======------
+    EXPORTS UInt32_Shl       ;
+    EXPORTS UInt32_Shld      ;
+    EXPORTS UInt32_Shr       ;
+    EXPORTS UInt32_Shrd      ;
+    EXPORTS UInt32_Sar       ;
+    EXPORTS UInt32_Rol       ;
+    EXPORTS UInt32_Ror       ;
+    EXPORTS UInt32_Rcl       ;
+    EXPORTS UInt32_Rcr       ;
 
-EXPORTS UInt64_Add       ;
-EXPORTS UInt64_Sub       ;
-EXPORTS UInt64_Mul       ;
-EXPORTS UInt64_Test      ;
+  ; ------======  Unsigned Int32 boolean operations  ======------
+    EXPORTS UInt32_And       ;
+    EXPORTS UInt32_Or        ;
+    EXPORTS UInt32_XOr       ;
+    EXPORTS UInt32_Not       ;
+    EXPORTS UInt32_NAnd      ;
+    EXPORTS UInt32_XNOr      ;
+    EXPORTS UInt32_NOr       ;
 
-EXPORTS UInt64_ToStr     ;
-EXPORTS UInt64_ToHex     ;
-EXPORTS UInt64_ToBin     ;
+; INPUT / OUTPUT functions
+  ; ------======  Unsigned Int16 input/output functions  ======------
+    EXPORTS UInt16_ToStr     ;
+    EXPORTS UInt16_ToHex     ;
+    EXPORTS UInt16_ToBin     ;
+    EXPORTS UInt16_ToDec     ;
+    EXPORTS UInt16_Parse     ;
 
-EXPORTS UInt64_Test      ;
+  ; ------======  Unsigned Int32 input/output functions  ======------
+    EXPORTS UInt32_ToStr     ;
+    EXPORTS UInt32_ToHex     ;
+    EXPORTS UInt32_ToBin     ;
+    EXPORTS UInt32_ToDec     ;
+    EXPORTS UInt32_Parse     ;
+
+  ; ------======  Unsigned Int64 input/output functions  ======------
+    EXPORTS UInt64_ToStr     ;
+    EXPORTS UInt64_ToHex     ;
+    EXPORTS UInt64_ToBin     ;
+    EXPORTS UInt32_ToDec     ;
+    EXPORTS UInt64_Parse     ;
+
+
+
+
+;EXPORTS UInt64_Test      ;
+
