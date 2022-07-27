@@ -148,16 +148,8 @@ Private Sub Command5_Click()
     
     i1 = UInt16_Parse(s)
     MsgBox UInt16_ToStr(i1)
-    
-    
-    
-    s = "123456" & vbNullChar
-    
-    Dim l As Long
-    
-    l = UInt32_Parse(StrPtr(s))
-    
-    MsgBox l
+    MsgBox UInt16_ToHex(i1)
+    MsgBox UInt16_ToBin(i1)
     
 End Sub
 

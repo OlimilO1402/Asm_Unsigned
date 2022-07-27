@@ -89,23 +89,25 @@ Public Declare Sub UInt64_Test Lib "UnsignedOps" (ByRef Dec_out As Variant) 'As 
 Public Declare Function UInt32_Add_ref Lib "UnsignedOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int16 input/output functions  ' ########++++++++========~~~~~~~~-------- '
-Public Function UInt16_ToStr(ByVal Value As Integer) As String
+Private Function GetLong(ByVal Value As Integer) As Long
     Dim t2i As T2Int: t2i.Value0 = Value
-    Dim tl As TLong: LSet tl = t2i
+    Dim tl  As TLong:    LSet tl = t2i
+    GetLong = tl.Value
+End Function
+Public Function UInt16_ToStr(ByVal Value As Integer) As String
     UInt16_ToStr = Space(5) & vbNullChar
-    UInt16ToStr tl.Value, StrPtr(UInt16_ToStr)
-    'UInt16ToStr Value, StrPtr(UInt16_ToStr)
+    UInt16ToStr GetLong(Value), StrPtr(UInt16_ToStr)
     UInt16_ToStr = Trim0(UInt16_ToStr)
 End Function
 Public Function UInt16_ToHex(ByVal Value As Long) As String
-    UInt16_ToHex = Space(4)
-    UInt16ToHex Value, StrPtr(UInt16_ToHex)
-    UInt16_ToHex = "&H" & Trim$(UInt16_ToHex)
+    UInt16_ToHex = Space(4) & vbNullChar
+    UInt16ToHex GetLong(Value), StrPtr(UInt16_ToHex)
+    UInt16_ToHex = "&H" & Trim0(UInt16_ToHex)
 End Function
 Public Function UInt16_ToBin(ByVal Value As Long) As String
-    UInt16_ToBin = Space(16)
-    UInt16ToBin Value, StrPtr(UInt16_ToBin)
-    UInt16_ToBin = "&B" & Trim$(UInt16_ToBin)
+    UInt16_ToBin = Space(16) & vbNullChar
+    UInt16ToBin GetLong(Value), StrPtr(UInt16_ToBin)
+    UInt16_ToBin = "&B" & Trim0(UInt16_ToBin)
 End Function
 Public Function UInt16_Parse(ByVal Value As String) As Integer
     Value = Value & vbNullChar
@@ -113,8 +115,6 @@ Public Function UInt16_Parse(ByVal Value As String) As Integer
     tl.Value = UInt16Parse(StrPtr(Value))
     If tl.Value <= 65535 Then
         LSet t2i = tl
-        Debug.Print t2i.Value0
-        Debug.Print t2i.Value1
         UInt16_Parse = t2i.Value0
     Else
         'give error information, like overflow etc
