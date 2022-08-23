@@ -1,12 +1,20 @@
 Attribute VB_Name = "MUnsigned"
 Option Explicit
-Private Type TLong
+Private Type TLng
     Value As Long
 End Type
 Private Type T2Int
     Value0 As Integer
     Value1 As Integer
 End Type
+Private Type T2Lng
+    Value0 As Long
+    Value1 As Long
+End Type
+Private Type TCur
+    Value As Currency
+End Type
+
 ' ARITHMETIC Operations
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int16 arithmetic operations  ' ########++++++++========~~~~~~~~-------- '
 Public Declare Function UInt16_Add Lib "UnsignedOps" (ByVal V1 As Integer, ByVal V2 As Integer) As Integer
@@ -89,24 +97,24 @@ Public Declare Sub UInt64_Test Lib "UnsignedOps" (ByRef Dec_out As Variant) 'As 
 Public Declare Function UInt32_Add_ref Lib "UnsignedOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int16 input/output functions  ' ########++++++++========~~~~~~~~-------- '
-Private Function GetLong(ByVal Value As Integer) As Long
+Public Function UInt16_ToUInt32(ByVal Value As Integer) As Long
     Dim t2i As T2Int: t2i.Value0 = Value
-    Dim tl  As TLong:    LSet tl = t2i
-    GetLong = tl.Value
+    Dim tl  As TLng:     LSet tl = t2i
+    UInt16_ToUInt32 = tl.Value
 End Function
 Public Function UInt16_ToStr(ByVal Value As Integer) As String
     UInt16_ToStr = Space(5) & vbNullChar
-    UInt16ToStr GetLong(Value), StrPtr(UInt16_ToStr)
+    UInt16ToStr UInt16_ToUInt32(Value), StrPtr(UInt16_ToStr)
     UInt16_ToStr = Trim0(UInt16_ToStr)
 End Function
 Public Function UInt16_ToHex(ByVal Value As Long) As String
     UInt16_ToHex = Space(4) & vbNullChar
-    UInt16ToHex GetLong(Value), StrPtr(UInt16_ToHex)
+    UInt16ToHex UInt16_ToUInt32(Value), StrPtr(UInt16_ToHex)
     UInt16_ToHex = "&H" & Trim0(UInt16_ToHex)
 End Function
 Public Function UInt16_ToBin(ByVal Value As Long) As String
     UInt16_ToBin = Space(16) & vbNullChar
-    UInt16ToBin GetLong(Value), StrPtr(UInt16_ToBin)
+    UInt16ToBin UInt16_ToUInt32(Value), StrPtr(UInt16_ToBin)
     UInt16_ToBin = "&B" & Trim0(UInt16_ToBin)
 End Function
 Public Function UInt16_Parse(ByVal Value As String) As Integer
@@ -122,6 +130,11 @@ Public Function UInt16_Parse(ByVal Value As String) As Integer
 End Function
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int32 input/output functions  ' ########++++++++========~~~~~~~~-------- '
+Public Function UInt32_ToUInt64(ByVal Value As Long) As Currency
+    Dim t2l As T2Lng: t2l.Value0 = Value
+    Dim tc  As TCur:     LSet tc = t2l
+    UInt16_ToUInt32 = tl.Value
+End Function
 Public Function UInt32_ToStr(ByVal Value As Long) As String
     UInt32_ToStr = Space(10)
     UInt32ToStr Value, StrPtr(UInt32_ToStr)
@@ -139,6 +152,14 @@ Public Function UInt32_ToBin(ByVal Value As Long) As String
 End Function
 Public Function UInt32_ToDec(ByVal Value As Long) As Variant
     UInt32ToDec Value, UInt32_ToDec
+End Function
+
+Private Function UInt32_TryParse(ByVal Value As String, Val_out As Long, Optional radix As Integer = -1) As Boolean
+Try: On Error GoTo Catch
+    
+    Exit Function
+Catch:
+    UInt32_TryParse = oldVal
 End Function
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int64 arithmetic operations  ' ########++++++++========~~~~~~~~-------- '
