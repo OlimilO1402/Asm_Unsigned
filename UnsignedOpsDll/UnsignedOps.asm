@@ -1,3 +1,7 @@
+;.386
+;.model flat, stdcall
+;option casemap:none
+;include C:\masm32\include\windows.inc
 include C:\masm32\include\masm32rt.inc 
 .data?
     hInstance dd ?
@@ -182,6 +186,9 @@ UInt64_Sub endp
 ;                multiplier(64)    , multiplicand(64)  , pDestination(32)
 ;                ByVal mp As UInt64, ByVal mc as Uint64, ByRef prd As UInt128
 ;                ByVal V1 As Currency, ByVal V2 As Currency, ByVal pDec_out As LongPtr
+
+; MANY Special THANKS are going to Chris alias idiv, you are the best!!!
+; for his great help on all of my beginner asm-questions
 UInt64_Mul proc
     
     ;int 3
@@ -269,8 +276,143 @@ UInt64_Mul endp
 ;    
 ;UInt64_Add endp
 
+;(Dividend)15 / 3(Divisor) = 5(Quotient)
+;https://skanthak.homepage.t-online.de/integer.html#udivdi3
+
+; UInt64_Div(ByVal Dividend As Currency, ByVal Divisor As Currency) As Currency
+                                             ; [esp+16] = high dword of divisor
+                                       ; [esp+12] = low dword of divisor
+                         ; [esp+8] = high dword of dividend
+                   ; [esp+4] = low dword of dividend
 UInt64_Div proc
-	;
+
+    mov   edx, [esp+16]     ; edx = high dword of divisor
+ifdef Trivial
+    mov   eax, [esp+ 8]     ; eax = high dword of dividend
+    cmp   eax, edx
+    jb  trivial	            ; (high dword of) dividend < (high dword of) divisor?
+endif
+    bsr   ecx, edx          ; ecx = index of leading '1' bit in high dword of divisor
+    jnz extended            ; high dword of divisor <> 0?
+
+; high dword of divisor = 0 (so high dword of remainder will be 0 too)
+
+    mov   ecx, [esp+12]     ; ecx = (low dword of) divisor
+ifndef Trivial
+    mov   eax, [esp+ 8]     ; eax = high dword of dividend
+endif
+    cmp   eax, ecx
+    jae long                ; high dword of dividend >= divisor?
+
+    ; perform normal division
+normal:
+    mov   edx, eax          ; edx = high dword of dividend
+    mov   eax, [esp+4]      ; edx:eax = dividend
+    div   ecx	            ; eax = (low dword of) quotient,
+                            ; edx = (low dword of) remainder
+    xor   edx, edx          ; edx:eax = quotient
+    ret 16
+
+    ; perform "long" alias "schoolbook" division
+
+long:
+;;	xor	edx, edx	        ; edx:eax = high dword of dividend
+    div   ecx               ; eax = high dword of quotient,
+                            ; edx = high dword of remainder'
+    push  eax               ; [esp] = high dword of quotient
+
+    mov   eax, [esp+8]      ; eax = low dword of dividend
+    div   ecx	            ; eax = low dword of quotient,
+                            ; edx = (low dword of) remainder
+    pop   edx               ; edx:eax = quotient
+    ret 16
+ifdef Trivial
+                       ; dividend < divisor
+trivial:
+    xor   eax, eax
+    xor   edx, edx          ; edx:eax = quotient = 0
+	ret 16
+endif
+                       ; high dword of divisor <> 0 (so high dword of quotient will be 0):
+                       ; perform "extended & adjusted" division
+extended:
+    push  ebx
+    push  edi
+
+    mov   eax, [esp+20]     ; edx:eax = divisor
+    not   ecx               ; ecx = number of leading '0' bits in (high dword of) divisor
+    shld  edx, eax, cl      ; edx = divisor / 2**(index + 1)
+                            ;     = divisor'
+                            ;;shl eax, cl
+    mov   ebx, edx          ; ebx = divisor'
+
+    mov   edx, [esp+16]     ; edx = high dword of dividend
+    mov   eax, [esp+12]     ; eax = low dword of dividend
+ifndef JccLess
+    xor   edi, edi          ; edi = high dword of quotient' = 0
+
+    cmp   edx, ebx
+	jb	  @f		        ; high dword of dividend < divisor'?
+
+    ; high dword of dividend >= divisor':
+    ; subtract divisor' from high dword of dividend to prevent possible
+    ; quotient overflow and set most significant bit of quotient"
+
+    sub   edx,  ebx         ; edx = high dword of dividend - divisor'
+                            ;     = high dword of dividend'
+    inc   edi               ; edi = high dword of quotient' = 1
+@@:
+else
+    sub   edx,  ebx         ; edx = high dword of dividend - divisor'
+    sbb   edi,  edi         ; edi = (high dword of dividend < divisor') ? -1 : 0
+    and   edi,  ebx         ; edi = (high dword of dividend < divisor') ? divisor' : 0
+    add   edx,  edi         ; edx = high dword of dividend
+                            ;     - (high dword of dividend < divisor') ? 0 : divisor'
+                            ;     = high dword of dividend'
+    neg   edi               ; CF = (high dword of dividend < divisor')
+    sbb   edi,  edi         ; edi = (high dword of dividend < divisor') ? -1 : 0
+    inc   edi               ; edi = (high dword of dividend < divisor') ? 0 : 1
+                            ;     = high dword of quotient'
+endif                       ; JccLess
+                            ; high dword of dividend' < divisor'
+
+    div   ebx               ; eax = dividend' / divisor'
+                            ;     = low dword of quotient',
+                            ; edx = remainder'
+    shld  edi, eax, cl      ; edi = quotient' / 2**(index + 1)
+                            ;     = dividend / divisor
+                            ;     = quotient"
+;;	shl	  eax, cl
+
+    mov   eax, [esp+20]     ; eax = low dword of divisor
+    mul   edi               ; edx:eax = low dword of divisor * quotient"
+
+    mov   ecx, [esp+12]
+    mov   ebx, [esp+16]     ; ebx:ecx = dividend
+    sub   ecx,  eax
+    sbb   ebx,  edx         ; ebx:ecx = dividend - low dword of divisor * quotient"
+
+    mov	  eax, [esp+24]     ; eax = high dword of divisor
+    imul  eax,  edi         ; eax = high dword of divisor * quotient"
+if 0
+    sub	  ebx,  eax	        ; ebx:ecx = dividend - divisor * quotient"
+                            ;         = remainder"
+    sbb   eax,  eax	        ; eax = (remainder" < 0) ? -1 : 0
+    add   eax,  edi	        ; eax = quotient" - (remainder" < 0)
+                            ;     = (low dword of) quotient
+    xor   edx,  edx	        ; edx:eax = quotient
+else
+    xor   edx,  edx	        ; edx = high dword of quotient = 0
+    sub   ebx,  eax	        ; ebx:ecx = dividend - divisor * quotient"
+                            ;         = remainder"
+    mov   eax,  edi	        ; eax = quotient"
+    sbb   eax,  edx	        ; eax = quotient" - (remainder" < 0)
+                            ;     = (low dword of) quotient
+endif
+    pop   edi
+    pop   ebx
+    ret   16
+	
 UInt64_Div endp
 
 
@@ -564,10 +706,10 @@ UInt16_ToBin proc v1: dword, pStr: dword
 	
 UInt16_ToBin endp
 
-UInt16_Parse proc pStr: dword, v1: dword
+UInt16_Parse proc pStr: dword, r: dword, v1: dword
 	;invoke crt_strtoul
-	invoke crt_wcstoul, pStr, 0, 10, v1
-	ret 4
+	invoke crt_wcstoul, pStr, 0, r, v1
+	ret 8 
 	
 UInt16_Parse endp
 
@@ -602,10 +744,10 @@ UInt32_ToBin endp
 ;   int base
 ;);
 
-UInt32_Parse proc pStr: dword, v1: dword
+UInt32_Parse proc pStr: dword, r: dword, v1: dword
 	;invoke crt_strtoul
-	invoke crt_wcstoul, pStr, 0, 10, v1
-	ret 4
+	invoke crt_wcstoul, pStr, 0, r, v1
+	ret 8 
 	
 UInt32_Parse endp
 
@@ -632,12 +774,11 @@ UInt64_ToBin proc v1: qword, pStr: dword
     
 UInt64_ToBin endp
 
-UInt64_Parse proc pStr: dword, v1: qword
+UInt64_Parse proc pStr: dword, r:dword, v1: qword
 	;invoke crt_strtoul
-	;invoke crt__wtoui64, pStr, 0, 10, v1
-	ret 4
+	;invoke crt__wtoui64, pStr, 0, r, v1
+	ret 8
 UInt64_Parse endp
-
 
 
 End DllEntry

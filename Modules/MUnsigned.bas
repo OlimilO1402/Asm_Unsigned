@@ -5,11 +5,11 @@ Private Type TLng
 End Type
 Private Type T2Int
     Value0 As Integer
-    Value1 As Integer
+    value1 As Integer
 End Type
 Private Type T2Lng
     Value0 As Long
-    Value1 As Long
+    value1 As Long
 End Type
 Private Type TCur
     Value As Currency
@@ -67,23 +67,22 @@ Private Declare Sub UInt16ToStr Lib "UnsignedOps" Alias "UInt16_ToStr" (ByVal Va
 Private Declare Sub UInt16ToHex Lib "UnsignedOps" Alias "UInt16_ToHex" (ByVal Value As Long, ByVal pStr_out As LongPtr)
 Private Declare Sub UInt16ToBin Lib "UnsignedOps" Alias "UInt16_ToBin" (ByVal Value As Long, ByVal pStr_out As LongPtr) 'Bin as in Binary, don't think of a trash bin ;-)
 Private Declare Sub UInt16ToDec Lib "UnsignedOps" Alias "UInt16_ToDec" (ByVal Value As Long, ByVal pStr_out As LongPtr)
-Private Declare Function UInt16Parse Lib "UnsignedOps" Alias "UInt16_Parse" (ByVal pStrVal As LongPtr) As Long 'Integer
-Private Declare Function UInt16ParseI Lib "UnsignedOps" Alias "UInt16_Parse" (ByVal pStrVal As LongPtr) As Integer
+Private Declare Function UInt16Parse Lib "UnsignedOps" Alias "UInt16_Parse" (ByVal pStrVal As LongPtr, ByVal radix As Long) As Long 'Integer
+Private Declare Function UInt16ParseI Lib "UnsignedOps" Alias "UInt16_Parse" (ByVal pStrVal As LongPtr, ByVal radix As Long) As Integer
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int32 input/output functions  ' ########++++++++========~~~~~~~~-------- '
 Public Declare Sub UInt32ToStr Lib "UnsignedOps" Alias "UInt32_ToStr" (ByVal Value As Long, ByVal pStr_out As LongPtr)
 Public Declare Sub UInt32ToHex Lib "UnsignedOps" Alias "UInt32_ToHex" (ByVal Value As Long, ByVal pStr_out As LongPtr)
 Public Declare Sub UInt32ToBin Lib "UnsignedOps" Alias "UInt32_ToBin" (ByVal Value As Long, ByVal pStr_out As LongPtr)
 Public Declare Sub UInt32ToDec Lib "UnsignedOps" Alias "UInt32_ToDec" (ByVal Value As Long, ByRef Dec_out As Variant)
-Public Declare Function UInt32_Parse Lib "UnsignedOps" (ByVal pStr As LongPtr) As Long
+Public Declare Function UInt32_Parse Lib "UnsignedOps" (ByVal pStr As LongPtr, ByVal radix As Long) As Long
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int64 input/output functions  ' ########++++++++========~~~~~~~~-------- '
 Public Declare Sub UInt64ToStr Lib "UnsignedOps" Alias "UInt64_ToStr" (ByVal Value As Currency, ByVal pStr_out As LongPtr)
 Public Declare Sub UInt64ToHex Lib "UnsignedOps" Alias "UInt64_ToHex" (ByVal Value As Currency, ByVal pStr_out As LongPtr)
 Public Declare Sub UInt64ToBin Lib "UnsignedOps" Alias "UInt64_ToBin" (ByVal Value As Currency, ByVal pStr_out As LongPtr)
 Public Declare Sub UInt64ToDec Lib "UnsignedOps" Alias "UInt64_ToDec" (ByVal Value As Long, ByRef Dec_out As Variant)
-Public Declare Function UInt64_Parse Lib "UnsignedOps" (ByVal pStr As LongPtr) As Currency
-
+Public Declare Function UInt64_Parse Lib "UnsignedOps" (ByVal pStr As LongPtr, ByVal radix As Long) As Currency
 
 'just some short aliases and additional stuff
 Public Declare Function U4Add_ref Lib "UnsignedOps" Alias "UInt32_UAdd_ref" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
@@ -119,8 +118,8 @@ Public Function UInt16_ToBin(ByVal Value As Long) As String
 End Function
 Public Function UInt16_Parse(ByVal Value As String) As Integer
     Value = Value & vbNullChar
-    Dim tl As TLong, t2i As T2Int
-    tl.Value = UInt16Parse(StrPtr(Value))
+    Dim tl As TLng, t2i As T2Int
+    tl.Value = UInt16Parse(StrPtr(Value), 10)
     If tl.Value <= 65535 Then
         LSet t2i = tl
         UInt16_Parse = t2i.Value0
@@ -128,12 +127,28 @@ Public Function UInt16_Parse(ByVal Value As String) As Integer
         'give error information, like overflow etc
     End If
 End Function
+Public Function UInt16_TryParse(ByVal Value As String, Val_out As Integer, Optional ByVal radix As Long = 10) As Boolean
+    'radix=2: binary 01; radix=10: deciml 0123456789; radix=16: hexadecimal 0123456789ABCDEF
+Try: On Error GoTo Catch
+    If Len(Value) = 0 Then Exit Function
+    Value = Value & vbNullChar
+    Dim tl As TLng, t2i As T2Int
+    tl.Value = UInt16Parse(StrPtr(Value), radix)
+    If tl.Value <= 65535 Then
+        LSet t2i = tl
+        Val_out = t2i.Value0
+    Else
+        'give error information, overflow
+    End If
+    UInt16_TryParse = True
+Catch:
+End Function
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int32 input/output functions  ' ########++++++++========~~~~~~~~-------- '
 Public Function UInt32_ToUInt64(ByVal Value As Long) As Currency
     Dim t2l As T2Lng: t2l.Value0 = Value
     Dim tc  As TCur:     LSet tc = t2l
-    UInt16_ToUInt32 = tl.Value
+    UInt32_ToUInt64 = tc.Value
 End Function
 Public Function UInt32_ToStr(ByVal Value As Long) As String
     UInt32_ToStr = Space(10)
@@ -154,12 +169,16 @@ Public Function UInt32_ToDec(ByVal Value As Long) As Variant
     UInt32ToDec Value, UInt32_ToDec
 End Function
 
-Private Function UInt32_TryParse(ByVal Value As String, Val_out As Long, Optional radix As Integer = -1) As Boolean
+Public Function UInt32_TryParse(ByVal Value As String, Val_out As Long, Optional radix As Long = 10) As Boolean
 Try: On Error GoTo Catch
-    
+    If Len(Value) = 0 Then Exit Function
+    Value = Value & vbNullChar
+    Dim v As Long
+    v = UInt32_Parse(StrPtr(Value), radix)
+    Val_out = v
+    UInt32_TryParse = True
     Exit Function
 Catch:
-    UInt32_TryParse = oldVal
 End Function
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int64 arithmetic operations  ' ########++++++++========~~~~~~~~-------- '

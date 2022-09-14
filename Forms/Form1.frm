@@ -4,11 +4,27 @@ Begin VB.Form Form1
    ClientHeight    =   8655
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   11355
+   ClientWidth     =   13320
    LinkTopic       =   "Form1"
    ScaleHeight     =   8655
-   ScaleWidth      =   11355
+   ScaleWidth      =   13320
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.CommandButton Command7 
+      Caption         =   "Command7"
+      Height          =   375
+      Left            =   10200
+      TabIndex        =   7
+      Top             =   120
+      Width           =   1215
+   End
+   Begin VB.CommandButton Command6 
+      Caption         =   "Test Parsing"
+      Height          =   375
+      Left            =   8640
+      TabIndex        =   6
+      Top             =   120
+      Width           =   1455
+   End
    Begin VB.CommandButton Command5 
       Caption         =   "Command5"
       Height          =   375
@@ -151,6 +167,56 @@ Private Sub Command5_Click()
     MsgBox UInt16_ToHex(i1)
     MsgBox UInt16_ToBin(i1)
     
+End Sub
+
+Private Sub Command6_Click()
+    Dim s As String
+    Dim sVal As String
+    
+    Dim i As Integer
+    sVal = "1010101010101010"
+    If Not MUnsigned.UInt16_TryParse(sVal, i, 2) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt16_ToStr(i) & vbCrLf
+    
+    sVal = "65535"
+    If Not MUnsigned.UInt16_TryParse(sVal, i, 10) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt16_ToStr(i) & vbCrLf
+    
+    sVal = "ABCD"
+    If Not MUnsigned.UInt16_TryParse(sVal, i, 16) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt16_ToStr(i) & vbCrLf
+    
+    Dim l As Long
+    sVal = "10101010101010101010101010101010"
+    If Not MUnsigned.UInt32_TryParse(sVal, l, 2) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
+    
+    sVal = "1234567890"
+    If Not MUnsigned.UInt32_TryParse(sVal, l, 10) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
+    
+    sVal = "ABCDEF98"
+    If Not MUnsigned.UInt32_TryParse(sVal, l, 16) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
+    
+    Text1.Text = s
+End Sub
+
+Private Sub Command7_Click()
+Try: On Error GoTo Catch
+    Dim divid As Currency: divid = UInt64_Parse("9223372036854775")
+    Dim divis As Currency: divis = UInt64_Parse("2")
+    Debug.Print divid
+    Debug.Print "-------------------"
+    Debug.Print "         " & divis
+    Dim res As Currency
+    
+    res = UInt64_Div(divid, divis)
+    
+    MsgBox UInt64_ToStr(res) '767.1072
+    Exit Sub
+Catch:
+   MsgBox "Error: " & Err.Number & vbCrLf & Err.LastDllError & vbCrLf & Err.Description
 End Sub
 
 Private Sub Form_Load()
