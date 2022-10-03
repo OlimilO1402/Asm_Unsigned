@@ -279,6 +279,10 @@ UInt64_Mul endp
 ;(Dividend)15 / 3(Divisor) = 5(Quotient)
 ;https://skanthak.homepage.t-online.de/integer.html#udivdi3
 
+;also have alook here:
+;https://stackoverflow.com/questions/12965098/assembler-64b-division
+
+
 ; UInt64_Div(ByVal Dividend As Currency, ByVal Divisor As Currency) As Currency
                                              ; [esp+16] = high dword of divisor
                                        ; [esp+12] = low dword of divisor
