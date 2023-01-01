@@ -186,26 +186,26 @@ Private Sub Command6_Click()
     If Not MUnsigned.UInt16_TryParse(sVal, i, 16) Then Exit Sub
     s = s & "s: " & sVal & " = v: " & MUnsigned.UInt16_ToStr(i) & vbCrLf
     
-    Dim l As Long
+    Dim L As Long
     sVal = "10101010101010101010101010101010"
-    If Not MUnsigned.UInt32_TryParse(sVal, l, 2) Then Exit Sub
-    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
+    If Not MUnsigned.UInt32_TryParse(sVal, L, 2) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(L) & vbCrLf
     
     sVal = "1234567890"
-    If Not MUnsigned.UInt32_TryParse(sVal, l, 10) Then Exit Sub
-    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
+    If Not MUnsigned.UInt32_TryParse(sVal, L, 10) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(L) & vbCrLf
     
     sVal = "ABCDEF98"
-    If Not MUnsigned.UInt32_TryParse(sVal, l, 16) Then Exit Sub
-    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
+    If Not MUnsigned.UInt32_TryParse(sVal, L, 16) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(L) & vbCrLf
     
     Text1.Text = s
 End Sub
 
 Private Sub Command7_Click()
 Try: On Error GoTo Catch
-    Dim divid As Currency: divid = UInt64_Parse("9223372036854775")
-    Dim divis As Currency: divis = UInt64_Parse("2")
+    Dim divid As Currency: divid = UInt64_Parse("9223372036854775", 10)
+    Dim divis As Currency: divis = UInt64_Parse("2", 10)
     Debug.Print divid
     Debug.Print "-------------------"
     Debug.Print "         " & divis
@@ -224,11 +224,11 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Resize()
-    Dim l As Single: l = 0
+    Dim L As Single: L = 0
     Dim t As Single: t = Text1.Top
     Dim W As Single: W = Me.ScaleWidth
     Dim H As Single: H = Me.ScaleHeight - t
-    If W > 0 And H > 0 Then Text1.Move l, t, W, H
+    If W > 0 And H > 0 Then Text1.Move L, t, W, H
 End Sub
 
 Private Sub Command1_Click()
@@ -457,41 +457,41 @@ Sub Test_ToStr()
     
     
     Dim r As Long 'radix
-    Dim l As Long
+    Dim L As Long
     
     v = 14021970
     r = 10
-    l = LogN(v, r) + 1
-    s = Space$(l)
+    L = LogN(v, r) + 1
+    s = Space$(L)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     Debug_Print s
     
-    If ret <> l * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & l
+    If ret <> L * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & L
     End If
     
     v = &H1CAFEBAB
     r = 16
-    l = Ceiling(LogN(v, r))
-    s = Space$(l)
+    L = Ceiling(LogN(v, r))
+    s = Space$(L)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> l * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & l
+    If ret <> L * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & L
     End If
     
     v = 987654321
     r = 10
-    l = Ceiling(LogN(v, r))
-    s = Space$(l)
+    L = Ceiling(LogN(v, r))
+    s = Space$(L)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> l * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & l * 2
+    If ret <> L * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & L * 2
     End If
     
 End Sub

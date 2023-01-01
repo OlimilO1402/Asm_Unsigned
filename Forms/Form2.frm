@@ -51,13 +51,13 @@ Begin VB.Form Form2
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1815
-      Left            =   2520
+      Height          =   2535
+      Left            =   1920
       MultiLine       =   -1  'True
       ScrollBars      =   3  'Beides
       TabIndex        =   1
       Top             =   120
-      Width           =   3015
+      Width           =   3855
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Command1"

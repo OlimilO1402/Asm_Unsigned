@@ -17,28 +17,28 @@ End Type
 
 ' ARITHMETIC Operations
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int16 arithmetic operations  ' ########++++++++========~~~~~~~~-------- '
-Public Declare Function UInt16_Add Lib "UnsignedOps" (ByVal V1 As Integer, ByVal V2 As Integer) As Integer
-Public Declare Function UInt16_Sub Lib "UnsignedOps" (ByVal V1 As Integer, ByVal V2 As Integer) As Integer
-Public Declare Function UInt16_Mul Lib "UnsignedOps" (ByVal V1 As Integer, ByVal V2 As Integer) As Long
-Public Declare Function UInt16_Div Lib "UnsignedOps" (ByVal V1 As Integer, ByVal V2 As Integer) As Integer
+Public Declare Function UInt16_Add Lib "UnsignedOps" (ByVal v1 As Integer, ByVal v2 As Integer) As Integer
+Public Declare Function UInt16_Sub Lib "UnsignedOps" (ByVal v1 As Integer, ByVal v2 As Integer) As Integer
+Public Declare Function UInt16_Mul Lib "UnsignedOps" (ByVal v1 As Integer, ByVal v2 As Integer) As Long
+Public Declare Function UInt16_Div Lib "UnsignedOps" (ByVal v1 As Integer, ByVal v2 As Integer) As Integer
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int32 arithmetic operations  ' ########++++++++========~~~~~~~~-------- '
-Public Declare Function UInt32_Add Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function UInt32_Sub Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function UInt32_Mul Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Currency
+Public Declare Function UInt32_Add Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function UInt32_Sub Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function UInt32_Mul Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 'alternative declaration:
-Public Declare Function UInt32_MulL Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function UInt32_Div Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Public Declare Function UInt32_MulL Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function UInt32_Div Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int64 arithmetic operations  ' ########++++++++========~~~~~~~~-------- '
-Public Declare Function UInt64_Add Lib "UnsignedOps" (ByVal V1 As Currency, ByVal V2 As Currency) As Currency
-Public Declare Function UInt64_Sub Lib "UnsignedOps" (ByVal V1 As Currency, ByVal V2 As Currency) As Currency
-Private Declare Sub UInt64Mul Lib "UnsignedOps" Alias "UInt64_Mul" (ByVal V1 As Currency, ByVal V2 As Currency, ByVal pVar_out As LongPtr) 'As Decimal
+Public Declare Function UInt64_Add Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
+Public Declare Function UInt64_Sub Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
+Private Declare Sub UInt64Mul Lib "UnsignedOps" Alias "UInt64_Mul" (ByVal v1 As Currency, ByVal v2 As Currency, ByVal pVar_out As LongPtr) 'As Decimal
 'alternative declaration:
 'Public Declare Function UInt64Mul Lib "UnsignedOps" Alias "UInt64_Mul" (ByVal V1 As Currency, ByVal V2 As Currency, ByRef Var_out As Variant) 'As Decimal
-Public Declare Function UInt64_Div Lib "UnsignedOps" (ByVal V1 As Currency, ByVal V2 As Currency) As Currency
+Public Declare Function UInt64_Div Lib "UnsignedOps" (ByVal v1 As Currency, ByVal v2 As Currency) As Currency
 'really?? why??:
-Private Declare Sub UInt64Div Lib "UnsignedOps" Alias "UInt64_Div" (ByVal V1 As Currency, ByVal V2 As Currency, ByVal pVar_out As LongPtr) 'As Decimal
+Private Declare Sub UInt64Div Lib "UnsignedOps" Alias "UInt64_Div" (ByVal v1 As Currency, ByVal v2 As Currency, ByVal pVar_out As LongPtr) 'As Decimal
 
 ' ADDITIONAL Operations
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int32 shifting operations  ' ########++++++++========~~~~~~~~-------- '
@@ -53,13 +53,13 @@ Public Declare Function UInt32_Shld Lib "UnsignedOps" (ByVal Value As Long, ByVa
 Public Declare Function UInt32_Shrd Lib "UnsignedOps" (ByVal Value As Long, ByVal shifter As Long) As Currency
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int32 boolean operations  ' ########++++++++========~~~~~~~~-------- '
-Public Declare Function UInt32_And Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function UInt32_Or Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Public Declare Function UInt32_And Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function UInt32_Or Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 Public Declare Function UInt32_Not Lib "UnsignedOps" (ByVal Value As Long) As Long
-Public Declare Function UInt32_XOr Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function UInt32_XNOr Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function UInt32_NOr Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function UInt32_NAnd Lib "UnsignedOps" (ByVal V1 As Long, ByVal V2 As Long) As Long
+Public Declare Function UInt32_XOr Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function UInt32_XNOr Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function UInt32_NOr Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function UInt32_NAnd Lib "UnsignedOps" (ByVal v1 As Long, ByVal v2 As Long) As Long
 
 ' INPUT / OUTPUT functions
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int16 input/output functions  ' ########++++++++========~~~~~~~~-------- '
@@ -85,13 +85,15 @@ Public Declare Sub UInt64ToDec Lib "UnsignedOps" Alias "UInt64_ToDec" (ByVal Val
 Public Declare Function UInt64_Parse Lib "UnsignedOps" (ByVal pStr As LongPtr, ByVal radix As Long) As Currency
 
 'just some short aliases and additional stuff
-Public Declare Function U4Add_ref Lib "UnsignedOps" Alias "UInt32_UAdd_ref" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
-Public Declare Function U4Add Lib "UnsignedOps" Alias "UInt32_Add" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function U4Sub Lib "UnsignedOps" Alias "UInt32_Sub" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function U4Mul Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function U4MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal V1 As Long, ByVal V2 As Long) As Currency
-Public Declare Function U4Div Lib "UnsignedOps" Alias "UInt32_Div" (ByVal V1 As Long, ByVal V2 As Long) As Long
-Public Declare Function U4DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal V1 As Long, ByVal V2 As Long) As Currency
+Public Declare Function U4Add_ref Lib "UnsignedOps" Alias "UInt32_Add_ref" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
+'Public Declare Function U2Add_ref Lib "UnsignedOps" Alias "UInt32_UAdd_ref" (ByRef pV1 As Integer, ByRef pV2 As Integer) As Long 'Integer
+
+Public Declare Function U4Add Lib "UnsignedOps" Alias "UInt32_Add" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function U4Sub Lib "UnsignedOps" Alias "UInt32_Sub" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function U4Mul Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function U4MulB Lib "UnsignedOps" Alias "UInt32_Mul" (ByVal v1 As Long, ByVal v2 As Long) As Currency
+Public Declare Function U4Div Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Long
+Public Declare Function U4DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As Long, ByVal v2 As Long) As Currency
 Public Declare Sub UInt64_Test Lib "UnsignedOps" (ByRef Dec_out As Variant) 'As Decimal
 Public Declare Function UInt32_Add_ref Lib "UnsignedOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
 
@@ -182,8 +184,8 @@ Catch:
 End Function
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int64 arithmetic operations  ' ########++++++++========~~~~~~~~-------- '
-Public Function UInt64_Mul(ByVal V1 As Currency, ByVal V2 As Currency) As Variant
-    UInt64Mul V1, V2, VarPtr(UInt64_Mul)
+Public Function UInt64_Mul(ByVal v1 As Currency, ByVal v2 As Currency) As Variant
+    UInt64Mul v1, v2, VarPtr(UInt64_Mul)
 End Function
 'Public Function UInt64_Div(ByVal V1 As Currency, ByVal V2 As Currency) As Variant
 '    UInt64Div V1, V2, VarPtr(UInt64_Mul)
