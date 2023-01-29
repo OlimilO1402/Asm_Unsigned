@@ -1,0 +1,67 @@
+
+
+'CallProc               aufrufen beliebiger Proceduren über deren Adresse (mit Parameterübergabe)
+'CallObjProc            aufrufen beliebiger Object-Proceduren über deren Adresse (mit Paramterübergabe)
+'GetObjProcPtr          ermittelt die Proceduradresse einer öffentlichen Procedur eines Objects anhand der Procedur-Nummer
+'
+'VbStackPar             Gibt die von VB auf den Stack gelegte Adress bzw. Wert zurück
+'IsArrayDim             Ermittelt ob ein Array (SafeArray) dimensioniert ist
+'ptrArrayStrukt         Ermittelt den Pointer der zugehörigen SafeArrayStruktur des Arrays und gibt diesen zurück.
+'XchgArray              Tauscht 2 Arrays gegeneinander aus. (nur SafeArrayStruct)
+'UnHookArray            Hängt die SafeArray-Struktur des Arrays aus, d.h. der Pointer auf die zugehörige
+'                       SafeArray-Struktur wird gelöscht (:=0). Der Array ist somit undimensionert.
+'HookArray              Hängt eine SafeArray-Struktur in den Array.
+
+'GetBit16               Ermittelt den Wert eines Bits in einem 16-Bit Wert
+'GetBit32               Ermittelt den Wert eines Bits in einem 32-Bit Wert
+'SetBit16               Setzt den Wert eines Bits nach Vorgabe auf True oder False
+'SetBit32               Setzt den Wert eines Bits nach Vorgabe auf True oder False
+'InvBit16               Invertiert den Wert eines angegeben Bits
+'InvBit32               Invertiert den Wert eines angegeben Bits
+'
+'SHL16                  Schieben links
+'SHL32                  Schieben links
+'SHR16                  Schieben rechts
+'SHR32                  Schieben rechts
+'ROL16                  Rotieren links
+'ROL32                  Rotieren links
+'ROR16                  Rotieren rechts
+'ROR32                  Rotieren rechts
+'LSB16                  LSB, least significant Bit, sucht das niederwertigste Bit und gibt dessen Position zurück
+'LSB32                  LSB, least significant Bit, sucht das niederwertigste Bit und gibt dessen Position zurück
+'MSB16                  MSB, most significant Bit, sucht das hoechstwertigste Bit und gibt dessen Position zurück
+'MSB32                  MSB, most significant Bit, sucht das hoechstwertigste Bit und gibt dessen Position zurück
+'
+'GetBitBlock            gibt den Wert eines Bitbereichs (Block) in eiem 32-Bit-Wert zurueck
+'GetLoByte              gibt das niederwertige Byte eines 16 Bit Wertes zurück
+'GetHiByte              gibt das hoeherwertige Byte eines 16 Bit Wertes zurück
+'SetLoByte              setzt das niederwertige Byte eines 16Bit Wertes auf den übergebenen Wert
+'SetHiByte              setzt das hoeherwertige Byte eines 16Bit Wertes auf den übergebenen Wert
+'GetLoWord              gibt das niederwertige Word eines 32 Bit Wertes zurück
+'GetHiWord              gibt das hoeherwertige Word eines 32 Bit Wertes zurück
+'SetLoWord              setzt das niederwertige Word eines 32Bit Wertes auf den übergebenen Wert
+'SetHiWord              setzt das hoeherwertige Word eines 32Bit Wertes auf den übergebenen Wert
+'BitCount16             zaehlt die gesetzten Bits in einem 16-Bit Wert
+'BitCount32             zaehlt die gesetzten Bits in einem 32-Bit Wert
+'ByteSwap               vertauscht die Bytereihenfolgen eins 32 Bit Wertes (Little- und Big-Endian)
+'WordSwap               vertauscht die Hi- und Lo-Word eins 32 Bit Wertes
+'
+'Add64                  Addiert zwei 64 Bit Large Integer
+'Sub64                  Subtrahiert zwei 64 Bit Large Integer
+'Mul64                  Multipliziert zwei 64 Bit Large Integer
+'Neg64                  Negiert einen 64 Bit Large Integer; Zweierkomplement, Vorzeichenwechsel
+'Not64                  Negiert einen 64 Bit Large Integer, Einerkomplement
+'Shr64                  Schieben rechts eines 64Bit Wertes
+'Shl64                  Schieben links eines 64Bit Wertes
+'Div64                  dividiert zwei 64 Bit Large Integer
+'Mod64                  Modulo Division für 64 Bit Integer
+'Sqr64                  Berechnet die Quadratwurzel eines 64Bit Large Integer
+'
+'StrToLarge             Wandelt einen 64Bit Integer in einen String
+'LargeToStr             Wandelt einen 64Bit Integer in einen String
+'LargeToDec             Wandelt einen 64Bit Integer in einen Decimal (Variant)
+'VarToLarge             Wandelt einen Variant in einen 64Bit Large Integer
+
+
+
+

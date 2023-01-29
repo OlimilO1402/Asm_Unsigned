@@ -1,0 +1,1359 @@
+C:\masm32\project\vbExt\vbExt.dll   (hex)           (dec)
+
+.EXE size (bytes)                    490            1168
+Minimum load size (bytes)            450            1104
+Overlay number                         0               0
+Initial CS:IP                  0000:0000
+Initial SS:SP                  0000:00B8             184
+Minimum allocation (para)              0               0
+Maximum allocation (para)           FFFF           65535
+Header size (para)                     4               4
+Relocation table offset               40              64
+Relocation entries                     0               0
+
+Portable Executable starts at                 b0
+Signature                               00004550 (PE)
+Machine                                     014C (Intel 386)
+Sections                                    0004
+Time Date Stamp                         47374FDF Sun Nov 11 19:54:23 2007
+Symbol Table                            00000000
+Number of Symbols                       00000000
+Optional header size                        00E0
+Characteristics                             210E
+	Executable Image
+	Line numbers stripped
+	Local symbols stripped
+	32 bit word machine
+	DLL
+Magic                                       010B
+Linker Version                              6.00
+Size of Code                            00001000
+Size of Initialized Data                00003000
+Size of Uninitialized Data              00000000
+Address of Entry Point                  00001000
+Base of Code                            00001000
+Base of Data                            00002000
+Image Base                              10000000
+Section Alignment                       00001000
+File Alignment                          00001000
+Operating System Version                    4.00
+Image Version                               0.00
+Subsystem Version                           4.00
+reserved                                00000000
+Image Size                              00005000
+Header Size                             00001000
+Checksum                                00000000
+Subsystem                                   0002 (Windows)
+DLL Characteristics                         0000
+Size Of Stack Reserve                   00100000
+Size Of Stack Commit                    00001000
+Size Of Heap Reserve                    00100000
+Size Of Heap Commit                     00001000
+Loader Flags                            00000000
+Number of Directories                   00000010
+
+Directory Name                          VirtAddr  VirtSize
+--------------------------------------  --------  --------
+Export                                  00002000  00000420
+Import                                  00000000  00000000
+Resource                                00000000  00000000
+Exception                               00000000  00000000
+Security                                00000000  00000000
+Base Relocation                         00004000  00000034
+Debug                                   00000000  00000000
+Decription/Architecture                 00000000  00000000
+Machine Value (MIPS GP)                 00000000  00000000
+Thread Storage                          00000000  00000000
+Load Configuration                      00000000  00000000
+Bound Import                            00000000  00000000
+Import Address Table                    00000000  00000000
+Delay Import                            00000000  00000000
+COM Runtime Descriptor                  00000000  00000000
+(reserved)                              00000000  00000000
+
+Section Table
+-------------
+01  .text   	Virtual Address         00001000
+		Virtual Size            000009A4
+		Raw Data Offset         00001000
+		Raw Data Size           00001000
+		Relocation Offset       00000000
+		Relocation Count        0000
+		Line Number Offset      00000000
+		Line Number Count       0000
+		Characteristics         60000020
+			Code
+			Executable
+			Readable
+
+02  .rdata  	Virtual Address         00002000
+		Virtual Size            00000420
+		Raw Data Offset         00002000
+		Raw Data Size           00001000
+		Relocation Offset       00000000
+		Relocation Count        0000
+		Line Number Offset      00000000
+		Line Number Count       0000
+		Characteristics         40000040
+			Initialized Data
+			Readable
+
+03  .data   	Virtual Address         00003000
+		Virtual Size            0000004A
+		Raw Data Offset         00000000
+		Raw Data Size           00000000
+		Relocation Offset       00000000
+		Relocation Count        0000
+		Line Number Offset      00000000
+		Line Number Count       0000
+		Characteristics         C0000040
+			Initialized Data
+			Readable
+			Writeable
+
+04  .reloc  	Virtual Address         00004000
+		Virtual Size            00000048
+		Raw Data Offset         00003000
+		Raw Data Size           00001000
+		Relocation Offset       00000000
+		Relocation Count        0000
+		Line Number Offset      00000000
+		Line Number Count       0000
+		Characteristics         42000040
+			Initialized Data
+			Discardable
+			Readable
+
+
+ Exp Addr Hint   Ord Export Name by vbExt.dll - Sun Nov 11 19:54:23 2007
+ -------- ---- ----- ---------------------------------------------------------
+ 00001305    0     1 Add64
+ 0000124D    1     2 BitCount16
+ 00001267    2     3 BitCount32
+ 000012F2    3     4 ByteSwap
+ 0000106A    4     5 CallObjProc
+ 0000103A    5     6 CallProc
+ 00001402    6     7 Div64
+ 00001126    7     8 GetBit16
+ 0000113B    8     9 GetBit32
+ 0000127F    9    10 GetBitBlock
+ 000012A6    A    11 GetHiByte
+ 000012CE    B    12 GetHiWord
+ 0000129E    C    13 GetLoByte
+ 000012C6    D    14 GetLoWord
+ 000010BA    E    15 GetObjProcPtr
+ 00001117    F    16 HookArray
+ 0000118E   10    17 InvBit16
+ 0000119D   11    18 InvBit32
+ 000010D3   12    19 IsArrayDim
+ 0000121B   13    20 LSB16
+ 00001228   14    21 LSB32
+ 0000160A   15    22 LargeToDec
+ 00001594   16    23 LargeToStr
+ 00001234   17    24 MSB16
+ 00001241   18    25 MSB32
+ 00001435   19    26 Mod64
+ 0000133F   1A    27 Mul64
+ 00001373   1B    28 Neg64
+ 00001389   1C    29 Not64
+ 000011E3   1D    30 ROL16
+ 000011F2   1E    31 ROL32
+ 000011FF   1F    32 ROR16
+ 0000120E   20    33 ROR32
+ 000011AB   21    34 SHL16
+ 000011BA   22    35 SHL32
+ 000011C7   23    36 SHR16
+ 000011D6   24    37 SHR32
+ 0000114F   25    38 SetBit16
+ 0000116F   26    39 SetBit32
+ 000012BA   27    40 SetHiByte
+ 000012E2   28    41 SetHiWord
+ 000012AE   29    42 SetLoByte
+ 000012D6   2A    43 SetLoWord
+ 000013CF   2B    44 Shl64
+ 0000139C   2C    45 Shr64
+ 00001468   2D    46 Sqr64
+ 0000147F   2E    47 StrToLarge
+ 00001322   2F    48 Sub64
+ 00001108   30    49 UnHookArray
+ 0000163A   31    50 VarToLarge
+ 00001033   32    51 VbStackPar
+ 000012FB   33    52 WordSwap
+ 000010F1   34    53 XchgArray
+ 000010E8   35    54 ptrArrayStrukt
+
+
+Disassembly
+
+10001000                    start:
+10001000 55                     push    ebp
+10001001 8BEC                   mov     ebp,esp
+10001003 837D0C01               cmp     dword ptr [ebp+0Ch],1
+10001007 750B                   jnz     loc_10001014
+10001009 FF7508                 push    dword ptr [ebp+8]
+1000100C 8F0500300010           pop     [10003000h]
+10001012 EB16                   jmp     loc_1000102A
+10001014                    loc_10001014:
+10001014 837D0C00               cmp     dword ptr [ebp+0Ch],0
+10001018 7502                   jnz     loc_1000101C
+1000101A EB0E                   jmp     loc_1000102A
+1000101C                    loc_1000101C:
+1000101C 837D0C02               cmp     dword ptr [ebp+0Ch],2
+10001020 7502                   jnz     loc_10001024
+10001022 EB06                   jmp     loc_1000102A
+10001024                    loc_10001024:
+10001024 837D0C03               cmp     dword ptr [ebp+0Ch],3
+10001028 7500                   jnz     loc_1000102A
+1000102A                    loc_1000102A:
+1000102A B801000000             mov     eax,1
+1000102F C9                     leave
+10001030 C20C00                 ret     0Ch
+10001033                    VbStackPar:
+10001033 8B442404               mov     eax,[esp+4]
+10001037 C20400                 ret     4
+1000103A                    CallProc:
+1000103A 55                     push    ebp
+1000103B 8BEC                   mov     ebp,esp
+1000103D 8B5508                 mov     edx,[ebp+8]
+10001040 8B4D0C                 mov     ecx,[ebp+0Ch]
+10001043 85C9                   test    ecx,ecx
+10001045 7412                   jz      loc_10001059
+10001047 49                     dec     ecx
+10001048 03D1                   add     edx,ecx
+1000104A 03D1                   add     edx,ecx
+1000104C 03D1                   add     edx,ecx
+1000104E 03D1                   add     edx,ecx
+10001050 41                     inc     ecx
+10001051                    loc_10001051:
+10001051 8B02                   mov     eax,[edx]
+10001053 50                     push    eax
+10001054 83EA04                 sub     edx,4
+10001057 E2F8                   loop    loc_10001051
+10001059                    loc_10001059:
+10001059 8B4514                 mov     eax,[ebp+14h]
+1000105C 85C0                   test    eax,eax
+1000105E 7401                   jz      loc_10001061
+10001060 50                     push    eax
+10001061                    loc_10001061:
+10001061 8B4510                 mov     eax,[ebp+10h]
+10001064 FFD0                   call    eax
+10001066 C9                     leave
+10001067 C21000                 ret     10h
+1000106A                    CallObjProc:
+1000106A 55                     push    ebp
+1000106B 8BEC                   mov     ebp,esp
+1000106D 83C4FC                 add     esp,0FFFFFFFCh
+10001070 8B5518                 mov     edx,[ebp+18h]
+10001073 85D2                   test    edx,edx
+10001075 7503                   jnz     loc_1000107A
+10001077 8D55FC                 lea     edx,[ebp-4]
+1000107A                    loc_1000107A:
+1000107A 52                     push    edx
+1000107B 8B5508                 mov     edx,[ebp+8]
+1000107E 8B4D0C                 mov     ecx,[ebp+0Ch]
+10001081 85C9                   test    ecx,ecx
+10001083 7412                   jz      loc_10001097
+10001085 49                     dec     ecx
+10001086 03D1                   add     edx,ecx
+10001088 03D1                   add     edx,ecx
+1000108A 03D1                   add     edx,ecx
+1000108C 03D1                   add     edx,ecx
+1000108E 41                     inc     ecx
+1000108F                    loc_1000108F:
+1000108F 8B02                   mov     eax,[edx]
+10001091 50                     push    eax
+10001092 83EA04                 sub     edx,4
+10001095 E2F8                   loop    loc_1000108F
+10001097                    loc_10001097:
+10001097 8B5510                 mov     edx,[ebp+10h]
+1000109A 52                     push    edx
+1000109B 8B12                   mov     edx,[edx]
+1000109D 83C21C                 add     edx,1Ch
+100010A0 8B4514                 mov     eax,[ebp+14h]
+100010A3 C1E002                 shl     eax,2
+100010A6 03D0                   add     edx,eax
+100010A8 8B02                   mov     eax,[edx]
+100010AA FFD0                   call    eax
+100010AC 8B5518                 mov     edx,[ebp+18h]
+100010AF 85D2                   test    edx,edx
+100010B1 7503                   jnz     loc_100010B6
+100010B3 8B45FC                 mov     eax,[ebp-4]
+100010B6                    loc_100010B6:
+100010B6 C9                     leave
+100010B7 C21400                 ret     14h
+100010BA                    GetObjProcPtr:
+100010BA 55                     push    ebp
+100010BB 8BEC                   mov     ebp,esp
+100010BD 8B5508                 mov     edx,[ebp+8]
+100010C0 8B12                   mov     edx,[edx]
+100010C2 83C21C                 add     edx,1Ch
+100010C5 8B450C                 mov     eax,[ebp+0Ch]
+100010C8 C1E002                 shl     eax,2
+100010CB 03D0                   add     edx,eax
+100010CD 8B02                   mov     eax,[edx]
+100010CF C9                     leave
+100010D0 C20800                 ret     8
+100010D3                    IsArrayDim:
+100010D3 8B542404               mov     edx,[esp+4]
+100010D7 8B02                   mov     eax,[edx]
+100010D9 85C0                   test    eax,eax
+100010DB 7504                   jnz     loc_100010E1
+100010DD 33C0                   xor     eax,eax
+100010DF EB04                   jmp     loc_100010E5
+100010E1                    loc_100010E1:
+100010E1 33C0                   xor     eax,eax
+100010E3 F7D0                   not     eax
+100010E5                    loc_100010E5:
+100010E5 C20400                 ret     4
+100010E8                    ptrArrayStrukt:
+100010E8 8B542404               mov     edx,[esp+4]
+100010EC 8B02                   mov     eax,[edx]
+100010EE C20400                 ret     4
+100010F1                    XchgArray:
+100010F1 8B542404               mov     edx,[esp+4]
+100010F5 8B02                   mov     eax,[edx]
+100010F7 8B542408               mov     edx,[esp+8]
+100010FB 8B0A                   mov     ecx,[edx]
+100010FD 8902                   mov     [edx],eax
+100010FF 8B542404               mov     edx,[esp+4]
+10001103 890A                   mov     [edx],ecx
+10001105 C20800                 ret     8
+10001108                    UnHookArray:
+10001108 8B542404               mov     edx,[esp+4]
+1000110C 8B02                   mov     eax,[edx]
+1000110E C70200000000           mov     dword ptr [edx],0
+10001114 C20400                 ret     4
+10001117                    HookArray:
+10001117 8B542404               mov     edx,[esp+4]
+1000111B 8B02                   mov     eax,[edx]
+1000111D 8B4C2408               mov     ecx,[esp+8]
+10001121 890A                   mov     [edx],ecx
+10001123 C20800                 ret     8
+10001126                    GetBit16:
+10001126 0FB74C2404             movzx   ecx,word ptr [esp+4]
+1000112B 8B542408               mov     edx,[esp+8]
+1000112F 33C0                   xor     eax,eax
+10001131 0FA3D1                 bt      ecx,edx
+10001134 7302                   jnb     loc_10001138
+10001136 F7D0                   not     eax
+10001138                    loc_10001138:
+10001138 C20800                 ret     8
+1000113B                    GetBit32:
+1000113B 8B4C2404               mov     ecx,[esp+4]
+1000113F 8B542408               mov     edx,[esp+8]
+10001143 33C0                   xor     eax,eax
+10001145 0FA3D1                 bt      ecx,edx
+10001148 7302                   jnb     loc_1000114C
+1000114A F7D0                   not     eax
+1000114C                    loc_1000114C:
+1000114C C20800                 ret     8
+1000114F                    SetBit16:
+1000114F 0FB7442404             movzx   eax,word ptr [esp+4]
+10001154 8B542408               mov     edx,[esp+8]
+10001158 0FBF4C240C             movsx   ecx,word ptr [esp+0Ch]
+1000115D F7C1FFFFFFFF           test    ecx,0FFFFFFFFh
+10001163 7404                   jz      loc_10001169
+10001165 0FABD0                 bts     eax,dl
+10001168 C3                     ret
+10001169                    loc_10001169:
+10001169 0FB3D0                 btr     eax,edx
+1000116C C20C00                 ret     0Ch
+1000116F                    SetBit32:
+1000116F 8B442404               mov     eax,[esp+4]
+10001173 8B542408               mov     edx,[esp+8]
+10001177 0FBF4C240C             movsx   ecx,word ptr [esp+0Ch]
+1000117C F7C1FFFFFFFF           test    ecx,0FFFFFFFFh
+10001182 7404                   jz      loc_10001188
+10001184 0FABD0                 bts     eax,dl
+10001187 C3                     ret
+10001188                    loc_10001188:
+10001188 0FB3D0                 btr     eax,edx
+1000118B C20C00                 ret     0Ch
+1000118E                    InvBit16:
+1000118E 0FB7442404             movzx   eax,word ptr [esp+4]
+10001193 8B4C2408               mov     ecx,[esp+8]
+10001197 0FBBC8                 btc     eax,ecx
+1000119A C20800                 ret     8
+1000119D                    InvBit32:
+1000119D 8B442404               mov     eax,[esp+4]
+100011A1 8B4C2408               mov     ecx,[esp+8]
+100011A5 0FBBC8                 btc     eax,ecx
+100011A8 C20800                 ret     8
+100011AB                    SHL16:
+100011AB 0FB7442404             movzx   eax,word ptr [esp+4]
+100011B0 8B4C2408               mov     ecx,[esp+8]
+100011B4 66D3E0                 shl     ax,cl
+100011B7 C20800                 ret     8
+100011BA                    SHL32:
+100011BA 8B442404               mov     eax,[esp+4]
+100011BE 8B4C2408               mov     ecx,[esp+8]
+100011C2 D3E0                   shl     eax,cl
+100011C4 C20800                 ret     8
+100011C7                    SHR16:
+100011C7 0FB7442404             movzx   eax,word ptr [esp+4]
+100011CC 8B4C2408               mov     ecx,[esp+8]
+100011D0 66D3E8                 shr     ax,cl
+100011D3 C20800                 ret     8
+100011D6                    SHR32:
+100011D6 8B442404               mov     eax,[esp+4]
+100011DA 8B4C2408               mov     ecx,[esp+8]
+100011DE D3E8                   shr     eax,cl
+100011E0 C20800                 ret     8
+100011E3                    ROL16:
+100011E3 0FB7442404             movzx   eax,word ptr [esp+4]
+100011E8 8B4C2408               mov     ecx,[esp+8]
+100011EC 66D3C0                 rol     ax,cl
+100011EF C20800                 ret     8
+100011F2                    ROL32:
+100011F2 8B442404               mov     eax,[esp+4]
+100011F6 8B4C2408               mov     ecx,[esp+8]
+100011FA D3C0                   rol     eax,cl
+100011FC C20800                 ret     8
+100011FF                    ROR16:
+100011FF 0FB7442404             movzx   eax,word ptr [esp+4]
+10001204 8B4C2408               mov     ecx,[esp+8]
+10001208 66D3C8                 ror     ax,cl
+1000120B C20800                 ret     8
+1000120E                    ROR32:
+1000120E 8B442404               mov     eax,[esp+4]
+10001212 8B4C2408               mov     ecx,[esp+8]
+10001216 D3C8                   ror     eax,cl
+10001218 C20800                 ret     8
+1000121B                    LSB16:
+1000121B 0FB7542404             movzx   edx,word ptr [esp+4]
+10001220 33C0                   xor     eax,eax
+10001222 0FBCC2                 bsf     eax,edx
+10001225 C20400                 ret     4
+10001228                    LSB32:
+10001228 8B542404               mov     edx,[esp+4]
+1000122C 33C0                   xor     eax,eax
+1000122E 0FBCC2                 bsf     eax,edx
+10001231 C20400                 ret     4
+10001234                    MSB16:
+10001234 0FB7542404             movzx   edx,word ptr [esp+4]
+10001239 33C0                   xor     eax,eax
+1000123B 0FBDC2                 bsr     eax,edx
+1000123E C20400                 ret     4
+10001241                    MSB32:
+10001241 8B542404               mov     edx,[esp+4]
+10001245 33C0                   xor     eax,eax
+10001247 0FBDC2                 bsr     eax,edx
+1000124A C20400                 ret     4
+1000124D                    BitCount16:
+1000124D 0FB7542404             movzx   edx,word ptr [esp+4]
+10001252 33C0                   xor     eax,eax
+10001254 33C9                   xor     ecx,ecx
+10001256 66F7D1                 not     cx
+10001259                    loc_10001259:
+10001259 D1E9                   shr     ecx,1
+1000125B 7307                   jnb     loc_10001264
+1000125D D1EA                   shr     edx,1
+1000125F 73F8                   jnb     loc_10001259
+10001261 40                     inc     eax
+10001262 EBF5                   jmp     loc_10001259
+10001264                    loc_10001264:
+10001264 C20400                 ret     4
+10001267                    BitCount32:
+10001267 8B542404               mov     edx,[esp+4]
+1000126B 33C0                   xor     eax,eax
+1000126D 33C9                   xor     ecx,ecx
+1000126F F7D1                   not     ecx
+10001271                    loc_10001271:
+10001271 D1E9                   shr     ecx,1
+10001273 7307                   jnb     loc_1000127C
+10001275 D1EA                   shr     edx,1
+10001277 73F8                   jnb     loc_10001271
+10001279 40                     inc     eax
+1000127A EBF5                   jmp     loc_10001271
+1000127C                    loc_1000127C:
+1000127C C20400                 ret     4
+1000127F                    GetBitBlock:
+1000127F 8A542408               mov     dl,[esp+8]
+10001283 8A4C240A               mov     cl,[esp+0Ah]
+10001287 2ACA                   sub     cl,dl
+10001289 FEC1                   inc     cl
+1000128B 33C0                   xor     eax,eax
+1000128D F7D0                   not     eax
+1000128F D3E0                   shl     eax,cl
+10001291 8BCA                   mov     ecx,edx
+10001293 8B542404               mov     edx,[esp+4]
+10001297 D3EA                   shr     edx,cl
+10001299 23C2                   and     eax,edx
+1000129B C20800                 ret     8
+1000129E                    GetLoByte:
+1000129E 0FB6442404             movzx   eax,byte ptr [esp+4]
+100012A3 C20400                 ret     4
+100012A6                    GetHiByte:
+100012A6 0FB6442405             movzx   eax,byte ptr [esp+5]
+100012AB C20400                 ret     4
+100012AE                    SetLoByte:
+100012AE 0FB7442404             movzx   eax,word ptr [esp+4]
+100012B3 8A442406               mov     al,[esp+6]
+100012B7 C20800                 ret     8
+100012BA                    SetHiByte:
+100012BA 0FB7442404             movzx   eax,word ptr [esp+4]
+100012BF 8A642406               mov     ah,[esp+6]
+100012C3 C20800                 ret     8
+100012C6                    GetLoWord:
+100012C6 0FB7442404             movzx   eax,word ptr [esp+4]
+100012CB C20400                 ret     4
+100012CE                    GetHiWord:
+100012CE 0FB7442406             movzx   eax,word ptr [esp+6]
+100012D3 C20400                 ret     4
+100012D6                    SetLoWord:
+100012D6 8B442404               mov     eax,[esp+4]
+100012DA 668B442408             mov     ax,[esp+8]
+100012DF C20800                 ret     8
+100012E2                    SetHiWord:
+100012E2 0FB7442408             movzx   eax,word ptr [esp+8]
+100012E7 C1E010                 shl     eax,10h
+100012EA 668B442404             mov     ax,[esp+4]
+100012EF C20800                 ret     8
+100012F2                    ByteSwap:
+100012F2 8B442404               mov     eax,[esp+4]
+100012F6 0FC8                   bswap   eax
+100012F8 C20400                 ret     4
+100012FB                    WordSwap:
+100012FB 8B442404               mov     eax,[esp+4]
+100012FF C1C810                 ror     eax,10h
+10001302 C20400                 ret     4
+10001305                    Add64:
+10001305 55                     push    ebp
+10001306 8BEC                   mov     ebp,esp
+10001308 53                     push    ebx
+10001309 8B5D08                 mov     ebx,[ebp+8]
+1000130C 8B03                   mov     eax,[ebx]
+1000130E 8B5304                 mov     edx,[ebx+4]
+10001311 8B5D0C                 mov     ebx,[ebp+0Ch]
+10001314 8B4B04                 mov     ecx,[ebx+4]
+10001317 8B1B                   mov     ebx,[ebx]
+10001319 03C3                   add     eax,ebx
+1000131B 13D1                   adc     edx,ecx
+1000131D 5B                     pop     ebx
+1000131E C9                     leave
+1000131F C20800                 ret     8
+10001322                    Sub64:
+10001322 55                     push    ebp
+10001323 8BEC                   mov     ebp,esp
+10001325 53                     push    ebx
+10001326 8B5D08                 mov     ebx,[ebp+8]
+10001329 8B03                   mov     eax,[ebx]
+1000132B 8B5304                 mov     edx,[ebx+4]
+1000132E 8B5D0C                 mov     ebx,[ebp+0Ch]
+10001331 8B4B04                 mov     ecx,[ebx+4]
+10001334 8B1B                   mov     ebx,[ebx]
+10001336 2BC3                   sub     eax,ebx
+10001338 1BD1                   sbb     edx,ecx
+1000133A 5B                     pop     ebx
+1000133B C9                     leave
+1000133C C20800                 ret     8
+1000133F                    Mul64:
+1000133F 55                     push    ebp
+10001340 8BEC                   mov     ebp,esp
+10001342 53                     push    ebx
+10001343 8B5D08                 mov     ebx,[ebp+8]
+10001346 8B5304                 mov     edx,[ebx+4]
+10001349 8B5D0C                 mov     ebx,[ebp+0Ch]
+1000134C 8B4B04                 mov     ecx,[ebx+4]
+1000134F 0BD1                   or      edx,ecx
+10001351 8B13                   mov     edx,[ebx]
+10001353 8B5D08                 mov     ebx,[ebp+8]
+10001356 8B03                   mov     eax,[ebx]
+10001358 7504                   jnz     loc_1000135E
+1000135A F7E2                   mul     edx
+1000135C EB10                   jmp     loc_1000136E
+1000135E                    loc_1000135E:
+1000135E 0FAF5304               imul    edx,[ebx+4]
+10001362 0FAFC8                 imul    ecx,eax
+10001365 03CA                   add     ecx,edx
+10001367 8B5D0C                 mov     ebx,[ebp+0Ch]
+1000136A F723                   mul     dword ptr [ebx]
+1000136C 03D1                   add     edx,ecx
+1000136E                    loc_1000136E:
+1000136E 5B                     pop     ebx
+1000136F C9                     leave
+10001370 C20800                 ret     8
+10001373                    Neg64:
+10001373 55                     push    ebp
+10001374 8BEC                   mov     ebp,esp
+10001376 8B4D08                 mov     ecx,[ebp+8]
+10001379 8B01                   mov     eax,[ecx]
+1000137B 8B5104                 mov     edx,[ecx+4]
+1000137E F7D2                   not     edx
+10001380 F7D8                   neg     eax
+10001382 83DAFF                 sbb     edx,0FFFFFFFFh
+10001385 C9                     leave
+10001386 C20400                 ret     4
+10001389                    Not64:
+10001389 55                     push    ebp
+1000138A 8BEC                   mov     ebp,esp
+1000138C 8B4D08                 mov     ecx,[ebp+8]
+1000138F 8B01                   mov     eax,[ecx]
+10001391 8B5104                 mov     edx,[ecx+4]
+10001394 F7D2                   not     edx
+10001396 F7D0                   not     eax
+10001398 C9                     leave
+10001399 C20400                 ret     4
+1000139C                    Shr64:
+1000139C 55                     push    ebp
+1000139D 8BEC                   mov     ebp,esp
+1000139F 8B4D08                 mov     ecx,[ebp+8]
+100013A2 8B01                   mov     eax,[ecx]
+100013A4 8B5104                 mov     edx,[ecx+4]
+100013A7 8B4D0C                 mov     ecx,[ebp+0Ch]
+100013AA 83F920                 cmp     ecx,20h
+100013AD 7217                   jb      loc_100013C6
+100013AF 83F940                 cmp     ecx,40h
+100013B2 7208                   jb      loc_100013BC
+100013B4 33C0                   xor     eax,eax
+100013B6 33D2                   xor     edx,edx
+100013B8 C9                     leave
+100013B9 C20800                 ret     8
+100013BC                    loc_100013BC:
+100013BC 8BC2                   mov     eax,edx
+100013BE 33D2                   xor     edx,edx
+100013C0 D3E8                   shr     eax,cl
+100013C2 C9                     leave
+100013C3 C20800                 ret     8
+100013C6                    loc_100013C6:
+100013C6 0FADD0                 shrd    eax,edx,cl
+100013C9 D3EA                   shr     edx,cl
+100013CB C9                     leave
+100013CC C20800                 ret     8
+100013CF                    Shl64:
+100013CF 55                     push    ebp
+100013D0 8BEC                   mov     ebp,esp
+100013D2 8B4D08                 mov     ecx,[ebp+8]
+100013D5 8B01                   mov     eax,[ecx]
+100013D7 8B5104                 mov     edx,[ecx+4]
+100013DA 8B4D0C                 mov     ecx,[ebp+0Ch]
+100013DD 83F920                 cmp     ecx,20h
+100013E0 7217                   jb      loc_100013F9
+100013E2 83F940                 cmp     ecx,40h
+100013E5 7208                   jb      loc_100013EF
+100013E7 33C0                   xor     eax,eax
+100013E9 33D2                   xor     edx,edx
+100013EB C9                     leave
+100013EC C20800                 ret     8
+100013EF                    loc_100013EF:
+100013EF 8BD0                   mov     edx,eax
+100013F1 33C0                   xor     eax,eax
+100013F3 D3E2                   shl     edx,cl
+100013F5 C9                     leave
+100013F6 C20800                 ret     8
+100013F9                    loc_100013F9:
+100013F9 0FA5C2                 shld    edx,eax,cl
+100013FC D3E0                   shl     eax,cl
+100013FE C9                     leave
+100013FF C20800                 ret     8
+10001402                    Div64:
+10001402 55                     push    ebp
+10001403 8BEC                   mov     ebp,esp
+10001405 8B4D08                 mov     ecx,[ebp+8]
+10001408 8B01                   mov     eax,[ecx]
+1000140A 50                     push    eax
+1000140B 8B4104                 mov     eax,[ecx+4]
+1000140E 50                     push    eax
+1000140F 8B4D0C                 mov     ecx,[ebp+0Ch]
+10001412 8B01                   mov     eax,[ecx]
+10001414 50                     push    eax
+10001415 8B4104                 mov     eax,[ecx+4]
+10001418 50                     push    eax
+10001419 0FB74D10               movzx   ecx,word ptr [ebp+10h]
+1000141D F7C101000000           test    ecx,1
+10001423 7407                   jz      loc_1000142C
+10001425 E845030000             call    fn_1000176F
+1000142A EB05                   jmp     loc_10001431
+1000142C                    loc_1000142C:
+1000142C E8D0020000             call    fn_10001701
+10001431                    loc_10001431:
+10001431 C9                     leave
+10001432 C20C00                 ret     0Ch
+10001435                    Mod64:
+10001435 55                     push    ebp
+10001436 8BEC                   mov     ebp,esp
+10001438 8B4D08                 mov     ecx,[ebp+8]
+1000143B 8B01                   mov     eax,[ecx]
+1000143D 50                     push    eax
+1000143E 8B4104                 mov     eax,[ecx+4]
+10001441 50                     push    eax
+10001442 8B4D0C                 mov     ecx,[ebp+0Ch]
+10001445 8B01                   mov     eax,[ecx]
+10001447 50                     push    eax
+10001448 8B4104                 mov     eax,[ecx+4]
+1000144B 50                     push    eax
+1000144C 0FB74D10               movzx   ecx,word ptr [ebp+10h]
+10001450 F7C101000000           test    ecx,1
+10001456 7407                   jz      loc_1000145F
+10001458 E833040000             call    fn_10001890
+1000145D EB05                   jmp     loc_10001464
+1000145F                    loc_1000145F:
+1000145F E8B2030000             call    fn_10001816
+10001464                    loc_10001464:
+10001464 C9                     leave
+10001465 C20C00                 ret     0Ch
+10001468                    Sqr64:
+10001468 59                     pop     ecx
+10001469 58                     pop     eax
+1000146A 6A00                   push    0
+1000146C 6A00                   push    0
+1000146E F6400780               test    byte ptr [eax+7],80h
+10001472 7507                   jnz     loc_1000147B
+10001474 DF28                   fild    qword ptr [eax]
+10001476 D9FA                   fsqrt
+10001478 DF3C24                 fistp   qword ptr [esp]
+1000147B                    loc_1000147B:
+1000147B 58                     pop     eax
+1000147C 5A                     pop     edx
+1000147D FFE1                   jmp     ecx
+1000147F                    StrToLarge:
+1000147F 56                     push    esi
+10001480 57                     push    edi
+10001481 53                     push    ebx
+10001482 8B742410               mov     esi,[esp+10h]
+10001486 8B7C2414               mov     edi,[esp+14h]
+1000148A 33C0                   xor     eax,eax
+1000148C 8BD8                   mov     ebx,eax
+1000148E 8BC8                   mov     ecx,eax
+10001490 50                     push    eax
+10001491 50                     push    eax
+10001492 50                     push    eax
+10001493 83FF02                 cmp     edi,2
+10001496 0F82E3000000           jb      loc_1000157F
+1000149C 83EE01                 sub     esi,1
+1000149F 0F82DA000000           jb      loc_1000157F
+100014A5                    loc_100014A5:
+100014A5 46                     inc     esi
+100014A6 0FB616                 movzx   edx,byte ptr [esi]
+100014A9 80FA61                 cmp     dl,61h
+100014AC 7208                   jb      loc_100014B6
+100014AE 80FA7B                 cmp     dl,7Bh
+100014B1 7203                   jb      loc_100014B6
+100014B3 80E2DF                 and     dl,0DFh
+100014B6                    loc_100014B6:
+100014B6 0ADB                   or      bl,bl
+100014B8 7931                   jns     loc_100014EB
+100014BA 0AD2                   or      dl,dl
+100014BC 0F84BD000000           je      loc_1000157F
+100014C2 B302                   mov     bl,2
+100014C4 BF02000000             mov     edi,2
+100014C9 80FA42                 cmp     dl,42h
+100014CC 74D7                   jz      loc_100014A5
+100014CE 83C706                 add     edi,6
+100014D1 80FA4F                 cmp     dl,4Fh
+100014D4 74CF                   jz      loc_100014A5
+100014D6 83C702                 add     edi,2
+100014D9 80FA44                 cmp     dl,44h
+100014DC 74C7                   jz      loc_100014A5
+100014DE 83C706                 add     edi,6
+100014E1 80FA48                 cmp     dl,48h
+100014E4 74BF                   jz      loc_100014A5
+100014E6 E994000000             jmp     loc_1000157F
+100014EB                    loc_100014EB:
+100014EB 0AD2                   or      dl,dl
+100014ED 7472                   jz      loc_10001561
+100014EF 80FA2E                 cmp     dl,2Eh
+100014F2 746D                   jz      loc_10001561
+100014F4 80FA20                 cmp     dl,20h
+100014F7 7506                   jnz     loc_100014FF
+100014F9 0ADB                   or      bl,bl
+100014FB 74A8                   jz      loc_100014A5
+100014FD EB62                   jmp     loc_10001561
+100014FF                    loc_100014FF:
+100014FF 80FA2B                 cmp     dl,2Bh
+10001502 750A                   jnz     loc_1000150E
+10001504 80FB02                 cmp     bl,2
+10001507 7376                   jnb     loc_1000157F
+10001509 80CB01                 or      bl,1
+1000150C EB97                   jmp     loc_100014A5
+1000150E                    loc_1000150E:
+1000150E 80FA2D                 cmp     dl,2Dh
+10001511 750D                   jnz     loc_10001520
+10001513 80FB02                 cmp     bl,2
+10001516 7367                   jnb     loc_1000157F
+10001518 80CB01                 or      bl,1
+1000151B 80F780                 xor     bh,80h
+1000151E EB85                   jmp     loc_100014A5
+10001520                    loc_10001520:
+10001520 80FA26                 cmp     dl,26h
+10001523 750C                   jnz     loc_10001531
+10001525 80FB04                 cmp     bl,4
+10001528 7355                   jnb     loc_1000157F
+1000152A B380                   mov     bl,80h
+1000152C E974FFFFFF             jmp     loc_100014A5
+10001531                    loc_10001531:
+10001531 80EA30                 sub     dl,30h
+10001534 7249                   jb      loc_1000157F
+10001536 80FA0A                 cmp     dl,0Ah
+10001539 7205                   jb      loc_10001540
+1000153B 80EA07                 sub     dl,7
+1000153E 723F                   jb      loc_1000157F
+10001540                    loc_10001540:
+10001540 3BD7                   cmp     edx,edi
+10001542 733B                   jnb     loc_1000157F
+10001544 FEC7                   inc     bh
+10001546 80CB04                 or      bl,4
+10001549 52                     push    edx
+1000154A 91                     xchg    eax,ecx
+1000154B F7E7                   mul     edi
+1000154D 91                     xchg    eax,ecx
+1000154E 52                     push    edx
+1000154F F7E7                   mul     edi
+10001551 03CA                   add     ecx,edx
+10001553 5A                     pop     edx
+10001554 83D200                 adc     edx,0
+10001557 5A                     pop     edx
+10001558 7525                   jnz     loc_1000157F
+1000155A 03C2                   add     eax,edx
+1000155C E944FFFFFF             jmp     loc_100014A5
+10001561                    loc_10001561:
+10001561 F6C77F                 test    bh,7Fh
+10001564 7419                   jz      loc_1000157F
+10001566 D0E7                   shl     bh,1
+10001568 1BDB                   sbb     ebx,ebx
+1000156A 7408                   jz      loc_10001574
+1000156C 33CB                   xor     ecx,ebx
+1000156E 33C3                   xor     eax,ebx
+10001570 2BC3                   sub     eax,ebx
+10001572 1BCB                   sbb     ecx,ebx
+10001574                    loc_10001574:
+10001574 FF0424                 inc     dword ptr [esp]
+10001577 89442404               mov     [esp+4],eax
+1000157B 894C2408               mov     [esp+8],ecx
+1000157F                    loc_1000157F:
+1000157F 59                     pop     ecx
+10001580 58                     pop     eax
+10001581 5A                     pop     edx
+10001582 8B5C2418               mov     ebx,[esp+18h]
+10001586 0BDB                   or      ebx,ebx
+10001588 7404                   jz      loc_1000158E
+1000158A 49                     dec     ecx
+1000158B 66890B                 mov     [ebx],cx
+1000158E                    loc_1000158E:
+1000158E 5B                     pop     ebx
+1000158F 5F                     pop     edi
+10001590 5E                     pop     esi
+10001591 C20C00                 ret     0Ch
+10001594                    LargeToStr:
+10001594 56                     push    esi
+10001595 57                     push    edi
+10001596 53                     push    ebx
+10001597 8B4C2410               mov     ecx,[esp+10h]
+1000159B 8B19                   mov     ebx,[ecx]
+1000159D 8B4904                 mov     ecx,[ecx+4]
+100015A0 33F6                   xor     esi,esi
+100015A2 F644241801             test    byte ptr [esp+18h],1
+100015A7 740F                   jz      loc_100015B8
+100015A9 8BF1                   mov     esi,ecx
+100015AB C1FE1F                 sar     esi,1Fh
+100015AE 7408                   jz      loc_100015B8
+100015B0 33CE                   xor     ecx,esi
+100015B2 33DE                   xor     ebx,esi
+100015B4 2BDE                   sub     ebx,esi
+100015B6 1BCE                   sbb     ecx,esi
+100015B8                    loc_100015B8:
+100015B8 56                     push    esi
+100015B9 8D3D67300010           lea     edi,[10003067h]
+100015BF C60700                 mov     byte ptr [edi],0
+100015C2 8B742418               mov     esi,[esp+18h]
+100015C6 83FE02                 cmp     esi,2
+100015C9 7222                   jb      loc_100015ED
+100015CB                    loc_100015CB:
+100015CB 4F                     dec     edi
+100015CC 33D2                   xor     edx,edx
+100015CE 8BC1                   mov     eax,ecx
+100015D0 F7F6                   div     esi
+100015D2 8BC8                   mov     ecx,eax
+100015D4 8BC3                   mov     eax,ebx
+100015D6 F7F6                   div     esi
+100015D8 8BD8                   mov     ebx,eax
+100015DA 80C230                 add     dl,30h
+100015DD 80FA3A                 cmp     dl,3Ah
+100015E0 7203                   jb      loc_100015E5
+100015E2 80C207                 add     dl,7
+100015E5                    loc_100015E5:
+100015E5 8817                   mov     [edi],dl
+100015E7 8BC3                   mov     eax,ebx
+100015E9 0BC1                   or      eax,ecx
+100015EB 75DE                   jnz     loc_100015CB
+100015ED                    loc_100015ED:
+100015ED 5E                     pop     esi
+100015EE 8D0567300010           lea     eax,[10003067h]
+100015F4 2BC7                   sub     eax,edi
+100015F6 2BC6                   sub     eax,esi
+100015F8 03FE                   add     edi,esi
+100015FA 7303                   jnb     loc_100015FF
+100015FC C6072D                 mov     byte ptr [edi],2Dh
+100015FF                    loc_100015FF:
+100015FF 8947FC                 mov     [edi-4],eax
+10001602 8BC7                   mov     eax,edi
+10001604 5B                     pop     ebx
+10001605 5F                     pop     edi
+10001606 5E                     pop     esi
+10001607 C20C00                 ret     0Ch
+1000160A                    LargeToDec:
+1000160A 55                     push    ebp
+1000160B 8BEC                   mov     ebp,esp
+1000160D 8B450C                 mov     eax,[ebp+0Ch]
+10001610 8B08                   mov     ecx,[eax]
+10001612 8B5004                 mov     edx,[eax+4]
+10001615 8B4508                 mov     eax,[ebp+8]
+10001618 66C7000E00             mov     word ptr [eax],0Eh
+1000161D 0BD2                   or      edx,edx
+1000161F 790F                   jns     loc_10001630
+10001621 F7451001000000         test    dword ptr [ebp+10h],1
+10001628 7406                   jz      loc_10001630
+1000162A 668148030080           or      word ptr [eax+3],8000h
+10001630                    loc_10001630:
+10001630 894808                 mov     [eax+8],ecx
+10001633 89500C                 mov     [eax+0Ch],edx
+10001636 C9                     leave
+10001637 C20C00                 ret     0Ch
+1000163A                    VarToLarge:
+1000163A 53                     push    ebx
+1000163B 33C0                   xor     eax,eax
+1000163D 33D2                   xor     edx,edx
+1000163F 8B4C2408               mov     ecx,[esp+8]
+10001643 0BC9                   or      ecx,ecx
+10001645 7420                   jz      loc_10001667
+10001647 0FB719                 movzx   ebx,word ptr [ecx]
+1000164A F6C720                 test    bh,20h
+1000164D 7518                   jnz     loc_10001667
+1000164F 83C108                 add     ecx,8
+10001652 F6C740                 test    bh,40h
+10001655 7402                   jz      loc_10001659
+10001657 8B09                   mov     ecx,[ecx]
+10001659                    loc_10001659:
+10001659 32FF                   xor     bh,bh
+1000165B 80FB12                 cmp     bl,12h
+1000165E 7307                   jnb     loc_10001667
+10001660 FF149DB9160010         call    dword ptr [100016B9h+ebx*4]
+10001667                    loc_10001667:
+10001667 5B                     pop     ebx
+10001668 C20400                 ret     4
+1000166B 8A01                   mov     al,[ecx]
+1000166D C3                     ret
+1000166E 0FBF01                 movsx   eax,word ptr [ecx]
+10001671 99                     cdq
+10001672 C3                     ret
+10001673 8B01                   mov     eax,[ecx]
+10001675 8B5104                 mov     edx,[ecx+4]
+10001678 33C9                   xor     ecx,ecx
+1000167A BB10270000             mov     ebx,2710h
+1000167F E9C0020000             jmp     loc_10001944
+10001684 8B01                   mov     eax,[ecx]
+10001686 99                     cdq
+10001687                    loc_10001687:
+10001687 C3                     ret
+10001688 D901                   fld     dword ptr [ecx]
+1000168A                    loc_1000168A:
+1000168A 52                     push    edx
+1000168B 50                     push    eax
+1000168C DF3C24                 fistp   qword ptr [esp]
+1000168F 58                     pop     eax
+10001690 5A                     pop     edx
+10001691 C3                     ret
+10001692 8B09                   mov     ecx,[ecx]
+10001694 E3F1                   jecxz   loc_10001687
+10001696 8379FC08               cmp     dword ptr [ecx-4],8
+1000169A 72EB                   jb      loc_10001687
+1000169C 8B01                   mov     eax,[ecx]
+1000169E 8B5104                 mov     edx,[ecx+4]
+100016A1 C3                     ret
+100016A2 DD01                   fld     qword ptr [ecx]
+100016A4 EBE4                   jmp     loc_1000168A
+100016A6 8B01                   mov     eax,[ecx]
+100016A8 8B5104                 mov     edx,[ecx+4]
+100016AB 8A49FB                 mov     cl,[ecx-5]
+100016AE D0E1                   shl     cl,1
+100016B0 1BC9                   sbb     ecx,ecx
+100016B2 74D3                   jz      loc_10001687
+100016B4 33C1                   xor     eax,ecx
+100016B6 33D1                   xor     edx,ecx
+100016B8 2BC1                   sub     eax,ecx
+100016BA 1BD1                   sbb     edx,ecx
+100016BC C3                     ret
+100016BD 8716                   xchg    [esi],edx
+100016BF 0010                   add     [eax],dl
+100016C1 6E                     outsb
+100016C2 16                     push    ss
+100016C3 0010                   add     [eax],dl
+100016C5 8416                   test    [esi],dl
+100016C7 0010                   add     [eax],dl
+100016C9 8816                   mov     [esi],dl
+100016CB 0010                   add     [eax],dl
+100016CD A216001073             mov     [73100016h],al
+100016D2 16                     push    ss
+100016D3 0010                   add     [eax],dl
+100016D5 A216001092             mov     [92100016h],al
+100016DA 16                     push    ss
+100016DB 0010                   add     [eax],dl
+100016DD 8716                   xchg    [esi],edx
+100016DF 0010                   add     [eax],dl
+100016E1 8716                   xchg    [esi],edx
+100016E3 0010                   add     [eax],dl
+100016E5 6E                     outsb
+100016E6 16                     push    ss
+100016E7 0010                   add     [eax],dl
+100016E9 9C                     pushfd
+100016EA 16                     push    ss
+100016EB 0010                   add     [eax],dl
+100016ED 8716                   xchg    [esi],edx
+100016EF 0010                   add     [eax],dl
+100016F1 A6                     cmpsb
+100016F2 16                     push    ss
+100016F3 0010                   add     [eax],dl
+100016F5 8716                   xchg    [esi],edx
+100016F7 0010                   add     [eax],dl
+100016F9 8716                   xchg    [esi],edx
+100016FB 0010                   add     [eax],dl
+100016FD 6B1600                 imul    edx,[esi],0
+10001700 10558B                 adc     [ebp-75h],dl
+10001703 EC                     in      al,dx
+10001704 53                     push    ebx
+10001705 8B4D08                 mov     ecx,[ebp+8]
+10001708 8B5D0C                 mov     ebx,[ebp+0Ch]
+1000170B 8B5510                 mov     edx,[ebp+10h]
+1000170E 8B4514                 mov     eax,[ebp+14h]
+10001711 85C9                   test    ecx,ecx
+10001713 751F                   jnz     loc_10001734
+10001715 3BD3                   cmp     edx,ebx
+10001717 7309                   jnb     loc_10001722
+10001719 F7F3                   div     ebx
+1000171B 8BD1                   mov     edx,ecx
+1000171D 5B                     pop     ebx
+1000171E C9                     leave
+1000171F C21000                 ret     10h
+10001722                    loc_10001722:
+10001722 8BC8                   mov     ecx,eax
+10001724 8BC2                   mov     eax,edx
+10001726 33D2                   xor     edx,edx
+10001728 F7F3                   div     ebx
+1000172A 91                     xchg    eax,ecx
+1000172B F7F3                   div     ebx
+1000172D 8BD1                   mov     edx,ecx
+1000172F 5B                     pop     ebx
+10001730 C9                     leave
+10001731 C21000                 ret     10h
+10001734                    loc_10001734:
+10001734 57                     push    edi
+10001735 8BF9                   mov     edi,ecx
+10001737 D1EA                   shr     edx,1
+10001739 D1D8                   rcr     eax,1
+1000173B D1CF                   ror     edi,1
+1000173D D1DB                   rcr     ebx,1
+1000173F 0FBDC9                 bsr     ecx,ecx
+10001742 0FADFB                 shrd    ebx,edi,cl
+10001745 0FADD0                 shrd    eax,edx,cl
+10001748 D3EA                   shr     edx,cl
+1000174A D1C7                   rol     edi,1
+1000174C F7F3                   div     ebx
+1000174E 8B5D14                 mov     ebx,[ebp+14h]
+10001751 8BC8                   mov     ecx,eax
+10001753 0FAFF8                 imul    edi,eax
+10001756 F7650C                 mul     dword ptr [ebp+0Ch]
+10001759 03D7                   add     edx,edi
+1000175B 2BD8                   sub     ebx,eax
+1000175D 8BC1                   mov     eax,ecx
+1000175F 8B4D10                 mov     ecx,[ebp+10h]
+10001762 1BCA                   sbb     ecx,edx
+10001764 83D800                 sbb     eax,0
+10001767 33D2                   xor     edx,edx
+10001769 5F                     pop     edi
+1000176A 5B                     pop     ebx
+1000176B C9                     leave
+1000176C C21000                 ret     10h
+1000176F                    fn_1000176F:
+1000176F 55                     push    ebp
+10001770 8BEC                   mov     ebp,esp
+10001772 53                     push    ebx
+10001773 56                     push    esi
+10001774 57                     push    edi
+10001775 8B4D08                 mov     ecx,[ebp+8]
+10001778 8B5D0C                 mov     ebx,[ebp+0Ch]
+1000177B 8B5510                 mov     edx,[ebp+10h]
+1000177E 8B4514                 mov     eax,[ebp+14h]
+10001781 8BF1                   mov     esi,ecx
+10001783 33F2                   xor     esi,edx
+10001785 C1FE1F                 sar     esi,1Fh
+10001788 8BFA                   mov     edi,edx
+1000178A C1FF1F                 sar     edi,1Fh
+1000178D 33C7                   xor     eax,edi
+1000178F 33D7                   xor     edx,edi
+10001791 2BC7                   sub     eax,edi
+10001793 1BD7                   sbb     edx,edi
+10001795 8BF9                   mov     edi,ecx
+10001797 C1FF1F                 sar     edi,1Fh
+1000179A 33DF                   xor     ebx,edi
+1000179C 33CF                   xor     ecx,edi
+1000179E 2BDF                   sub     ebx,edi
+100017A0 1BCF                   sbb     ecx,edi
+100017A2 7526                   jnz     loc_100017CA
+100017A4 3BD3                   cmp     edx,ebx
+100017A6 7313                   jnb     loc_100017BB
+100017A8 F7F3                   div     ebx
+100017AA 8BD1                   mov     edx,ecx
+100017AC 33C6                   xor     eax,esi
+100017AE 33D6                   xor     edx,esi
+100017B0 2BC6                   sub     eax,esi
+100017B2 1BD6                   sbb     edx,esi
+100017B4 5F                     pop     edi
+100017B5 5E                     pop     esi
+100017B6 5B                     pop     ebx
+100017B7 C9                     leave
+100017B8 C21000                 ret     10h
+100017BB                    loc_100017BB:
+100017BB 8BC8                   mov     ecx,eax
+100017BD 8BC2                   mov     eax,edx
+100017BF 33D2                   xor     edx,edx
+100017C1 F7F3                   div     ebx
+100017C3 91                     xchg    eax,ecx
+100017C4 F7F3                   div     ebx
+100017C6 8BD1                   mov     edx,ecx
+100017C8 EB3D                   jmp     loc_10001807
+100017CA                    loc_100017CA:
+100017CA 894514                 mov     [ebp+14h],eax
+100017CD 895D0C                 mov     [ebp+0Ch],ebx
+100017D0 895510                 mov     [ebp+10h],edx
+100017D3 8BF9                   mov     edi,ecx
+100017D5 D1EA                   shr     edx,1
+100017D7 D1D8                   rcr     eax,1
+100017D9 D1CF                   ror     edi,1
+100017DB D1DB                   rcr     ebx,1
+100017DD 0FBDC9                 bsr     ecx,ecx
+100017E0 0FADFB                 shrd    ebx,edi,cl
+100017E3 0FADD0                 shrd    eax,edx,cl
+100017E6 D3EA                   shr     edx,cl
+100017E8 D1C7                   rol     edi,1
+100017EA F7F3                   div     ebx
+100017EC 8B5D14                 mov     ebx,[ebp+14h]
+100017EF 8BC8                   mov     ecx,eax
+100017F1 0FAFF8                 imul    edi,eax
+100017F4 F7650C                 mul     dword ptr [ebp+0Ch]
+100017F7 03D7                   add     edx,edi
+100017F9 2BD8                   sub     ebx,eax
+100017FB 8BC1                   mov     eax,ecx
+100017FD 8B4D10                 mov     ecx,[ebp+10h]
+10001800 1BCA                   sbb     ecx,edx
+10001802 83D800                 sbb     eax,0
+10001805 33D2                   xor     edx,edx
+10001807                    loc_10001807:
+10001807 33C6                   xor     eax,esi
+10001809 33D6                   xor     edx,esi
+1000180B 2BC6                   sub     eax,esi
+1000180D 1BD6                   sbb     edx,esi
+1000180F 5F                     pop     edi
+10001810 5E                     pop     esi
+10001811 5B                     pop     ebx
+10001812 C9                     leave
+10001813 C21000                 ret     10h
+10001816                    fn_10001816:
+10001816 55                     push    ebp
+10001817 8BEC                   mov     ebp,esp
+10001819 53                     push    ebx
+1000181A 8B4D08                 mov     ecx,[ebp+8]
+1000181D 8B5D0C                 mov     ebx,[ebp+0Ch]
+10001820 8B5510                 mov     edx,[ebp+10h]
+10001823 8B4514                 mov     eax,[ebp+14h]
+10001826 85C9                   test    ecx,ecx
+10001828 7524                   jnz     loc_1000184E
+1000182A 3BD3                   cmp     edx,ebx
+1000182C 730B                   jnb     loc_10001839
+1000182E F7F3                   div     ebx
+10001830 8BC2                   mov     eax,edx
+10001832 8BD1                   mov     edx,ecx
+10001834 5B                     pop     ebx
+10001835 C9                     leave
+10001836 C21000                 ret     10h
+10001839                    loc_10001839:
+10001839 8BC8                   mov     ecx,eax
+1000183B 8BC2                   mov     eax,edx
+1000183D 33D2                   xor     edx,edx
+1000183F F7F3                   div     ebx
+10001841 8BC1                   mov     eax,ecx
+10001843 F7F3                   div     ebx
+10001845 8BC2                   mov     eax,edx
+10001847 33D2                   xor     edx,edx
+10001849 5B                     pop     ebx
+1000184A C9                     leave
+1000184B C21000                 ret     10h
+1000184E                    loc_1000184E:
+1000184E 57                     push    edi
+1000184F 8BF9                   mov     edi,ecx
+10001851 D1EA                   shr     edx,1
+10001853 D1D8                   rcr     eax,1
+10001855 D1CF                   ror     edi,1
+10001857 D1DB                   rcr     ebx,1
+10001859 0FBDC9                 bsr     ecx,ecx
+1000185C 0FADFB                 shrd    ebx,edi,cl
+1000185F 0FADD0                 shrd    eax,edx,cl
+10001862 D3EA                   shr     edx,cl
+10001864 D1C7                   rol     edi,1
+10001866 F7F3                   div     ebx
+10001868 8B5D14                 mov     ebx,[ebp+14h]
+1000186B 8BC8                   mov     ecx,eax
+1000186D 0FAFF8                 imul    edi,eax
+10001870 F7650C                 mul     dword ptr [ebp+0Ch]
+10001873 03D7                   add     edx,edi
+10001875 2BD8                   sub     ebx,eax
+10001877 8B4D10                 mov     ecx,[ebp+10h]
+1000187A 8B450C                 mov     eax,[ebp+0Ch]
+1000187D 1BCA                   sbb     ecx,edx
+1000187F 1BD2                   sbb     edx,edx
+10001881 23C2                   and     eax,edx
+10001883 235508                 and     edx,[ebp+8]
+10001886 03C3                   add     eax,ebx
+10001888 13D1                   adc     edx,ecx
+1000188A 5F                     pop     edi
+1000188B 5B                     pop     ebx
+1000188C C9                     leave
+1000188D C21000                 ret     10h
+10001890                    fn_10001890:
+10001890 55                     push    ebp
+10001891 8BEC                   mov     ebp,esp
+10001893 53                     push    ebx
+10001894 56                     push    esi
+10001895 57                     push    edi
+10001896 8B4D08                 mov     ecx,[ebp+8]
+10001899 8B5D0C                 mov     ebx,[ebp+0Ch]
+1000189C 8B5510                 mov     edx,[ebp+10h]
+1000189F 8B4514                 mov     eax,[ebp+14h]
+100018A2 8BF2                   mov     esi,edx
+100018A4 C1FE1F                 sar     esi,1Fh
+100018A7 8BFA                   mov     edi,edx
+100018A9 C1FF1F                 sar     edi,1Fh
+100018AC 33C7                   xor     eax,edi
+100018AE 33D7                   xor     edx,edi
+100018B0 2BC7                   sub     eax,edi
+100018B2 1BD7                   sbb     edx,edi
+100018B4 8BF9                   mov     edi,ecx
+100018B6 C1FF1F                 sar     edi,1Fh
+100018B9 33DF                   xor     ebx,edi
+100018BB 33CF                   xor     ecx,edi
+100018BD 2BDF                   sub     ebx,edi
+100018BF 1BCF                   sbb     ecx,edi
+100018C1 752B                   jnz     loc_100018EE
+100018C3 3BD3                   cmp     edx,ebx
+100018C5 7315                   jnb     loc_100018DC
+100018C7 F7F3                   div     ebx
+100018C9 8BC2                   mov     eax,edx
+100018CB 8BD1                   mov     edx,ecx
+100018CD 33C6                   xor     eax,esi
+100018CF 33D6                   xor     edx,esi
+100018D1 2BC6                   sub     eax,esi
+100018D3 1BD6                   sbb     edx,esi
+100018D5 5F                     pop     edi
+100018D6 5E                     pop     esi
+100018D7 5B                     pop     ebx
+100018D8 C9                     leave
+100018D9 C21000                 ret     10h
+100018DC                    loc_100018DC:
+100018DC 8BC8                   mov     ecx,eax
+100018DE 8BC2                   mov     eax,edx
+100018E0 33D2                   xor     edx,edx
+100018E2 F7F3                   div     ebx
+100018E4 8BC1                   mov     eax,ecx
+100018E6 F7F3                   div     ebx
+100018E8 8BC2                   mov     eax,edx
+100018EA 33D2                   xor     edx,edx
+100018EC EB47                   jmp     loc_10001935
+100018EE                    loc_100018EE:
+100018EE 894514                 mov     [ebp+14h],eax
+100018F1 895D0C                 mov     [ebp+0Ch],ebx
+100018F4 895510                 mov     [ebp+10h],edx
+100018F7 894D08                 mov     [ebp+8],ecx
+100018FA 8BF9                   mov     edi,ecx
+100018FC D1EA                   shr     edx,1
+100018FE D1D8                   rcr     eax,1
+10001900 D1CF                   ror     edi,1
+10001902 D1DB                   rcr     ebx,1
+10001904 0FBDC9                 bsr     ecx,ecx
+10001907 0FADFB                 shrd    ebx,edi,cl
+1000190A 0FADD0                 shrd    eax,edx,cl
+1000190D D3EA                   shr     edx,cl
+1000190F D1C7                   rol     edi,1
+10001911 F7F3                   div     ebx
+10001913 8B5D14                 mov     ebx,[ebp+14h]
+10001916 8BC8                   mov     ecx,eax
+10001918 0FAFF8                 imul    edi,eax
+1000191B F7650C                 mul     dword ptr [ebp+0Ch]
+1000191E 03D7                   add     edx,edi
+10001920 2BD8                   sub     ebx,eax
+10001922 8B4D10                 mov     ecx,[ebp+10h]
+10001925 1BCA                   sbb     ecx,edx
+10001927 1BC0                   sbb     eax,eax
+10001929 8B5508                 mov     edx,[ebp+8]
+1000192C 23D0                   and     edx,eax
+1000192E 23450C                 and     eax,[ebp+0Ch]
+10001931 03C3                   add     eax,ebx
+10001933 03D1                   add     edx,ecx
+10001935                    loc_10001935:
+10001935 33C6                   xor     eax,esi
+10001937 33D6                   xor     edx,esi
+10001939 2BC6                   sub     eax,esi
+1000193B 1BD6                   sbb     edx,esi
+1000193D 5F                     pop     edi
+1000193E 5E                     pop     esi
+1000193F 5B                     pop     ebx
+10001940 C9                     leave
+10001941 C21000                 ret     10h
+10001944                    loc_10001944:
+10001944 0BC9                   or      ecx,ecx
+10001946 7513                   jnz     loc_1000195B
+10001948 3BD3                   cmp     edx,ebx
+1000194A 7206                   jb      loc_10001952
+1000194C 87CA                   xchg    edx,ecx
+1000194E 91                     xchg    eax,ecx
+1000194F F7F3                   div     ebx
+10001951 91                     xchg    eax,ecx
+10001952                    loc_10001952:
+10001952 F7F3                   div     ebx
+10001954 8BDA                   mov     ebx,edx
+10001956 8BD1                   mov     edx,ecx
+10001958 33C9                   xor     ecx,ecx
+1000195A C3                     ret
+1000195B                    loc_1000195B:
+1000195B 6A00                   push    0
+1000195D 57                     push    edi
+1000195E 53                     push    ebx
+1000195F 51                     push    ecx
+10001960 52                     push    edx
+10001961 50                     push    eax
+10001962 53                     push    ebx
+10001963 8BF9                   mov     edi,ecx
+10001965 0FBDC9                 bsr     ecx,ecx
+10001968 80F91F                 cmp     cl,1Fh
+1000196B 7508                   jnz     loc_10001975
+1000196D 8BDF                   mov     ebx,edi
+1000196F 8BC2                   mov     eax,edx
+10001971 33D2                   xor     edx,edx
+10001973 EB09                   jmp     loc_1000197E
+10001975                    loc_10001975:
+10001975 41                     inc     ecx
+10001976 0FADFB                 shrd    ebx,edi,cl
+10001979 0FADD0                 shrd    eax,edx,cl
+1000197C D3EA                   shr     edx,cl
+1000197E                    loc_1000197E:
+1000197E F7F3                   div     ebx
+10001980 8BD8                   mov     ebx,eax
+10001982 0FAFF8                 imul    edi,eax
+10001985 58                     pop     eax
+10001986 F7E3                   mul     ebx
+10001988 03FA                   add     edi,edx
+1000198A 5A                     pop     edx
+1000198B 2BD0                   sub     edx,eax
+1000198D 58                     pop     eax
+1000198E 59                     pop     ecx
+1000198F 1BC7                   sbb     eax,edi
+10001991 1BFF                   sbb     edi,edi
+10001993 03DF                   add     ebx,edi
+10001995 871C24                 xchg    [esp],ebx
+10001998 23CF                   and     ecx,edi
+1000199A 23DF                   and     ebx,edi
+1000199C 03DA                   add     ebx,edx
+1000199E 13C8                   adc     ecx,eax
+100019A0 58                     pop     eax
+100019A1 5F                     pop     edi
+100019A2 5A                     pop     edx
+100019A3 C3                     ret
+

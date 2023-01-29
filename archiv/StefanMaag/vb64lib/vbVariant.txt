@@ -1,0 +1,47 @@
+VB-Variant-Datentyp 
+
+vbVarType
+	vbEmpty = 0
+	vbNull = 1
+	vbInteger = 2
+	vbLong = 3
+	vbSingle = 4
+	vbDouble = 5
+	vbCurrency = 6
+	vbDate = 7
+	vbString = 8
+	vbObject = 9
+	vbError = 10
+	vbBoolean = 11
+	vbVariant = 12
+	vbDataObject = 13
+	vbDecimal = 14
+	vbByte 	= 17 (&H11)
+	vbUserDefinedType = 36 (&H24)
+	vbArray = 8192 (&H200)
+End Type
+
+; In den 1. 2 Byte steht der Variablentyp,
+ ; die nächsten 2 Byte beinhalten, falls es ein Decimal ist,
+ ; Vorzeicheninformation und Zahl der Nachkommastellen, ansonsten sind sie leer.
+ ; Ab Byte 5 stehen beim Decimal die hochwertigen 4 Byte.
+ ; Ab Byte 9 die niederwertigen 8 Byte. Letzteres gilt auch für Byte, Integer, Long, Double etc. im Variant.
+ ; Wenn ein Array im Variant steht, steht am Offset 8 die Adresse des Safearrays.
+
+
+Vielleicht noch erwähnenswert:
+Die ersten zwei Bytes entsprechen prinzipiell der Aufzählung vbVartype
+
+Ist Bit &H2000 gesetzt, handelt es sich um ein Array
+In diesem Fall enthalten Bytes 9-12 (wie von Klaus beschrieben) einen Verweis auf die SaveArray-Struktur
+
+Ist Bit &H4000 gesetzt, handelt es sich um eine Referenz
+In diesem Fall enthalten Bytes 9-12 einen Zeiger auf die eigentlichen Daten
+
+Beispiel: Wird dein Array an eine Funktion übergeben, die einen Variant-Parameter erwartet, dann enthält dieser:
+60xx nnnn pppppppp
+
+mit:
+xx = vbVarType
+nnnn = Locked- u.a. Flags
+pppp = Speicherstelle, in der der Pointer auf die SaveArray-Struktur steht.
