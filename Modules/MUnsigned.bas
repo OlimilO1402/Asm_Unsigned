@@ -97,12 +97,20 @@ Public Declare Function U4DivB Lib "UnsignedOps" Alias "UInt32_Div" (ByVal v1 As
 Public Declare Sub UInt64_Test Lib "UnsignedOps" (ByRef Dec_out As Variant) 'As Decimal
 Public Declare Function UInt32_Add_ref Lib "UnsignedOps" (ByRef pV1 As Long, ByRef pV2 As Long) As Long
 
+' CONVERT functions
+Public Declare Function UInt16_ToUInt32 Lib "UnsignedOps" (ByVal Value As Integer) As Long
+Public Declare Function UInt16_ToUInt64 Lib "UnsignedOps" (ByVal Value As Integer) As Currency
+Public Declare Function UInt32_ToUInt16 Lib "UnsignedOps" (ByVal Value As Long) As Integer
+Public Declare Function UInt32_ToUInt64 Lib "UnsignedOps" (ByVal Value As Long) As Currency
+Public Declare Function UInt64_ToUInt16 Lib "UnsignedOps" (ByVal Value As Currency) As Integer
+Public Declare Function UInt64_ToUInt32 Lib "UnsignedOps" (ByVal Value As Currency) As Long
+
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int16 input/output functions  ' ########++++++++========~~~~~~~~-------- '
-Public Function UInt16_ToUInt32(ByVal Value As Integer) As Long
-    Dim t2i As T2Int: t2i.Value0 = Value
-    Dim tl  As TLng:     LSet tl = t2i
-    UInt16_ToUInt32 = tl.Value
-End Function
+'Public Function UInt16_ToUInt32(ByVal Value As Integer) As Long
+'    Dim t2i As T2Int: t2i.Value0 = Value
+'    Dim tl  As TLng:     LSet tl = t2i
+'    UInt16_ToUInt32 = tl.Value
+'End Function
 Public Function UInt16_ToStr(ByVal Value As Integer) As String
     UInt16_ToStr = Space(5) & vbNullChar
     UInt16ToStr UInt16_ToUInt32(Value), StrPtr(UInt16_ToStr)
@@ -147,11 +155,11 @@ Catch:
 End Function
 
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int32 input/output functions  ' ########++++++++========~~~~~~~~-------- '
-Public Function UInt32_ToUInt64(ByVal Value As Long) As Currency
-    Dim t2l As T2Lng: t2l.Value0 = Value
-    Dim tc  As TCur:     LSet tc = t2l
-    UInt32_ToUInt64 = tc.Value
-End Function
+'Public Function UInt32_ToUInt64(ByVal Value As Long) As Currency
+'    Dim t2l As T2Lng: t2l.Value0 = Value
+'    Dim tc  As TCur:     LSet tc = t2l
+'    UInt32_ToUInt64 = tc.Value
+'End Function
 Public Function UInt32_ToStr(ByVal Value As Long) As String
     UInt32_ToStr = Space(10)
     UInt32ToStr Value, StrPtr(UInt32_ToStr)

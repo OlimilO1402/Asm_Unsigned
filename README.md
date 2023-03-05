@@ -1,10 +1,10 @@
 # Asm_Unsigned  
-## Unsigned arithmetic, boolean and shifting operations for VB using VB.Long, VB.Currency and VB.Decimal  
+## Unsigned arithmetic, boolean and shifting operations for VB using VB.Integer, VB.Long, VB.Currency and VB.Decimal  
   
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/Asm_Unsigned?style=plastic)](https://github.com/OlimilO1402/Asm_Unsigned/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/Asm_Unsigned?style=plastic)](https://github.com/OlimilO1402/Asm_Unsigned/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Asm_Unsigned/total.svg)](https://github.com/OlimilO1402/Asm_Unsigned/releases/download/v2.3.4/UnsignedOps_v2.3.4.zip)
-[![Follow](https://img.shields.io/github/followers/OlimilO1402.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/OlimilO1402/Asm_Unsigned/watchers)
+[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Asm_Unsigned/total.svg)](https://github.com/OlimilO1402/Asm_Unsigned/releases/download/v2023.3.5/UnsignedOps_v2023.3.5.zip)
+![GitHub followers](https://img.shields.io/github/followers/OlimilO1402?style=social)
 
 Project started in january 2022.  
 Except for the datatype Byte, VB does not have any other intrinsic unsigned datatypes.  

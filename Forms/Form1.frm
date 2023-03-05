@@ -4,11 +4,19 @@ Begin VB.Form Form1
    ClientHeight    =   8655
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   13320
+   ClientWidth     =   13455
    LinkTopic       =   "Form1"
    ScaleHeight     =   8655
-   ScaleWidth      =   13320
+   ScaleWidth      =   13455
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.CommandButton Command8 
+      Caption         =   "Conversion 16-32-64"
+      Height          =   375
+      Left            =   11520
+      TabIndex        =   8
+      Top             =   120
+      Width           =   1815
+   End
    Begin VB.CommandButton Command7 
       Caption         =   "Command7"
       Height          =   375
@@ -186,18 +194,18 @@ Private Sub Command6_Click()
     If Not MUnsigned.UInt16_TryParse(sVal, i, 16) Then Exit Sub
     s = s & "s: " & sVal & " = v: " & MUnsigned.UInt16_ToStr(i) & vbCrLf
     
-    Dim L As Long
+    Dim l As Long
     sVal = "10101010101010101010101010101010"
-    If Not MUnsigned.UInt32_TryParse(sVal, L, 2) Then Exit Sub
-    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(L) & vbCrLf
+    If Not MUnsigned.UInt32_TryParse(sVal, l, 2) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
     
     sVal = "1234567890"
-    If Not MUnsigned.UInt32_TryParse(sVal, L, 10) Then Exit Sub
-    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(L) & vbCrLf
+    If Not MUnsigned.UInt32_TryParse(sVal, l, 10) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
     
     sVal = "ABCDEF98"
-    If Not MUnsigned.UInt32_TryParse(sVal, L, 16) Then Exit Sub
-    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(L) & vbCrLf
+    If Not MUnsigned.UInt32_TryParse(sVal, l, 16) Then Exit Sub
+    s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
     
     Text1.Text = s
 End Sub
@@ -219,16 +227,65 @@ Catch:
    MsgBox "Error: " & Err.Number & vbCrLf & Err.LastDllError & vbCrLf & Err.Description
 End Sub
 
+Private Sub Command8_Click()
+    Dim i As Integer
+    Dim l As Long
+    Dim c As Currency
+    Dim s As String
+    i = 12345:
+    s = s & "i = " & i & vbCrLf
+    
+    l = MUnsigned.UInt16_ToUInt32(i)
+    s = s & "l = MUnsigned.UInt16_ToUInt32(i)" & vbCrLf
+    s = s & "l = " & l & vbCrLf
+    
+    c = MUnsigned.UInt16_ToUInt64(i)
+    s = s & "c = MUnsigned.UInt16_ToUInt64(i)" & vbCrLf
+    s = s & "c = " & c & vbCrLf
+    
+    
+    i = 0: c = 0
+    l = 12345
+    s = s & "l = " & l & vbCrLf
+    
+    i = MUnsigned.UInt32_ToUInt16(l)
+    s = s & "i = MUnsigned.UInt32_ToUInt16(l)" & vbCrLf
+    s = s & "i = " & i & vbCrLf
+    
+    l = 123456789
+    s = s & "l = " & l & vbCrLf
+    c = MUnsigned.UInt32_ToUInt64(l)
+    s = s & "c = MUnsigned.UInt32_ToUInt64(l)" & vbCrLf
+    s = s & "c = " & c & vbCrLf
+    
+    
+    i = 0
+    l = 0
+    c = 1.2345
+    s = s & "c = " & c & vbCrLf
+    i = MUnsigned.UInt64_ToUInt16(c)
+    s = s & "i = MUnsigned.UInt64_ToUInt16(c)" & vbCrLf
+    s = s & "i = " & i & vbCrLf
+    
+    c = 123.4567
+    s = s & "c = " & c & vbCrLf
+    l = MUnsigned.UInt64_ToUInt32(c)
+    s = s & "l = MUnsigned.UInt64_ToUInt32(c)" & vbCrLf
+    s = s & "l = " & l & vbCrLf
+    
+    Text1.Text = s
+End Sub
+
 Private Sub Form_Load()
-    Me.Caption = "Unsigned operations on signed Int32+Int64 - v" & App.Major & "." & App.Minor & "." & App.Revision
+    Me.Caption = "Unsigned operations on signed In16+Int32+Int64 - v" & App.Major & "." & App.Minor & "." & App.Revision
 End Sub
 
 Private Sub Form_Resize()
-    Dim L As Single: L = 0
+    Dim l As Single: l = 0
     Dim t As Single: t = Text1.Top
     Dim W As Single: W = Me.ScaleWidth
     Dim H As Single: H = Me.ScaleHeight - t
-    If W > 0 And H > 0 Then Text1.Move L, t, W, H
+    If W > 0 And H > 0 Then Text1.Move l, t, W, H
 End Sub
 
 Private Sub Command1_Click()
@@ -246,125 +303,125 @@ Sub Debug_Print(ByVal s As String)
 End Sub
 
 Sub TestDll()
-    Dim V1 As Long
-    Dim V2 As Long
+    Dim v1 As Long
+    Dim v2 As Long
     Dim lret As Long
     Dim cret As Currency
     Dim s As String
     
-    V1 = 123
-    V2 = 32
+    v1 = 123
+    v2 = 32
      
-    lret = UInt32_Add_ref(V1, V2)
+    lret = UInt32_Add_ref(v1, v2)
     Debug_Print lret '155
     
-    lret = UInt32_Add(V1, V2)
+    lret = UInt32_Add(v1, v2)
     Debug_Print lret '155
     
-    lret = UInt32_Sub(V1, V2)
+    lret = UInt32_Sub(v1, v2)
     Debug_Print lret '91
     
-    lret = UInt32_Mul(V1, V2)
+    lret = UInt32_Mul(v1, v2)
     Debug_Print lret '3936
     
-    V1 = 2147483647
-    V2 = 100
-    cret = UInt32_Mul(V1, V2)
+    v1 = 2147483647
+    v2 = 100
+    cret = UInt32_Mul(v1, v2)
     Debug_Print cret '21474836,4700
     
-    V1 = 123456789
-    V2 = 33
-    lret = UInt32_Div(V1, V2)
+    v1 = 123456789
+    v2 = 33
+    lret = UInt32_Div(v1, v2)
     Debug_Print lret '3741114
     
-    V1 = &HCAFE&
-    lret = UInt32_Shl(V1, 8)
-    Debug_Print "Shl(" & Hex(V1) & ", 8) = " & Hex(lret)
+    v1 = &HCAFE&
+    lret = UInt32_Shl(v1, 8)
+    Debug_Print "Shl(" & Hex(v1) & ", 8) = " & Hex(lret)
     
-    V1 = UInt32_Shr(lret, 8)
-    Debug_Print "Shr(" & Hex(lret) & ", 8) = " & Hex(V1)
+    v1 = UInt32_Shr(lret, 8)
+    Debug_Print "Shr(" & Hex(lret) & ", 8) = " & Hex(v1)
     
-    V1 = -V1
-    lret = UInt32_Sar(V1, 8)
-    Debug_Print "Sar(" & Hex(V1) & ", 8) = " & Hex(lret)
+    v1 = -v1
+    lret = UInt32_Sar(v1, 8)
+    Debug_Print "Sar(" & Hex(v1) & ", 8) = " & Hex(lret)
     
-    V1 = &HCAFEBABE
-    lret = UInt32_Rol(V1, 8)
-    Debug_Print "Rol(" & Hex(V1) & ", 8) = " & Hex(lret)
+    v1 = &HCAFEBABE
+    lret = UInt32_Rol(v1, 8)
+    Debug_Print "Rol(" & Hex(v1) & ", 8) = " & Hex(lret)
     
-    V1 = &HCAFEBABE
-    lret = UInt32_Ror(V1, 8)
-    Debug_Print "Ror(" & Hex(V1) & ", 8) = " & Hex(lret)
+    v1 = &HCAFEBABE
+    lret = UInt32_Ror(v1, 8)
+    Debug_Print "Ror(" & Hex(v1) & ", 8) = " & Hex(lret)
     
-    V1 = &HCAFE&
-    lret = UInt32_Rcl(V1, 12)
-    Debug_Print "Rcl(" & Hex(V1) & ", 12) = " & Hex(lret)
+    v1 = &HCAFE&
+    lret = UInt32_Rcl(v1, 12)
+    Debug_Print "Rcl(" & Hex(v1) & ", 12) = " & Hex(lret)
     
-    V1 = &HCAFE0000
-    lret = UInt32_Rcr(V1, 12)
-    Debug_Print "Rcr(" & Hex(V1) & ", 12) = " & Hex(lret)
+    v1 = &HCAFE0000
+    lret = UInt32_Rcr(v1, 12)
+    Debug_Print "Rcr(" & Hex(v1) & ", 12) = " & Hex(lret)
     
-    V1 = &HCAFEBABE
-    V2 = &HB000&
-    lret = UInt32_And(V1, V2)
-    Debug_Print "And(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
+    v1 = &HCAFEBABE
+    v2 = &HB000&
+    lret = UInt32_And(v1, v2)
+    Debug_Print "And(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
     
-    V1 = &HCAFE0ABE
-    V2 = &HB000&
-    lret = UInt32_Or(V1, V2)
-    Debug_Print "Or(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
+    v1 = &HCAFE0ABE
+    v2 = &HB000&
+    lret = UInt32_Or(v1, v2)
+    Debug_Print "Or(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
     
-    V1 = &H35014541
-    lret = UInt32_Not(V1)
-    Debug_Print "Not(" & Hex(V1) & ") = " & Hex(lret)
+    v1 = &H35014541
+    lret = UInt32_Not(v1)
+    Debug_Print "Not(" & Hex(v1) & ") = " & Hex(lret)
     
-    V1 = &HCAFE0ABE
-    V2 = &HCAFEB000
-    lret = UInt32_XOr(V1, V2)
-    Debug_Print "XOr(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
+    v1 = &HCAFE0ABE
+    v2 = &HCAFEB000
+    lret = UInt32_XOr(v1, v2)
+    Debug_Print "XOr(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
     
-    V1 = &HCAFE0ABE
-    V2 = &HCAFEB000
-    lret = UInt32_XNOr(V1, V2)
-    Debug_Print "XNOr(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
+    v1 = &HCAFE0ABE
+    v2 = &HCAFEB000
+    lret = UInt32_XNOr(v1, v2)
+    Debug_Print "XNOr(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
     
-    V1 = &HCAFE0ABE
-    V2 = &HCAFEB000
-    lret = UInt32_NOr(V1, V2)
-    Debug_Print "NOr(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
+    v1 = &HCAFE0ABE
+    v2 = &HCAFEB000
+    lret = UInt32_NOr(v1, v2)
+    Debug_Print "NOr(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
     
-    V1 = &HCAFE0ABE
-    V2 = &HCAFEB000
-    lret = UInt32_NAnd(V1, V2)
-    Debug_Print "NAnd(" & Hex(V1) & ", " & Hex(V2) & ") = " & Hex(lret)
+    v1 = &HCAFE0ABE
+    v2 = &HCAFEB000
+    lret = UInt32_NAnd(v1, v2)
+    Debug_Print "NAnd(" & Hex(v1) & ", " & Hex(v2) & ") = " & Hex(lret)
     
     
     
 
-    V1 = -1
+    v1 = -1
     's = Space(10)
-    s = UInt32_ToStr(V1)  ', StrPtr(s)
+    s = UInt32_ToStr(v1)  ', StrPtr(s)
     Debug_Print s 'Trim0(s)    '4294967295
     
-    V1 = -1
+    v1 = -1
     's = Space(8)
-    s = UInt32_ToHex(V1)  ', StrPtr(s)
+    s = UInt32_ToHex(v1)  ', StrPtr(s)
     Debug_Print s 'Trim0(s)    '4294967295
     
-    V1 = -1
+    v1 = -1
     's = Space(32)
-    s = UInt32_ToBin(V1) '1, StrPtr(s)
+    s = UInt32_ToBin(v1) '1, StrPtr(s)
     Debug_Print s 'Trim0(s)    '4294967295
     
-    V1 = 32
-    V2 = 65
+    v1 = 32
+    v2 = 65
     
-    lret = U4Add(U4Sub(100, U4Mul(2, U4Div(V1, 4))), U4Div(V2, U4Add(6, 7)))
+    lret = U4Add(U4Sub(100, U4Mul(2, U4Div(v1, 4))), U4Div(v2, U4Add(6, 7)))
     's = Space(10): UInt32_ToStr lret, StrPtr(s)
     s = UInt32_ToStr(lret)
     Debug_Print s
     
-    lret = (100 - (2 * V1 / 4)) + (V2 / (6 + 7))
+    lret = (100 - (2 * v1 / 4)) + (v2 / (6 + 7))
     's = Space(10): UInt32_ToStr lret, StrPtr(s)
     s = UInt32_ToStr(lret)
     Debug_Print s
@@ -385,8 +442,8 @@ Sub TestDll()
     s = UInt64_ToStr(cret) ', StrPtr(s)
     Debug_Print s    '7223372036854775805
     
-    V1 = &HCAFEBABE
-    Dim d: d = UInt32_ToDec(V1)
+    v1 = &HCAFEBABE
+    Dim d: d = UInt32_ToDec(v1)
     Debug_Print VarType(d) & " " & CStr(d)  '& " " & Hex(d) '14 3405691582
     
     c1 = 12345.6789
@@ -457,41 +514,41 @@ Sub Test_ToStr()
     
     
     Dim r As Long 'radix
-    Dim L As Long
+    Dim l As Long
     
     v = 14021970
     r = 10
-    L = LogN(v, r) + 1
-    s = Space$(L)
+    l = LogN(v, r) + 1
+    s = Space$(l)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     Debug_Print s
     
-    If ret <> L * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & L
+    If ret <> l * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & l
     End If
     
     v = &H1CAFEBAB
     r = 16
-    L = Ceiling(LogN(v, r))
-    s = Space$(L)
+    l = Ceiling(LogN(v, r))
+    s = Space$(l)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> L * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & L
+    If ret <> l * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & l
     End If
     
     v = 987654321
     r = 10
-    L = Ceiling(LogN(v, r))
-    s = Space$(L)
+    l = Ceiling(LogN(v, r))
+    s = Space$(l)
     ret = Int32_ToStrR(v, StrPtr(s), r)
     
     Debug_Print s
     
-    If ret <> L * 2 Then
-        Debug_Print "error r<>l: r=" & r & "; l=" & L * 2
+    If ret <> l * 2 Then
+        Debug_Print "error r<>l: r=" & r & "; l=" & l * 2
     End If
     
 End Sub

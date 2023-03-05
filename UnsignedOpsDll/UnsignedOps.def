@@ -6,7 +6,7 @@ LIBRARY UnsignedOps
     EXPORTS UInt16_Sub       ;
     EXPORTS UInt16_Mul       ;
     EXPORTS UInt16_Div       ;
-
+	
   ; ------======  Unsigned Int32 arithmetic operations  ======------
     EXPORTS UInt32_Add       ;
     EXPORTS UInt32_Sub       ;
@@ -64,7 +64,18 @@ LIBRARY UnsignedOps
     EXPORTS UInt32_ToDec     ;
     EXPORTS UInt64_Parse     ;
 
+; CONVERT functions
+  ; ------======  Unsigned Int16 convert functions  ======------
+    EXPORTS UInt16_ToUInt32  ;
+    EXPORTS UInt16_ToUInt64  ;
 
+  ; ------======  Unsigned Int32 convert functions  ======------
+    EXPORTS UInt32_ToUInt16  ;
+    EXPORTS UInt32_ToUInt64  ;
+
+  ; ------======  Unsigned Int64 convert functions  ======------
+    EXPORTS UInt64_ToUInt16  ;
+    EXPORTS UInt64_ToUInt32  ;
 
 
 ;EXPORTS UInt64_Test      ;

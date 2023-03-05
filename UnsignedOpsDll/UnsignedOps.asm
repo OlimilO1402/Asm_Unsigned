@@ -85,7 +85,6 @@ UInt16_Div proc
     
 UInt16_Div endp
 
-
 ; --------========  Unsigned Int32 operations  ========--------
 
 ;page 605
@@ -438,9 +437,68 @@ UInt64_Test proc
 	
 UInt64_Test endp
 
+; CONVERSION functions
+; ------======  Unsigned Int16 conversion functions  ======------
+UInt16_ToUInt32 proc
+	
+    xor eax, eax      ; xor: null all ones in register eax if there is one
+    mov  ax, [esp+4]  ; copy the first  uint16 value from stack to the output register AX
+	
+    ret 4             ; return to caller, remove 4 bytes from stack (->stdcall)
+	
+UInt16_ToUInt32 endp
+
+UInt16_ToUInt64 proc
+	
+    xor eax, eax      ; xor: null all ones in register eax if there is one
+    xor edx, edx      ; xor: null all ones in register edx if there is one
+    mov  ax, [esp+4]  ; copy the first  uint16 value from stack to the output register AX
+	
+    ret 4             ; return to caller, remove 4 bytes from stack (->stdcall)
+	
+UInt16_ToUInt64 endp
 
 
+; ------======  Unsigned Int32 conversion functions  ======------
+UInt32_ToUInt16 proc
+	
+    xor eax, eax      ; xor: null all ones in register eax if there is one
+    mov  ax, [esp+4]  ; copy the first  uint16 value from stack to the output register AX
+	
+    ret 4             ; return to caller, remove 4 bytes from stack (->stdcall)
+	
+UInt32_ToUInt16 endp
 
+UInt32_ToUInt64 proc
+	
+    xor eax, eax      ; xor: null all ones in register eax if there is one
+    xor edx, edx      ; xor: null all ones in register edx if there is one
+    mov eax, [esp+4]  ; copy the first  uint32 value from stack to the output register EAX
+	
+    ret 4             ; return to caller, remove 4 bytes from stack (->stdcall)
+	
+UInt32_ToUInt64 endp
+
+
+; ------======  Unsigned Int64 conversion functions  ======------
+UInt64_ToUInt16 proc
+	
+    ;xor eax, eax      ; xor: null all ones in register eax if there is one
+    mov  ax, [esp+4]  ; copy the first  uint16 value from stack to the output register AX
+	
+    ret 8             ; return to caller, remove 8 bytes from stack (->stdcall)
+	
+UInt64_ToUInt16 endp
+
+UInt64_ToUInt32 proc
+	
+    ;xor eax, eax      ; xor: null all ones in register eax if there is one
+    ;xor edx, edx      ; xor: null all ones in register edx if there is one
+    mov eax, [esp+4]  ; copy the first  uint32 value from stack to the output register EAX
+	
+    ret 8             ; return to caller, remove 4 bytes from stack (->stdcall)
+	
+UInt64_ToUInt32 endp
 
 
 ; ADDITIONAL Operations

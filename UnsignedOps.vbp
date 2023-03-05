@@ -17,13 +17,13 @@ Command32=""
 Name="PUnsignedOps"
 HelpContextID="0"
 CompatibleMode="0"
-MajorVer=2
+MajorVer=2023
 MinorVer=3
-RevisionVer=6
-AutoIncrementVer=1
+RevisionVer=5
+AutoIncrementVer=0
 ServerSupportFiles=0
 VersionCompanyName="MBO-Ing.com"
-VersionFileDescription="Unsigned 32+64 bit operations using signed VB.Long (Int32) and signed VB.Currency (=like Int64 with fixed decimal point), arithmetic: "+-*/", boolean: "And, Or, XOr, Not, NAnd, NOr, XNor", bit: Shl, Shld, Shr, Shrd, Sar, Rol, Ror, Rcl, Rcr;"
+VersionFileDescription="Unsigned 16-, 32- & 64-bit operations using signed VB.Integer, VB.Long (Int32) and signed VB.Currency (=like Int64 with fixed decimal point), arithmetic: "+-*/", boolean: "And, Or, XOr, Not, NAnd, NOr, XNor", bit: Shl, Shld, Shr, Shrd, Sar, Rol, Ror, Rcl, Rcr;"
 VersionLegalCopyright="MBO-Ing.com"
 VersionProductName="Unsigned operations"
 CompilationType=0
