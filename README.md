@@ -10,8 +10,12 @@ Project started in january 2022.
 Except for the datatype Byte, VB does not have any other intrinsic unsigned datatypes.  
 This is a dll in asm with some functions to do arithmetic, boolean and shifting operations on UInt32 and UInt64 using VB.Long, VB.Currency and VB.Decimal just like they were unsigned.  
 
-the function UInt64_Mul will take 2 Currency-Variables (As UInt64) and the result will be returned in an Decimal. 
+the function UInt64_Mul will take 2 Currency-Variables (As UInt64) and the result will be returned in a Decimal. 
 Decimal is a Variant, and as such it consumes 128-Bits of memory, but in total  it has a precision of 96-Bit in Visual Basic 6.
-This is more than what you have in other languages.
+This is more than what you have in other languages.  
 
+If you want to compile the project you need the following repos:  
+* [Sys_Strings](https://github.com/OlimilO1402/Sys_Strings)
+* [Ptr_Pointers](https://github.com/OlimilO1402/Ptr_Pointers)
+  
 ![<AppName> Image](Resources/XL-UInt64_Mul.png "XL-UInt64_Mul Image")
