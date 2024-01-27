@@ -220,3 +220,33 @@ Public Function UInt64_ToDec(ByVal Value As Currency) As Variant
     UInt64ToDec Value, UInt64_ToDec
 End Function
 
+' --------~~~~~~~~========++++++++######## '      Unsigned Add in VB      ' ########++++++++========~~~~~~~~-------- '
+Public Function LongPtr_UAdd(ByVal p1 As LongPtr, ByVal p2 As LongPtr) As LongPtr
+    ' This function is useful when doing pointer arithmetic,
+    ' but note it only works for positive values of p2
+    
+    If p1 And &H80000000 Then 'Start < 0
+        LongPtr_UAdd = p1 + p2
+    ElseIf (p1 Or &H80000000) < -p2 Then
+        LongPtr_UAdd = p1 + p2
+    Else
+        LongPtr_UAdd = (p1 + &H80000000) + (p2 + &H80000000)
+    End If
+    
+End Function
+
+Private Function UnsignedAdd(Start As Long, Incr As Long) As Long
+    ' This function is useful when doing pointer arithmetic,
+    ' but note it only works for positive values of Incr
+    
+    If Start And &H80000000 Then 'Start < 0
+        UnsignedAdd = Start + Incr
+    ElseIf (Start Or &H80000000) < -Incr Then
+        UnsignedAdd = Start + Incr
+    Else
+        UnsignedAdd = (Start + &H80000000) + (Incr + &H80000000)
+    End If
+    
+End Function
+
+
