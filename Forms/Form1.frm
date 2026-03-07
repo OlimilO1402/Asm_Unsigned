@@ -5,6 +5,15 @@ Begin VB.Form Form1
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   13455
+   BeginProperty Font 
+      Name            =   "Segoe UI"
+      Size            =   9.75
+      Charset         =   0
+      Weight          =   400
+      Underline       =   0   'False
+      Italic          =   0   'False
+      Strikethrough   =   0   'False
+   EndProperty
    LinkTopic       =   "Form1"
    ScaleHeight     =   8655
    ScaleWidth      =   13455
@@ -12,23 +21,23 @@ Begin VB.Form Form1
    Begin VB.CommandButton Command8 
       Caption         =   "Conversion 16-32-64"
       Height          =   375
-      Left            =   11520
+      Left            =   10920
       TabIndex        =   8
       Top             =   120
-      Width           =   1815
+      Width           =   2175
    End
    Begin VB.CommandButton Command7 
       Caption         =   "Command7"
       Height          =   375
-      Left            =   10200
+      Left            =   9600
       TabIndex        =   7
       Top             =   120
-      Width           =   1215
+      Width           =   1335
    End
    Begin VB.CommandButton Command6 
       Caption         =   "Test Parsing"
       Height          =   375
-      Left            =   8640
+      Left            =   8160
       TabIndex        =   6
       Top             =   120
       Width           =   1455
@@ -36,31 +45,31 @@ Begin VB.Form Form1
    Begin VB.CommandButton Command5 
       Caption         =   "Command5"
       Height          =   375
-      Left            =   7320
+      Left            =   6840
       TabIndex        =   5
       Top             =   120
-      Width           =   1215
+      Width           =   1335
    End
    Begin VB.CommandButton Command4 
       Caption         =   "Command4"
       Height          =   375
-      Left            =   6000
+      Left            =   5520
       TabIndex        =   4
       Top             =   120
-      Width           =   1215
+      Width           =   1335
    End
    Begin VB.CommandButton Command3 
       Caption         =   "Command3"
       Height          =   375
-      Left            =   4320
+      Left            =   4200
       TabIndex        =   3
       Top             =   120
-      Width           =   1575
+      Width           =   1335
    End
    Begin VB.CommandButton Command2 
       Caption         =   "Test Int32_UToStr"
       Height          =   375
-      Left            =   2160
+      Left            =   2280
       TabIndex        =   2
       Top             =   120
       Width           =   1935
@@ -71,7 +80,7 @@ Begin VB.Form Form1
       Left            =   120
       TabIndex        =   1
       Top             =   120
-      Width           =   1935
+      Width           =   2175
    End
    Begin VB.TextBox Text1 
       BeginProperty Font 
@@ -116,6 +125,53 @@ Private Declare Sub RtlMoveMemory Lib "kernel32" (ByRef pDst As Any, ByRef pSrc 
 ';             922337203685477.5807
 
 '; 79228162514264337593543950335
+
+
+Private Sub Form_Load()
+    Me.Caption = "Unsigned operations on signed In16+Int32+Int64 - v" & App.Major & "." & App.Minor & "." & App.Revision
+    
+    MsgBox TestCurrencyAsLongLong
+    MsgBox TestLongLong1
+    MsgBox TestLongLong2
+    
+    
+End Sub
+
+Private Function TestCurrencyAsLongLong() As Currency
+    On Error Resume Next
+    Dim llng1 As Currency:   llng1 = 123456789
+    Dim llng2 As Currency:   llng2 = 987654321
+    Dim Result As Currency: Result = llng1 * llng2
+    TestCurrencyAsLongLong = Result
+End Function
+
+Private Function TestLongLong1() As LongLong
+    On Error Resume Next
+    Dim llng1 As LongLong:   llng1 = 123456789.0123
+    Dim llng2 As LongLong:   llng2 = 987654321.0987
+    Dim Result As LongLong: Result = llng1 * llng2
+    TestLongLong1 = Result
+End Function
+
+Private Function TestLongLong2() As Variant 'As Decimal in a Variant
+    On Error Resume Next
+    Dim llng1 As LongLong:  llng1 = 123456789.0123
+    Dim llng2 As LongLong:  llng2 = 987654321.0987
+    Dim Result As Variant: Result = MUnsigned.UInt64_Mul(llng1, llng2)
+    TestLongLong2 = Result ' the correct answer is 12.193.263.113.696.860.222.381.401
+End Function
+
+
+Private Sub Form_Resize()
+    Dim l As Single: l = 0
+    Dim t As Single: t = Text1.Top
+    Dim W As Single: W = Me.ScaleWidth
+    Dim H As Single: H = Me.ScaleHeight - t
+    If W > 0 And H > 0 Then Text1.Move l, t, W, H
+End Sub
+
+
+
 Private Sub Command3_Click()
     Form2.Show
     'Dim c1 As Currency
@@ -207,7 +263,7 @@ Private Sub Command6_Click()
     If Not MUnsigned.UInt32_TryParse(sVal, l, 16) Then Exit Sub
     s = s & "s: " & sVal & " = v: " & MUnsigned.UInt32_ToStr(l) & vbCrLf
     
-    Text1.Text = s
+    Text1.text = s
 End Sub
 
 Private Sub Command7_Click()
@@ -273,33 +329,21 @@ Private Sub Command8_Click()
     s = s & "l = MUnsigned.UInt64_ToUInt32(c)" & vbCrLf
     s = s & "l = " & l & vbCrLf
     
-    Text1.Text = s
-End Sub
-
-Private Sub Form_Load()
-    Me.Caption = "Unsigned operations on signed In16+Int32+Int64 - v" & App.Major & "." & App.Minor & "." & App.Revision
-End Sub
-
-Private Sub Form_Resize()
-    Dim l As Single: l = 0
-    Dim t As Single: t = Text1.Top
-    Dim W As Single: W = Me.ScaleWidth
-    Dim H As Single: H = Me.ScaleHeight - t
-    If W > 0 And H > 0 Then Text1.Move l, t, W, H
+    Text1.text = s
 End Sub
 
 Private Sub Command1_Click()
-    Text1.Text = ""
+    Text1.text = ""
     TestDll
 End Sub
 
 Private Sub Command2_Click()
-    Text1.Text = ""
+    Text1.text = ""
     Test_ToStr
 End Sub
 
 Sub Debug_Print(ByVal s As String)
-    Text1.Text = Text1.Text & s & vbCrLf
+    Text1.text = Text1.text & s & vbCrLf
 End Sub
 
 Sub TestDll()

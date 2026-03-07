@@ -199,7 +199,6 @@ End Function
 '    UInt64Div V1, V2, VarPtr(UInt64_Mul)
 'End Function
 
-
 ' --------~~~~~~~~========++++++++######## '  Unsigned Int64 input/output functions  ' ########++++++++========~~~~~~~~-------- '
 Public Function UInt64_ToStr(ByVal Value As Currency) As String
     UInt64_ToStr = Space(20)

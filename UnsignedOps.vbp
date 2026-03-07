@@ -1,5 +1,6 @@
 Type=Exe
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\SysWow64\stdole2.tlb#OLE Automation
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\SysWOW64\stdole2.tlb#OLE Automation
+Reference=*\G{D8EE61B0-8778-4A43-8F98-E7E1C2C08AD4}#2.0#0#C:\VBControls\VB6LongPtr.tlb#VB6 LongPtr Support
 Form=Forms\Form1.frm
 Module=MInt32ToStr; Modules\MInt32ToStr.bas
 Module=Midiv; Modules\Midiv.bas
