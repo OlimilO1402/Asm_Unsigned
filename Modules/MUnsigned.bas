@@ -219,6 +219,18 @@ Public Function UInt64_ToDec(ByVal Value As Currency) As Variant
     UInt64ToDec Value, UInt64_ToDec
 End Function
 
+Public Function UInt64_TryParse(ByVal Value As String, Val_out As Currency, Optional radix As Long = 10) As Boolean
+Try: On Error GoTo Catch
+    If Len(Value) = 0 Then Exit Function
+    Value = Value & vbNullChar
+    Dim v As Currency
+    v = UInt64_Parse(StrPtr(Value), radix)
+    Val_out = v
+    UInt64_TryParse = True
+    Exit Function
+Catch:
+End Function
+
 ' --------~~~~~~~~========++++++++######## '      Unsigned Add in VB      ' ########++++++++========~~~~~~~~-------- '
 Public Function LongPtr_UAdd(ByVal p1 As LongPtr, ByVal p2 As LongPtr) As LongPtr
     ' This function is useful when doing pointer arithmetic,
